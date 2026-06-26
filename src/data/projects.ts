@@ -40,6 +40,58 @@ export const projects: Project[] = [
     live: "https://mintmark-vishal.vercel.app",
   },
   {
+    title: "Peerly",
+    tagline: "Find Real People to Learn From",
+    description:
+      "Describe a learning goal in plain English. Peerly searches Reddit, X, and LinkedIn for people who recently posted about it, then uses Groq AI to draft a personalized outreach message for each one — combining async multi-platform scraping with LLM-generated queries and copy-ready messages.",
+    techStack: [
+      "Next.js 16",
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS v4",
+      "FastAPI",
+      "Python",
+      "Groq",
+      "LLaMA 3.3-70b",
+      "PostgreSQL",
+      "Prisma 7",
+      "NextAuth v5",
+    ],
+    highlights: [
+      "Plain-English goal → AI-generated platform-specific queries",
+      "Parallel scraping across Reddit, X, and LinkedIn via asyncio.gather",
+      "Groq + LLaMA 3.3-70b drafts personalized outreach per person",
+      "OAuth login via Google and GitHub (NextAuth v5)",
+      "FastAPI scraper service proxied through Next.js API routes",
+    ],
+    github: "https://github.com/vishal-jadeja/peerly",
+    imageUrl: "/images/peerly.webp",
+    status: "completed",
+  },
+  {
+    title: "Cinova",
+    tagline: "Goal-Focused New Tab Dashboard",
+    description:
+      "A Chrome extension that transforms your new tab into a productivity command center. Tracks weekly, monthly, and yearly goals with inline completion and notes, includes a Pomodoro timer with browser notifications, Focus Mode for domain-level site blocking, and a Rewards Mode that unlocks when goal thresholds are met.",
+    techStack: [
+      "React 19",
+      "TypeScript",
+      "Vite",
+      "Chrome Manifest V3",
+      "Chrome Storage API",
+    ],
+    highlights: [
+      "Weekly/monthly/yearly goal tracking with inline notes and links",
+      "Pomodoro timer with customizable work/break sessions and notifications",
+      "Focus Mode: domain-level site blocking with goal-reminder block page",
+      "Rewards Mode: completion-threshold unlocking",
+      "Auto-rotating curated landscape backgrounds + custom image uploads",
+    ],
+    github: "https://github.com/vishal-jadeja/cinova",
+    imageUrl: "/images/cinova.webp",
+    status: "in-progress",
+  },
+  {
     title: "Syncify",
     tagline: "YouTube → Spotify Playlist Converter",
     description:
@@ -84,26 +136,26 @@ export const projects: Project[] = [
     github: "https://github.com/vishal-jadeja/AmazonClone",
     imageUrl: "/images/amazon-clone.webp",
   },
-  {
-    title: "Movie Recommendation System",
-    tagline: "Content-Based Film Discovery Engine",
-    description:
-      "A content-based movie recommender that finds similar films using cosine similarity on TF-IDF vectorized metadata — genres, keywords, cast, and crew. Built as an interactive Streamlit app where you pick a movie and instantly get five tailored recommendations.",
-    techStack: [
-      "Python",
-      "Streamlit",
-      "Scikit-learn",
-      "Pandas",
-      "TMDB API",
-      "Cosine Similarity",
-      "TF-IDF",
-    ],
-    highlights: [
-      "Cosine similarity on TF-IDF vectorized movie metadata",
-      "Combines genres, keywords, cast, and crew as features",
-      "Real-time poster fetching via TMDB API",
-      "Interactive Streamlit UI with instant recommendations",
-    ],
-    github: "https://github.com/vishal-jadeja/Movie-Recommendation-System",
-  },
+  // {
+  //   title: "Movie Recommendation System",
+  //   tagline: "Content-Based Film Discovery Engine",
+  //   description:
+  //     "A content-based movie recommender that finds similar films using cosine similarity on TF-IDF vectorized metadata — genres, keywords, cast, and crew. Built as an interactive Streamlit app where you pick a movie and instantly get five tailored recommendations.",
+  //   techStack: [
+  //     "Python",
+  //     "Streamlit",
+  //     "Scikit-learn",
+  //     "Pandas",
+  //     "TMDB API",
+  //     "Cosine Similarity",
+  //     "TF-IDF",
+  //   ],
+  //   highlights: [
+  //     "Cosine similarity on TF-IDF vectorized movie metadata",
+  //     "Combines genres, keywords, cast, and crew as features",
+  //     "Real-time poster fetching via TMDB API",
+  //     "Interactive Streamlit UI with instant recommendations",
+  //   ],
+  //   github: "https://github.com/vishal-jadeja/Movie-Recommendation-System",
+  // },
 ];
