@@ -269,8 +269,8 @@ export default function GitHubContributions() {
   }, []);
 
   const darkTheme = {
-    light: ['#ffffff', '#d1fae5', '#6ee7b7', '#10b981', '#059669'],
-    dark: ['#1a1a1a', '#0d2b1a', '#0f4223', '#1a6b3a', '#22c55e'],
+    light: ['#f1f5f9', '#d1fae5', '#6ee7b7', '#10b981', '#059669'],
+    dark: ['#1a1a1a', '#033a16', '#196c2e', '#2ea043', '#56d364'],
   };
 
   useEffect(() => {
@@ -332,7 +332,7 @@ export default function GitHubContributions() {
                     colorScheme={isDark ? 'dark' : 'light'}
                     theme={darkTheme}
                     fontSize={12}
-                    blockSize={13}
+                    blockSize={12}
                     blockMargin={4}
                     blockRadius={3}
                     labels={{
