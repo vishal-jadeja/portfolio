@@ -27,6 +27,8 @@ export const experiences: Experience[] = [
       "Built zero-downtime database-driven feature flag system enabling ops-controlled payment gateway toggling and dynamic fee configuration without redeployment, combined with 4-tier RBAC and IP-level ban detection across all payment admin routes.",
       "Optimized payment confirmation latency by deferring non-critical conversion tracking (Meta Pixel, analytics) via setImmediate and parallelizing multi-collection MongoDB writes with Promise.all, decoupling user-visible response time from third-party API performance.",
       "Led PWA migration from CRA (React 16) to Vite (React 19), reducing build times by 80% and improving cold-start performance, unblocking faster release cycles for the engineering team.",
+      "Architected a cost-first 3-provider LLM fallback chain (Gemini → Cerebras → Groq) for a real-time AI support bot — quota-aware provider skipping, per-provider JSON-repair retries, and graceful human-agent handoff on exhaustion, maintaining uninterrupted support coverage through provider outages.",
+      "Built a vector search RAG pipeline on MongoDB Atlas ($vectorSearch) with 1,024-dimension L2-normalized embeddings and a 0.55 confidence gate — low-confidence queries auto-escalate to human agents, grounding all LLM responses and eliminating hallucinated support answers.",
     ],
     current: true,
   },

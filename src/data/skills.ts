@@ -37,6 +37,17 @@ export const skillCategories: SkillCategory[] = [
     ],
   },
   {
+    title: "AI / ML",
+    icon: "🤖",
+    skills: [
+      "LLM API Integration (Gemini, Cerebras, Groq)",
+      "RAG Pipelines",
+      "Vector Search (MongoDB Atlas $vectorSearch)",
+      "LLM Fallback / Resilience Architecture",
+      "Prompt Engineering",
+    ],
+  },
+  {
     title: "Databases",
     icon: "🗄️",
     skills: [
