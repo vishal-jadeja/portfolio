@@ -11,7 +11,7 @@ A single-page developer portfolio built with Next.js 16 and React 19, featuring 
 [![License](https://img.shields.io/badge/license-MIT-yellow)](#license)
 
 <!-- PLACEHOLDER: hero screenshot -->
-![Portfolio hero screenshot](https://placehold.co/1200x630/f5f5f5/111111?text=Hero+Screenshot)
+![Portfolio hero screenshot](https://github.com/user-attachments/assets/1110de94-f2be-41d4-85d8-04f7e86c5a05)
 
 </div>
 
@@ -19,7 +19,7 @@ A single-page developer portfolio built with Next.js 16 and React 19, featuring 
 
 ## Overview
 
-This repo powers [vishaljadeja.dev](https://vishaljadeja.dev) *(update with your live URL)* — a fast, animated, single-page portfolio with no backend framework, no CMS, and no dynamic routes. Content is authored as plain TypeScript objects and rendered by section components. The only "backend" is a lightweight RAG chat API that lets visitors ask questions about my background and get answers pulled from a real knowledge base instead of a canned FAQ.
+This repo powers [vishal-jadeja.vercel.app](https://vishal-jadeja.vercel.app) — a fast, animated, single-page portfolio with no backend framework, no CMS, and no dynamic routes. Content is authored as plain TypeScript objects and rendered by section components. The only "backend" is a lightweight RAG chat API that lets visitors ask questions about my background and get answers pulled from a real knowledge base instead of a canned FAQ.
 
 ## Features
 
@@ -32,8 +32,9 @@ This repo powers [vishaljadeja.dev](https://vishaljadeja.dev) *(update with your
 
 <!-- PLACEHOLDER: light/dark mode comparison -->
 <p align="center">
-  <img src="https://placehold.co/600x375/f5f5f5/111111?text=Light+Mode" width="48%" alt="Light mode placeholder" />
-  <img src="https://placehold.co/600x375/1a1a1a/FFE600?text=Dark+Mode" width="48%" alt="Dark mode placeholder" />
+  <img src="https://github.com/user-attachments/assets/020c7300-7f6b-43b1-9dab-4940fbb7841f" width="48%" alt="Light mode" />
+  <img src="https://github.com/user-attachments/assets/3a1a169a-f5b4-459f-87a7-ad9e98090f9c" width="48%" alt="Dark mode" />
+
 </p>
 
 ## Tech Stack
@@ -115,7 +116,7 @@ All portfolio content is static TypeScript — no CMS, no rebuild-triggering web
 The portfolio ships with a RAG chat widget that answers visitor questions using a real knowledge base rather than a static FAQ — see [CHATBOT.md](./CHATBOT.md) for architecture, environment variables, ingestion workflow, and security details.
 
 <!-- PLACEHOLDER: chatbot widget screenshot -->
-![Chatbot widget screenshot](https://placehold.co/500x600/f5f5f5/111111?text=Chatbot+Widget)
+![Chatbot widget screenshot](https://github.com/user-attachments/assets/456b8311-6012-4bd0-8f9e-1c5b92da81a2)
 
 ## Deployment
 
