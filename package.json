@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "bot:ingest": "npx tsx scripts/ingest.mts",
-    "bot:ingest:file": "npx tsx scripts/ingest.mts --file"
+    "bot:ingest:file": "npx tsx scripts/ingest.mts --file",
+    "bot:purge": "npx tsx scripts/purge-source.mts"
   },
   "dependencies": {
     "@ai-sdk/react": "^3.0.145",

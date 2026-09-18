@@ -1,37 +1,12 @@
+import "./load-env.mts";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import type { VectorChunk, ChunkMetadata } from "@/lib/rag/pinecone-client";
 
-// ---------------------------------------------------------------------------
-// Load .env.local before importing modules that call env.ts at module scope.
-// Static imports are hoisted, so we use dynamic imports for the RAG modules
-// after manually loading the env file.
-// ---------------------------------------------------------------------------
-const envPath = path.resolve(".env");
-if (fs.existsSync(envPath)) {
-  const envContent = fs.readFileSync(envPath, "utf-8");
-  for (const line of envContent.split("\n")) {
-    const trimmed = line.trim();
-    if (!trimmed || trimmed.startsWith("#")) continue;
-    const eqIdx = trimmed.indexOf("=");
-    if (eqIdx === -1) continue;
-    const key = trimmed.slice(0, eqIdx).trim();
-    let val = trimmed.slice(eqIdx + 1).trim();
-    if (
-      (val.startsWith('"') && val.endsWith('"')) ||
-      (val.startsWith("'") && val.endsWith("'"))
-    ) {
-      val = val.slice(1, -1);
-    }
-    if (!process.env[key]) process.env[key] = val;
-  }
-}
-
 const { embedBatch } = await import("@/lib/rag/embedder");
-const { deleteBySource, upsertChunks } = await import(
-  "@/lib/rag/pinecone-client"
-);
+const { deleteBySource, upsertChunks, listIds, deleteByIds, slugFromChunkId } =
+  await import("@/lib/rag/pinecone-client");
 
 // ---------------------------------------------------------------------------
 // Config
@@ -148,6 +123,59 @@ async function processFile(filePath: string): Promise<FileResult> {
 }
 
 // ---------------------------------------------------------------------------
+// Orphan sweep
+// ---------------------------------------------------------------------------
+
+/**
+ * Delete vectors whose source file no longer exists on disk.
+ *
+ * `processFile` only calls `deleteBySource` for files it can still see, so a
+ * renamed or deleted .mdx would otherwise leave its chunks in the index
+ * forever — and the bot would keep retrieving them.
+ */
+async function sweepOrphans(
+  liveSlugs: Set<string>,
+  dryRun: boolean
+): Promise<void> {
+  let ids: string[];
+  try {
+    ids = await listIds();
+  } catch (err) {
+    // listPaginated is serverless-only; on a pod-based index we can't enumerate.
+    console.warn(
+      `\n⚠ Orphan sweep skipped — could not list index ids (${(err as Error).message}).`
+    );
+    console.warn(
+      "  On a pod-based index, purge stale sources manually with scripts/purge-source.mts."
+    );
+    return;
+  }
+
+  const orphans = ids.filter((id) => {
+    const slug = slugFromChunkId(id);
+    return slug !== null && !liveSlugs.has(slug);
+  });
+
+  if (orphans.length === 0) {
+    console.log("\n✓ Orphan sweep: no stale vectors found.");
+    return;
+  }
+
+  const orphanSlugs = [...new Set(orphans.map(slugFromChunkId))];
+  console.log(
+    `\n⟳ Orphan sweep: ${orphans.length} vectors from ${orphanSlugs.length} removed source(s): ${orphanSlugs.join(", ")}`
+  );
+
+  if (dryRun) {
+    console.log("· Dry run — nothing deleted.");
+    return;
+  }
+
+  await deleteByIds(orphans);
+  console.log(`✓ Orphan sweep: purged ${orphans.length} stale vectors.`);
+}
+
+// ---------------------------------------------------------------------------
 // Summary table
 // ---------------------------------------------------------------------------
 
@@ -182,6 +210,8 @@ async function main(): Promise<void> {
   // Parse --file flag
   const fileArgIdx = process.argv.indexOf("--file");
   const targetFile = fileArgIdx !== -1 ? process.argv[fileArgIdx + 1] : null;
+  const noSweep = process.argv.includes("--no-sweep");
+  const sweepDryRun = process.argv.includes("--sweep-dry-run");
 
   let filePaths: string[];
 
@@ -231,6 +261,24 @@ async function main(): Promise<void> {
   }
 
   printSummaryTable(results, Date.now() - startTime);
+
+  // A targeted --file run only knows about one file, so sweeping there would be
+  // surprising. Sweep on full ingests only.
+  if (targetFile) {
+    console.log(
+      "\n· Orphan sweep skipped (--file run). Run a full ingest to sweep."
+    );
+  } else if (noSweep) {
+    console.log("\n· Orphan sweep skipped (--no-sweep).");
+  } else {
+    const liveSlugs = new Set(
+      fs
+        .readdirSync(KNOWLEDGE_DIR, { recursive: true, encoding: "utf-8" })
+        .filter((f) => f.endsWith(".mdx"))
+        .map((f) => path.basename(f, ".mdx"))
+    );
+    await sweepOrphans(liveSlugs, sweepDryRun);
+  }
 }
 
 main().catch((err: unknown) => {

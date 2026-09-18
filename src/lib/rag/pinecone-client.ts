@@ -88,3 +88,49 @@ export async function deleteBySource(sourceFile: string): Promise<void> {
     if ((err as Error)?.name !== "PineconeNotFoundError") throw err;
   }
 }
+
+const DELETE_BATCH_SIZE = 1000;
+
+/**
+ * List every vector id in the index, optionally narrowed to an id prefix.
+ *
+ * Chunk ids are deterministic (`${slug}-chunk-${i}`), so a prefix of
+ * `"mintmark-chunk-"` returns exactly that file's chunks.
+ *
+ * Note: `listPaginated` is supported only on serverless indexes. On a pod-based
+ * index this throws, and callers should fall back to `deleteBySource`, which
+ * uses a metadata filter (pod-only — the two APIs are mutually exclusive).
+ */
+export async function listIds(prefix?: string): Promise<string[]> {
+  const index = getIndex();
+  const ids: string[] = [];
+  let paginationToken: string | undefined;
+
+  do {
+    const res = await index.listPaginated({ prefix, paginationToken });
+    for (const vector of res.vectors ?? []) {
+      if (vector.id) ids.push(vector.id);
+    }
+    paginationToken = res.pagination?.next;
+  } while (paginationToken);
+
+  return ids;
+}
+
+/** Delete vectors by explicit id. Works on both serverless and pod indexes. */
+export async function deleteByIds(ids: string[]): Promise<void> {
+  if (ids.length === 0) return;
+  const index = getIndex();
+
+  for (let i = 0; i < ids.length; i += DELETE_BATCH_SIZE) {
+    const batch = ids.slice(i, i + DELETE_BATCH_SIZE);
+    await index.deleteMany({ ids: batch });
+    console.log(`[pinecone] Deleted ${batch.length} vectors by id`);
+  }
+}
+
+/** Derive the source slug from a chunk id (`cadenz-chunk-3` → `cadenz`). */
+export function slugFromChunkId(id: string): string | null {
+  const idx = id.lastIndexOf("-chunk-");
+  return idx === -1 ? null : id.slice(0, idx);
+}
