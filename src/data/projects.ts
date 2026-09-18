@@ -66,6 +66,7 @@ export const projects: Project[] = [
     ],
     github: "https://github.com/vishal-jadeja/Genora",
     live: "https://genora-vishal.vercel.app",
+    imageUrl: "/images/genora.webp",
     status: "completed",
   },
   {
