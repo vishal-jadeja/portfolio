@@ -1,9 +1,11 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { DM_Sans, JetBrains_Mono, Playfair_Display } from "next/font/google";
 import DynamicChat from "@/components/PortfolioChat/DynamicChat";
 import DynamicCursor from "@/components/DynamicCursor";
+import JsonLd from "@/components/JsonLd";
+import { PERSON, SITE_NAME, SITE_URL, X_HANDLE } from "@/lib/seo";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -28,45 +30,65 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Vishal Jadeja | Software Engineer",
-  description:
-    "Full Stack Engineer specializing in scalable backend systems, real-time architecture, microservices, and high-performance APIs. MERN stack expert with 1500+ concurrent user systems.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: PERSON.headline,
+    template: `%s · ${SITE_NAME}`,
+  },
+  description: PERSON.description,
   keywords: [
     "Vishal Jadeja",
     "Full Stack Developer",
     "Software Engineer",
-    "Software Developer",
     "Backend Engineer",
-    "SDE-1",
     "Scalable Systems",
     "MERN Stack",
     "Node.js",
-    "React",
-    "Next.js",
-    "WebSockets",
-    "Microservices",
-    "MongoDB",
     "TypeScript",
   ],
-  authors: [{ name: "Vishal Jadeja" }],
+  applicationName: `${SITE_NAME} Portfolio`,
+  authors: [{ name: PERSON.name, url: SITE_URL }],
+  creator: PERSON.name,
+  publisher: PERSON.name,
+  category: "technology",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "Vishal Jadeja | Software Engineer",
-    description:
-      "Full Stack Engineer building scalable backend systems and real-time architecture.",
-    url: "https://vishaljadeja.dev",
-    siteName: "Vishal Jadeja Portfolio",
+    title: PERSON.headline,
+    description: PERSON.shortDescription,
+    url: SITE_URL,
+    siteName: `${SITE_NAME} Portfolio`,
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Vishal Jadeja | Software Engineer",
-    description: "Full Stack Engineer building scalable backend systems and real-time architecture.",
+    title: PERSON.headline,
+    description: PERSON.shortDescription,
+    ...(X_HANDLE ? { site: X_HANDLE, creator: X_HANDLE } : {}),
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
+};
+
+// No `colorScheme` here on purpose: the theme is driven by the `.dark` class
+// from localStorage, which can disagree with the OS preference. Declaring
+// color-scheme would make native controls follow the OS and mismatch the page.
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fafafa" },
+    { media: "(prefers-color-scheme: dark)", color: "#080808" },
+  ],
 };
 
 export default function RootLayout({
@@ -87,6 +109,7 @@ export default function RootLayout({
       <body
         className={`${dmSans.variable} ${jetbrainsMono.variable} ${playfairDisplay.variable} antialiased`}
       >
+        <JsonLd />
         {children}
         <Analytics />
         <SpeedInsights />

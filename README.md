@@ -19,7 +19,7 @@ A single-page developer portfolio built with Next.js 16 and React 19, featuring 
 
 ## Overview
 
-This repo powers [vishal-jadeja.vercel.app](https://vishal-jadeja.vercel.app) — a fast, animated, single-page portfolio with no backend framework, no CMS, and no dynamic routes. Content is authored as plain TypeScript objects and rendered by section components. The only "backend" is a lightweight RAG chat API that lets visitors ask questions about my background and get answers pulled from a real knowledge base instead of a canned FAQ.
+This repo powers [www.vishaljadeja.xyz](https://www.vishaljadeja.xyz) — a fast, animated, single-page portfolio with no backend framework, no CMS, and no dynamic routes. Content is authored as plain TypeScript objects and rendered by section components. The only "backend" is a lightweight RAG chat API that lets visitors ask questions about my background and get answers pulled from a real knowledge base instead of a canned FAQ.
 
 ## Features
 

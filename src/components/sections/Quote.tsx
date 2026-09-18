@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 export default function Quote() {
   return (
-    <section className="py-12 px-5 sm:px-8 bg-bg overflow-hidden">
+    <section id="quote" className="py-12 px-5 sm:px-8 bg-bg overflow-hidden">
       <div className="max-w-[840px] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 24 }}

@@ -69,6 +69,9 @@ export default function Hero() {
                 className="font-bold text-text-main text-3xl sm:text-5xl leading-none tracking-tight"
               >
                 Vishal Jadeja
+                <span className="sr-only">
+                  {' '}— Software Engineer &amp; Full-Stack Developer
+                </span>
               </h1>
               {/* Blue verified-style badge */}
               <svg
