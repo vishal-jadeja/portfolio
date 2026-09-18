@@ -12,10 +12,10 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    title: "Mintmark",
-    tagline: "Personal Branding & Knowledge Platform",
+    title: "Cadenz",
+    tagline: "An AI Layer On Your Intellectual Life",
     description:
-      "A passive-first personal branding platform that turns what you learn into platform-ready content for LinkedIn, X, and Medium — simultaneously. Features a unified activity heatmap across all learning sources, AI-powered content generation via BYOK, and a personal knowledge assistant scoped strictly to your own notes and posts.",
+      "A passive-first platform that tracks everything you read, build, and write, then makes it queryable. A unified activity heatmap pulls GitHub, LeetCode, notes, and sessions into one grid; a RAG knowledge assistant answers questions strictly from your own notes with full tenant isolation; and a publishing layer turns any of it into posts for LinkedIn, X, and Medium.",
     techStack: [
       "Next.js 16",
       "TypeScript",
@@ -34,10 +34,39 @@ export const projects: Project[] = [
       "RAG-powered personal knowledge assistant with strict tenant isolation",
       "Early access waitlist with referral queue mechanics",
     ],
-    github: "https://github.com/vishal-jadeja/mintmark",
-    imageUrl: "/images/MintMark-EA.webp",
+    github: "https://github.com/vishal-jadeja/Cadenz",
+    imageUrl: "/images/cadenz.webp",
     status: "in-progress",
     live: "https://mintmark-vishal.vercel.app",
+  },
+  {
+    title: "Genora",
+    tagline: "Write Once. Repurpose Everywhere.",
+    description:
+      "A multi-agent content pipeline that turns one raw thought into platform-native posts without the AI tells. Every draft passes through a writer → critic → reviser loop per platform, gated by Slop Guard — a quality check that rejects low-effort input before a single token is spent. Built as a Next.js frontend over a Python/FastAPI AI core, orchestrated end-to-end with Trigger.dev.",
+    techStack: [
+      "Next.js 16",
+      "TypeScript",
+      "Python 3.12",
+      "FastAPI",
+      "Trigger.dev v4",
+      "Neon Postgres",
+      "pgvector",
+      "Upstash Redis",
+      "NextAuth v5",
+      "Gemini Embeddings",
+    ],
+    highlights: [
+      "Slop Guard: input quality gate that rejects low-signal prompts pre-generation",
+      "Per-platform writer → critic → reviser loop to strip AI-generated artifacts",
+      "Trigger.dev v4 orchestration with graceful degradation — one platform failing never kills the job",
+      "RAG personalization over pgvector so output keeps the author's voice",
+      "BYOK across Anthropic, OpenAI, Gemini, and Groq, plus a free-tier model path",
+      "Versioned generations with per-user usage tracking and Redis-backed quotas",
+    ],
+    github: "https://github.com/vishal-jadeja/Genora",
+    live: "https://genora-vishal.vercel.app",
+    status: "completed",
   },
   {
     title: "Peerly",

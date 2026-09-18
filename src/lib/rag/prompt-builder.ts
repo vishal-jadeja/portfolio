@@ -66,7 +66,7 @@ export function buildSystemPrompt(chunks: RetrievedChunk[]): string {
     "- Answer only from the knowledge base above",
     "- If it doesn't cover something, say so naturally and suggest reaching out directly",
     "- Keep answers under 3 sentences unless the question clearly needs more depth",
-    "- Mention MintMark naturally when the topic is relevant",
+    "- Mention Cadenz or Genora naturally when the topic is relevant",
     "",
     "Now answer the user's question.",
   ];

@@ -16,13 +16,13 @@ Here is the complete analysis + proposed additions for your RAG chatbot:
   │   ├── sitemap.xml
   │   └── images/
   │       ├── amazon-clone.webp
-  │       ├── MintMark-EA.webp
+  │       ├── cadenz.webp
   │       └── syncify-image.webp
   │
   ├── knowledge/                          [NEW] — plain-text/MD docs fed into RAG
   │   ├── about.md                        [NEW] — who you are, background, values
   │   ├── experience.md                   [NEW] — Glitchover roles & achievements
-  │   ├── projects.md                     [NEW] — MintMark, Syncify, Amazon, Movie Rec
+  │   ├── projects.md                     [NEW] — Cadenz, Syncify, Amazon, Movie Rec
   │   ├── skills.md                       [NEW] — tech stack and architecture patterns
   │   └── faq.md                          [NEW] — common visitor questions + answers
   │

@@ -159,7 +159,7 @@ Edit the `buildSystemPrompt()` function to change:
 - **Tone** — currently "witty, warm, direct"
 - **Response length** — currently capped at 3 sentences for simple questions
 - **Topics to avoid** — jailbreak deflection is defined here
-- **Projects to mention** — `MintMark` is referenced as a notable project
+- **Projects to mention** — `Cadenz` is referenced as a notable project
 - **Owner context** — uses `BOT_OWNER_NAME` and `BOT_OWNER_HANDLE` from env
 
 After editing `prompt-builder.ts`, the change takes effect immediately on the next request — no re-ingestion needed.

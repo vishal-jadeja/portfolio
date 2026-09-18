@@ -2,7 +2,7 @@
 
 const QUESTIONS = [
   "What's your tech stack?",
-  "Tell me about MintMark",
+  "Tell me about Cadenz",
   "Are you open to work?",
   "What are you learning?",
   "What's your favorite IPL team?",

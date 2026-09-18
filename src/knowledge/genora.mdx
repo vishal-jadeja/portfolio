@@ -1,0 +1,118 @@
+---
+title: "Genora"
+category: "project"
+project_type: "AI Pipeline / Solo"
+status: "completed"
+url: "https://genora-vishal.vercel.app"
+github: "https://github.com/vishal-jadeja/Genora"
+tags: ["genora", "ai", "multi-agent", "content-generation", "slop-guard", "writer-critic-reviser", "byok", "rag", "trigger.dev", "fastapi", "python", "nextjs", "neon", "pgvector", "upstash", "nextauth", "gemini-embeddings", "orchestration", "solo-project"]
+description: "Genora is a multi-agent content pipeline by Vishal Jadeja that turns one raw input into platform-native posts through a writer, critic, and reviser loop, gated by a quality check called Slop Guard. Next.js frontend, Python/FastAPI AI core, Trigger.dev v4 orchestration. Complete and deployed."
+last_updated: "2026-09-18"
+---
+
+## What is Genora
+
+Genora is a content pipeline for multi-platform publishing. Write the thought once; the system adapts it for each selected platform while holding the author's voice and stripping the artifacts that make text read as AI-generated.
+
+Its tagline: **Write once. Repurpose everywhere.**
+
+**Live:** https://genora-vishal.vercel.app
+**GitHub:** https://github.com/vishal-jadeja/Genora
+
+---
+
+## The engineering problem it solves
+
+Single-shot LLM generation produces slop. Ask a model for a LinkedIn post and you get the same cadence, the same three-beat structure, the same hollow opener — regardless of what you actually said. Two things cause it: weak input, and no adversarial pass over the output.
+
+Genora attacks both. Weak input is rejected at the gate before any token is spent. Weak output is caught by a critic stage that gets to send the draft back.
+
+---
+
+## How the pipeline works
+
+### Slop Guard
+
+A quality control gate that sits in front of the whole pipeline. Low-quality input is rejected before processing, not after — which keeps cost down and stops the system from confidently repurposing something that had no substance to begin with.
+
+### Writer → Critic → Reviser
+
+Generation is not a single call. For each target platform, the content moves through three distinct stages:
+
+| Stage | Role |
+|---|---|
+| Writer | Produces a platform-native first draft |
+| Critic | Evaluates the draft and names what's wrong with it |
+| Reviser | Rewrites against the critique |
+
+Each platform runs its own instance of this loop, so LinkedIn and X are not the same text with different line breaks.
+
+### Graceful degradation
+
+Platforms are generated independently. A single platform failing does not halt the job — the rest complete and are returned. This is an orchestration property, handled at the Trigger.dev layer rather than patched in the API route.
+
+### RAG context
+
+Retrieval-augmented generation supplies personalization context so output matches the author rather than a generic register. Embeddings via Google Gemini, stored in Postgres with pgvector.
+
+### Versioned outputs
+
+Every generation is persisted with usage tracking, so drafts are recoverable and consumption is auditable per user.
+
+---
+
+## Tech stack
+
+| Layer | Technology |
+|---|---|
+| Frontend | Next.js 16 + TypeScript |
+| Orchestration | Trigger.dev v4 |
+| Backend | Python 3.12 + FastAPI |
+| Database | Neon Postgres + pgvector |
+| Cache / Quota | Upstash Redis |
+| Auth | NextAuth v5 |
+| Embeddings | Google Gemini |
+| AI providers | Anthropic, OpenAI, Gemini, Groq (BYOK) + free-tier models |
+
+BYOK means users supply their own API keys. A free-tier model path exists for users who don't.
+
+---
+
+## Build phases
+
+All six phases are complete:
+
+| Phase | Focus |
+|---|---|
+| 0 | Scaffolding |
+| 1 | Data layer |
+| 2 | Auth + BYOK |
+| 3 | AI core |
+| 4 | Orchestration |
+| 5 | API routes |
+| 6 | Hardening — rate limiting, CI/CD, deploy configs |
+
+---
+
+## How Genora differs from Cadenz
+
+Both involve AI-assisted publishing, so the distinction matters:
+
+- **Genora is the pipeline.** It is an AI engineering project — multi-agent generation, quality gating, orchestration, failure isolation. The interesting surface is how the output gets good, not how the input gets collected.
+- **Cadenz is the platform.** It tracks intellectual activity across GitHub, LeetCode, notes, and sessions, makes it queryable through a RAG assistant, and publishing is one thing it can do with that history.
+
+Genora went deeper on the generation architecture. Cadenz went wider on the product.
+
+---
+
+## Why I built it
+
+I wanted to find out whether the "AI writing sounds like AI" problem was a model problem or a pipeline problem. It's mostly a pipeline problem. A single prompt produces slop; a writer that gets critiqued and rewritten does not. Genora was where I built that loop properly — with real orchestration, per-platform isolation, and a gate strict enough to refuse work that wasn't worth doing.
+
+It was also the project where I split the stack on purpose: Next.js for the product surface, Python and FastAPI for the AI core, Trigger.dev between them. The AI logic belonged in the ecosystem that has the tooling for it, not wedged into serverless route handlers.
+
+---
+
+## Current status
+
+Complete and deployed at https://genora-vishal.vercel.app. All build phases finished, including hardening — rate limiting, CI/CD, and deploy configuration.

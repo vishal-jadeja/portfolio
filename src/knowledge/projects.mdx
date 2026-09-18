@@ -5,7 +5,8 @@ tags:
   [
     "projects",
     "portfolio",
-    "mintmark",
+    "cadenz",
+    "genora",
     "syncify",
     "amazon-clone",
     "movie-recommendation",
@@ -26,15 +27,15 @@ tags:
     "trigger.dev",
     "solo-developer",
   ]
-description: "All projects built by Vishal Jadeja — from production SaaS (Mintmark) to learning projects in full-stack and applied ML."
-last_updated: "2026-04-02"
+description: "All projects built by Vishal Jadeja — from production SaaS (Cadenz) and AI pipelines (Genora) to learning projects in full-stack and applied ML."
+last_updated: "2026-09-18"
 ---
 
 ## Projects
 
 ---
 
-### Mintmark — Personal Branding & Knowledge Platform
+### Cadenz — Personal Branding & Knowledge Platform
 
 **Status:** Early access — live at https://mintmark-vishal.vercel.app
 
@@ -42,7 +43,7 @@ last_updated: "2026-04-02"
 A passive-first personal branding platform that turns developer learning activity into platform-ready content for LinkedIn, X, and Medium simultaneously. Features a unified activity heatmap aggregating GitHub, LeetCode, notes, and sessions; BYOK AI content generation supporting Anthropic, OpenAI, Gemini, and Groq; and a RAG-powered personal knowledge assistant scoped strictly to your own notes and posts with full tenant isolation.
 
 **Problem it solved:**
-Developers learn constantly but rarely publish what they learn — the activation energy for writing a LinkedIn post is just high enough to defer indefinitely. Mintmark removes that friction by meeting developers where learning already happens and generating platform-ready drafts automatically.
+Developers learn constantly but rarely publish what they learn — the activation energy for writing a LinkedIn post is just high enough to defer indefinitely. Cadenz removes that friction by meeting developers where learning already happens and generating platform-ready drafts automatically.
 
 **My role:**
 Solo founder and sole developer. Designed the full architecture and built every layer — auth, backend APIs, frontend, AI integrations, real-time heatmap, background job pipelines, and the RAG pipeline end-to-end.
@@ -52,8 +53,34 @@ Next.js 16, React 19, TypeScript, Tailwind CSS v4, Supabase (PostgreSQL + pgvect
 
 **Links:**
 
-- GitHub: https://github.com/vishal-jadeja/mintmark
+- GitHub: https://github.com/vishal-jadeja/Cadenz
 - Live: https://mintmark-vishal.vercel.app
+
+---
+
+### Genora — Multi-Agent Content Pipeline
+
+**Status:** Complete and deployed — live at https://genora-vishal.vercel.app
+
+**What it does:**
+Turns one raw input into platform-native posts through a multi-agent pipeline. Every draft runs a writer → critic → reviser loop per platform, gated in front by Slop Guard — a quality check that rejects low-signal input before any generation happens. Supports BYOK across Anthropic, OpenAI, Gemini, and Groq, plus a free-tier model path, with RAG personalization so output holds the author's voice.
+
+**Problem it solved:**
+Single-shot LLM generation produces slop — same cadence, same hollow opener, regardless of input. Genora treats that as a pipeline problem rather than a model problem: reject weak input at the gate, and put every draft through an adversarial critic that can send it back.
+
+**My role:**
+Solo developer. Designed and built the full split stack — Next.js product surface, Python/FastAPI AI core, Trigger.dev v4 orchestration between them — plus the data layer, auth, BYOK handling, and hardening (rate limiting, CI/CD, deploy configs).
+
+**How it differs from Cadenz:**
+Genora is the pipeline — an AI engineering project about how generated output gets good. Cadenz is the platform — tracking intellectual activity across sources and making it queryable, where publishing is one thing it can do with that history.
+
+**Tech stack:**
+Next.js 16, TypeScript, Python 3.12, FastAPI, Trigger.dev v4, Neon Postgres + pgvector, Upstash Redis, NextAuth v5, Google Gemini embeddings
+
+**Links:**
+
+- GitHub: https://github.com/vishal-jadeja/Genora
+- Live: https://genora-vishal.vercel.app
 
 ---
 
@@ -110,7 +137,7 @@ React.js, Redux, Node.js, Express.js, MongoDB, JWT
 Finds similar films using cosine similarity on TF-IDF vectorized metadata — genres, keywords, cast, and crew. Built as an interactive Streamlit app: pick a movie, get five tailored recommendations instantly with real-time poster fetching via the TMDB API.
 
 **Purpose:**
-An introduction to applied ML and recommendation systems — understanding how vector similarity search works at a foundational level before neural embeddings and approximate nearest neighbour search entered the picture. The same core concept powers production RAG systems like the one in Mintmark.
+An introduction to applied ML and recommendation systems — understanding how vector similarity search works at a foundational level before neural embeddings and approximate nearest neighbour search entered the picture. The same core concept powers production RAG systems like the one in Cadenz.
 
 **Tech stack:**
 Python, Streamlit, Scikit-learn, Pandas, TMDB API, TF-IDF vectorization, cosine similarity
@@ -125,7 +152,8 @@ Python, Streamlit, Scikit-learn, Pandas, TMDB API, TF-IDF vectorization, cosine 
 
 | Project                     | Type             | Year         | Stack                           |
 | --------------------------- | ---------------- | ------------ | ------------------------------- |
-| Mintmark                    | Production SaaS  | 2026–present | Next.js, Supabase, AI, RAG      |
+| Cadenz                      | Production SaaS  | 2026–present | Next.js, Supabase, AI, RAG      |
+| Genora                      | AI pipeline      | 2026         | Next.js, FastAPI, Trigger.dev   |
 | Syncify                     | Utility tool     | 2024         | React, Node.js, OAuth APIs      |
 | Amazon Clone                | Learning project | 2023         | React, Express, MongoDB         |
 | Movie Recommendation System | Learning project | 2023         | Python, Scikit-learn, Streamlit |

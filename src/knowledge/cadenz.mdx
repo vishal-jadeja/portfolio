@@ -1,25 +1,25 @@
 ---
-title: "Mintmark"
+title: "Cadenz"
 category: "project"
 project_type: "SaaS / Solo"
 status: "early-access"
 url: "https://mintmark-vishal.vercel.app"
-github: "https://github.com/vishal-jadeja/mintmark"
-tags: ["mintmark", "saas", "personal-branding", "rag", "ai", "content-generation", "linkedin", "twitter", "medium", "byok", "heatmap", "knowledge-assistant", "nextjs", "supabase", "typescript", "trigger.dev", "upstash", "pgvector", "multi-tenant", "background-jobs", "chrome-extension", "notion-sync", "solo-project"]
-description: "Mintmark is a passive-first personal branding platform that turns developer learning activity into platform-ready content for LinkedIn, X, and Medium. Built solo by Vishal Jadeja. Currently in early access."
-last_updated: "2026-04-02"
+github: "https://github.com/vishal-jadeja/Cadenz"
+tags: ["cadenz", "saas", "personal-branding", "rag", "ai", "content-generation", "linkedin", "twitter", "medium", "byok", "heatmap", "knowledge-assistant", "nextjs", "supabase", "typescript", "trigger.dev", "upstash", "pgvector", "multi-tenant", "background-jobs", "chrome-extension", "notion-sync", "solo-project"]
+description: "Cadenz is a passive-first personal branding platform that turns developer learning activity into platform-ready content for LinkedIn, X, and Medium. Built solo by Vishal Jadeja. Currently in early access."
+last_updated: "2026-09-18"
 ---
 
-## What is Mintmark
+## What is Cadenz
 
-Mintmark is a passive-first personal branding platform built for developers. It sits on top of where learning already happens — GitHub commits, LeetCode solutions, personal notes, reading sessions — and turns that activity into platform-ready content for LinkedIn, X, and Medium simultaneously.
+Cadenz is a passive-first personal branding platform built for developers. It sits on top of where learning already happens — GitHub commits, LeetCode solutions, personal notes, reading sessions — and turns that activity into platform-ready content for LinkedIn, X, and Medium simultaneously.
 
 It also includes a personal knowledge assistant: a RAG-powered chatbot that answers questions strictly from your own notes and posts, with strict tenant isolation so your data never bleeds into anyone else's context.
 
-The name comes from a **mintmark** — the tiny stamp a mint presses onto a coin to certify it's real, authentic, and came from a specific source. Mintmark stamps your authentic knowledge and identity onto the internet.
+The name comes from **cadence** — the rhythm of a practice sustained over time. Learning in public is not about one viral post; it's about a steady, compounding beat. Cadenz is built to keep that beat going without the friction that usually breaks it.
 
 **Live (early access):** https://mintmark-vishal.vercel.app
-**GitHub:** https://github.com/vishal-jadeja/mintmark
+**GitHub:** https://github.com/vishal-jadeja/Cadenz
 
 ---
 
@@ -27,7 +27,7 @@ The name comes from a **mintmark** — the tiny stamp a mint presses onto a coin
 
 Developers learn constantly. Most of that learning never becomes visible — not because developers don't have anything worth saying, but because the activation energy for "write a LinkedIn post" is high. You have to remember what you did, articulate it clearly, format it for the platform, and repeat for X and Medium with different tone and length.
 
-Mintmark removes that friction. The learning is already happening — Mintmark closes the gap between "I learned this" and "I published this."
+Cadenz removes that friction. The learning is already happening — Cadenz closes the gap between "I learned this" and "I published this."
 
 Secondary problem: developer knowledge is scattered across GitHub READMEs, Notion pages, bookmarked articles, and memory. The personal knowledge assistant provides a single interface to query all of it.
 
@@ -37,13 +37,13 @@ Secondary problem: developer knowledge is scattered across GitHub READMEs, Notio
 
 ### Content Studio
 
-Input once, publish everywhere. Paste what you learned — a YouTube video, an article, a personal experience — and Mintmark generates posts for LinkedIn, X, and Medium simultaneously, each formatted to your own rules.
+Input once, publish everywhere. Paste what you learned — a YouTube video, an article, a personal experience — and Cadenz generates posts for LinkedIn, X, and Medium simultaneously, each formatted to your own rules.
 
 - **Per-platform AI instructions** — define tone, format, length, and style per platform independently. LinkedIn gets professional storytelling. X gets a punchy hook. Medium gets depth.
 - **Parallel generation** — all three platforms generated at once via `Promise.all`, streamed to the UI
 - **Inline editing** — edit any generated post before publishing; nothing goes out without explicit approval
-- **One-click publish** — connected platforms publish directly from Mintmark
-- **BYOK AI** — bring your own API key (Anthropic, OpenAI, Gemini, or Groq); Mintmark never pays for your AI calls and never stores your key server-side beyond the request
+- **One-click publish** — connected platforms publish directly from Cadenz
+- **BYOK AI** — bring your own API key (Anthropic, OpenAI, Gemini, or Groq); Cadenz never pays for your AI calls and never stores your key server-side beyond the request
 
 ### Unified Activity Heatmap
 
@@ -74,7 +74,7 @@ Built on a RAG pipeline using pgvector. Every answer shows which notes it cited.
 
 ### Notion Sync
 
-Two-way sync between Mintmark notes and your Notion workspace. Runs every 30 minutes via background job. Conflicts are flagged — never silently overwritten.
+Two-way sync between Cadenz notes and your Notion workspace. Runs every 30 minutes via background job. Conflicts are flagged — never silently overwritten.
 
 ### Productivity Suite
 
@@ -147,11 +147,22 @@ Security is treated as a first-class concern, not an afterthought:
 
 ---
 
+## How Cadenz differs from Genora
+
+Both involve AI-assisted publishing, so the distinction matters:
+
+- **Cadenz is the platform.** It tracks intellectual activity across GitHub, LeetCode, notes, and sessions, makes that history queryable through a RAG assistant, and publishing is one thing it can do with it. The scope is the whole loop — capture, query, publish.
+- **Genora is the pipeline.** A focused AI engineering project: multi-agent writer → critic → reviser generation, a quality gate in front, and orchestration that isolates per-platform failures.
+
+Cadenz went wider on the product. Genora went deeper on the generation architecture.
+
+---
+
 ## Why I built it
 
 The honest answer: I needed it myself. I kept accumulating learning — interesting bugs I fixed, architecture decisions I made, libraries I explored — and none of it was becoming public content. Not because I didn't want to share it, but because the gap between "I know this thing" and "I've written this up for LinkedIn" was just large enough that I'd defer it indefinitely.
 
-Mintmark was built to eliminate that gap for myself first. It also became the project where I went deepest on RAG pipelines, multi-tenant architecture, BYOK AI integrations, background job orchestration with Trigger.dev, and building a SaaS product end-to-end as a solo developer.
+Cadenz was built to eliminate that gap for myself first. It also became the project where I went deepest on RAG pipelines, multi-tenant architecture, BYOK AI integrations, background job orchestration with Trigger.dev, and building a SaaS product end-to-end as a solo developer.
 
 ---
 
