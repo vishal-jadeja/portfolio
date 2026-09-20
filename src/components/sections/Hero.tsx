@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 
 const GITHUB_AVATAR = 'https://avatars.githubusercontent.com/vishal-jadeja';
 
-const TAGLINE_ITEMS = ['Software Engineer', 'Full-Stack Dev', 'Builder'];
+const TAGLINE_ITEMS = ['Software Engineer', 'Software Developer', 'Builder'];
 
 function ViewCounterHero() {
   const [count, setCount] = useState<number | null>(null);
@@ -70,7 +70,7 @@ export default function Hero() {
               >
                 Vishal Jadeja
                 <span className="sr-only">
-                  {' '}— Software Engineer &amp; Full-Stack Developer
+                  {' '}— Software Developer
                 </span>
               </h1>
               {/* Blue verified-style badge */}

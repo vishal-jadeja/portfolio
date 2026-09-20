@@ -29,9 +29,9 @@ export const PERSON = {
   email: "vishaljadeja.work@gmail.com",
   headline: "Vishal Jadeja | Software Engineer",
   description:
-    "Full Stack Engineer specializing in scalable backend systems, real-time architecture, microservices, and high-performance APIs. MERN stack expert with 1500+ concurrent user systems.",
+    "Software Developer specializing in scalable backend systems, real-time architecture, microservices, and high-performance APIs. MERN stack expert with 1500+ concurrent user systems.",
   shortDescription:
-    "Full Stack Engineer building scalable backend systems and real-time architecture.",
+    "Software Developer building scalable backend systems and real-time architecture.",
 } as const;
 
 /**
@@ -39,11 +39,13 @@ export const PERSON = {
  * two never drift, plus the profiles that have no button in the UI.
  */
 export const sameAs: string[] = [
-  ...socials
-    .filter((s) => !s.url.startsWith("mailto:"))
-    .map((s) => s.url),
-  X_URL,
-  YOUTUBE_URL,
+  ...new Set([
+    ...socials
+      .filter((s) => !s.url.startsWith("mailto:"))
+      .map((s) => s.url),
+    X_URL,
+    YOUTUBE_URL,
+  ]),
 ];
 
 /** Flat technology list for schema.org `knowsAbout`. */

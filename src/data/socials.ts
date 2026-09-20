@@ -7,6 +7,12 @@ export interface Social {
 
 export const socials: Social[] = [
   {
+    name: "YouTube",
+    url: "https://www.youtube.com/@ViShallTalk",
+    icon: "M22.54 6.42a2.78 2.78 0 00-1.95-1.97C18.88 4 12 4 12 4s-6.88 0-8.59.45A2.78 2.78 0 001.46 6.42 29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.41 19c1.71.45 8.59.45 8.59.45s6.88 0 8.59-.45a2.78 2.78 0 001.95-1.97 29 29 0 00.46-5.28 29 29 0 00-.46-5.33zM9.75 15.02V8.48l5.75 3.27-5.75 3.27z",
+    color: "#FF0000",
+  },
+  {
     name: "Email",
     url: "mailto:vishaljadeja.work@gmail.com",
     icon: "M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z",

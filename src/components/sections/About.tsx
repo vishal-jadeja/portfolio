@@ -29,7 +29,7 @@ export default function About() {
           </p>
 
           <p className="text-text-muted text-base leading-relaxed">
-            I&apos;m a <strong className="text-text-main font-semibold">Full-Stack Software Engineer</strong> focused on
+            I&apos;m a <strong className="text-text-main font-semibold">Software Developer</strong> focused on
             <strong className="text-text-main font-semibold"> backend architecture, distributed systems, and real-time infrastructure</strong>.
             Currently working at{' '}
             <a href="https://glitchover.com" target="_blank" rel="noopener noreferrer"

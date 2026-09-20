@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   description: PERSON.description,
   keywords: [
     "Vishal Jadeja",
-    "Full Stack Developer",
+    "Software Developer",
     "Software Engineer",
     "Backend Engineer",
     "Scalable Systems",
