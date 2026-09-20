@@ -195,9 +195,9 @@ export async function POST(request: Request): Promise<Response> {
       content:
         m.role === "user"
           ? sanitizeMessage(m.content)
-          // Cap assistant messages — our max_tokens is 400 (~1600 chars).
-          // Values longer than this signal fabricated conversation history
-          // being used to establish false context with the model.
+          // Cap assistant messages — the visible answer budget is ~400 tokens
+          // (~1600 chars). Values longer than this signal fabricated
+          // conversation history being used to establish false context.
           : m.content.slice(0, MAX_ASSISTANT_MSG_LENGTH),
     })),
   ];
@@ -216,9 +216,14 @@ export async function POST(request: Request): Promise<Response> {
   let groqStream: AsyncIterable<Groq.Chat.Completions.ChatCompletionChunk>;
   try {
     groqStream = await groq.chat.completions.create({
-      model: "llama-3.3-70b-versatile",
+      model: "openai/gpt-oss-120b",
       messages: groqMessages,
-      max_tokens: 400,
+      // gpt-oss is a reasoning model: reasoning tokens count against max_tokens
+      // but never reach the client (we only read delta.content below), so the
+      // budget is raised to leave ~400 tokens for the visible answer.
+      max_tokens: 800,
+      reasoning_effort: "low",
+      reasoning_format: "hidden",
       temperature: 0.7,
       stream: true,
     });
