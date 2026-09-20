@@ -12,6 +12,36 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    title: "Deplyx",
+    tagline: "Catch Dead AI Models Before Prod Does",
+    description:
+      "AI providers retire models on a few months' notice, in a blog post nobody on the team read — and hard-coded model IDs start 404ing the day the switch flips. Deplyx watches a live deprecation feed, already knows which connected repos reference an affected model, scores severity from the real announcement → shutdown dates, then generates a reviewable fix PR with an LLM using your own API key and tracks it through merge via webhook.",
+    techStack: [
+      "Next.js 16",
+      "React 19",
+      "TypeScript",
+      "Drizzle ORM",
+      "Neon Postgres",
+      "Auth.js v5",
+      "Octokit",
+      "Trigger.dev v4",
+      "Upstash Redis",
+      "web-tree-sitter",
+      "Vercel AI SDK 7",
+      "Turborepo + pnpm",
+    ],
+    highlights: [
+      "Fail-closed Postgres RLS: every tenant table runs FORCE ROW LEVEL SECURITY, so an unscoped connection matches zero rows instead of leaking or 500ing",
+      "Two DB clients that never cross — a branded tenant-scoped handle for the request path, a lint-restricted worker entrypoint for cross-tenant jobs",
+      "GitHub App integration: App auth, token minting, repo listing, and signature-verified webhooks",
+      "Repo scanning streams the tarball, sweeps literals first, and only tree-sitter parses files with a hit — walking up to the enclosing function for real context",
+      "BYOK fix generation across Anthropic, OpenAI, Groq, and Google — a real diff with confidence and risk scoring, not a string replace",
+      "Turborepo monorepo with lint, typecheck, and tests green workspace-wide",
+    ],
+    github: "https://github.com/vishal-jadeja/Deplyx",
+    status: "in-progress",
+  },
+  {
     title: "Cadenz",
     tagline: "An AI Layer On Your Intellectual Life",
     description:

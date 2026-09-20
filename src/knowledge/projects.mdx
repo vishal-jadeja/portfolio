@@ -5,6 +5,7 @@ tags:
   [
     "projects",
     "portfolio",
+    "deplyx",
     "cadenz",
     "genora",
     "syncify",
@@ -23,15 +24,50 @@ tags:
     "scikit-learn",
     "rag",
     "byok",
+    "github-app",
+    "drizzle",
+    "row-level-security",
+    "monorepo",
+    "tree-sitter",
+    "ai-deprecations",
     "supabase",
     "trigger.dev",
     "solo-developer",
   ]
-description: "All projects built by Vishal Jadeja — from production SaaS (Cadenz) and AI pipelines (Genora) to learning projects in full-stack and applied ML."
-last_updated: "2026-09-18"
+description: "All projects built by Vishal Jadeja — from developer tooling (Deplyx) and production SaaS (Cadenz) to AI pipelines (Genora) and earlier learning projects."
+last_updated: "2026-09-20"
 ---
 
 ## Projects
+
+---
+
+### Deplyx — AI Model Deprecation Watchdog
+
+**Status:** In active development — Phase 03 of 12 (Auth.js + GitHub App) code-complete, live acceptance pending. Milestone 1 is a working read-only dashboard at Phase 06.
+
+**What it does:**
+A GitHub-integrated dashboard that watches connected repos for hard-coded references to deprecated or discontinued AI models. It polls a live deprecation feed on a schedule, matches affected model IDs against repos it has already scanned, scores blast radius from the real announcement → deprecation → shutdown dates, generates a reviewable fix PR with an LLM using your own API key, and tracks that PR through merge via webhook.
+
+**Problem it solved:**
+AI providers retire models constantly, usually announced in a blog post nobody on the team reads. A hard-coded model ID silently starts 404ing — or worse, silently degrading — the day the provider flips the switch, and nobody finds out until production breaks. Deplyx closes that loop: the day a model is deprecated, it already knows which repos are affected.
+
+**My role:**
+Solo developer. Designed the phased architecture and the security model, and built the monorepo, database schema with row-level security, GitHub App integration, and auth layer.
+
+**Tech stack:**
+Next.js 16, React 19, TypeScript 5.9, Drizzle ORM, Neon Postgres (RLS), Auth.js v5, Octokit, Trigger.dev v4, Upstash Redis, web-tree-sitter, Vercel AI SDK 7, Biome, Turborepo + pnpm
+
+**Engineering details worth noting:**
+
+- Fail-closed multi-tenancy: every tenant table carries `user_id` directly and runs `FORCE ROW LEVEL SECURITY`, so an unscoped connection matches zero rows rather than leaking or erroring.
+- Two database clients that are never crossed — a branded, tenant-scoped transaction handle for the request path, and a lint-restricted worker entrypoint allowed from exactly three call sites that legitimately need cross-tenant access.
+- Repo scanning streams the tarball rather than buffering it, runs a cheap literal sweep first, and only tree-sitter parses files that actually hit — walking up to the enclosing function so the LLM sees real call-site context.
+- Findings are upserted per `(repo, file, line, matched_value, kind)` and soft-resolved on rescan, never deleted.
+
+**Links:**
+
+- GitHub: https://github.com/vishal-jadeja/Deplyx
 
 ---
 
@@ -152,6 +188,7 @@ Python, Streamlit, Scikit-learn, Pandas, TMDB API, TF-IDF vectorization, cosine 
 
 | Project                     | Type             | Year         | Stack                           |
 | --------------------------- | ---------------- | ------------ | ------------------------------- |
+| Deplyx                      | Developer tooling | 2026–present | Next.js, Drizzle, Neon, GitHub App |
 | Cadenz                      | Production SaaS  | 2026–present | Next.js, Supabase, AI, RAG      |
 | Genora                      | AI pipeline      | 2026         | Next.js, FastAPI, Trigger.dev   |
 | Syncify                     | Utility tool     | 2024         | React, Node.js, OAuth APIs      |
