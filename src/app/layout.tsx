@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import localFont from "next/font/local";
-import { PERSON, SITE_NAME, SITE_URL, X_HANDLE, pageRobots } from "@/lib/seo";
+import { PERSON, SITE_NAME, SITE_URL, pageRobots } from "@/lib/seo";
 import "./globals.css";
 
 const dmSans = localFont({
@@ -36,39 +36,17 @@ export const metadata: Metadata = {
     template: `%s · ${SITE_NAME}`,
   },
   description: PERSON.description,
-  keywords: [
-    "Vishal Jadeja",
-    "Software Developer",
-    "Software Engineer",
-    "Backend Engineer",
-    "Scalable Systems",
-    "MERN Stack",
-    "Node.js",
-    "TypeScript",
-  ],
   applicationName: `${SITE_NAME} Portfolio`,
   authors: [{ name: PERSON.name, url: SITE_URL }],
   creator: PERSON.name,
   publisher: PERSON.name,
   category: "technology",
   alternates: {
-    canonical: "/",
+    types: { "application/rss+xml": `${SITE_URL}/feed.xml` },
   },
-  openGraph: {
-    title: PERSON.headline,
-    description: PERSON.shortDescription,
-    url: SITE_URL,
-    siteName: `${SITE_NAME} Portfolio`,
-    type: "website",
-    locale: "en_US",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: PERSON.headline,
-    description: PERSON.shortDescription,
-    ...(X_HANDLE ? { site: X_HANDLE, creator: X_HANDLE } : {}),
-  },
-  robots: pageRobots(),
+  // Public pages opt in with their own metadata. Unknown/private routes must
+  // not inherit homepage indexing directives or its canonical/social URL.
+  robots: pageRobots(false, false),
 };
 
 // No `colorScheme` here on purpose: the theme is driven by the `.dark` class

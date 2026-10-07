@@ -5,6 +5,7 @@ import {
   listingMetadata,
   listingPath,
   listingStructuredData,
+  missingPageMetadata,
   parseBlogSearch,
 } from "../../src/lib/blog/metadata";
 import { pageRobots, SITE_URL } from "../../src/lib/seo";
@@ -27,6 +28,15 @@ const post: Publication = {
 };
 afterEach(() => vi.unstubAllEnvs());
 describe("SEO contracts", () => {
+  it("does not advertise canonical/social pages or indexing for missing content", () => {
+    expect(missingPageMetadata("Article not found")).toMatchObject({
+      title: "Article not found",
+      robots: { index: false, follow: false, googleBot: { index: false, follow: false } },
+      alternates: { canonical: null },
+      openGraph: null,
+      twitter: null,
+    });
+  });
   it("uses publication metadata without inheriting the homepage or draft details", () => {
     const meta = articleMetadata(post);
     expect(meta.title).toBe(post.seo_title);
@@ -48,8 +58,15 @@ describe("SEO contracts", () => {
       card: "summary_large_image",
     });
     expect(JSON.stringify(meta.twitter)).toContain(
-      `/blog/${post.slug}/twitter-image`,
+      `/blog/${post.slug}/twitter-image?v=2`,
     );
+    expect(JSON.stringify(meta.openGraph)).toContain(
+      `/blog/${post.slug}/opengraph-image?v=2`,
+    );
+    const updated = articleMetadata({ ...post, source_version: 3 });
+    expect(JSON.stringify(updated.openGraph)).toContain("opengraph-image?v=3");
+    expect(JSON.stringify(updated.twitter)).toContain("twitter-image?v=3");
+    expect(updated.alternates?.canonical).toBe(meta.alternates?.canonical);
   });
   it("uses public cover dimensions, author, publisher and visible dates in structured data", () => {
     const cover: MediaView = {
@@ -80,7 +97,7 @@ describe("SEO contracts", () => {
     });
     expect(articleStructuredData(post)["@graph"][0]).toMatchObject({
       image: {
-        url: `${SITE_URL}/blog/${post.slug}/opengraph-image`,
+        url: `${SITE_URL}/blog/${post.slug}/opengraph-image?v=2`,
         width: 1200,
         height: 630,
       },

@@ -97,7 +97,7 @@ Open [localhost:3000](http://localhost:3000).
 | `npm run bot:ingest` | Re-embed all `src/knowledge/*.mdx` files into Pinecone |
 | `npm run bot:ingest:file <name>` | Re-embed a single knowledge file |
 
-There is no test suite configured.
+`npm test` runs content, SEO, image-validation, and PostgreSQL integration tests. Use `npm run typecheck` for TypeScript validation.
 
 ## Updating Content
 

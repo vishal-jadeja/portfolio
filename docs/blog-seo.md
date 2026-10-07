@@ -5,12 +5,15 @@ The blog's search behavior is built into the publishing and rendering system. No
 ## What happens automatically
 
 - Each article uses its own title, description, canonical URL, author, publication/update dates, Open Graph metadata, and Twitter card. Optional editor SEO fields override the search title/description; share cards retain the visible article title and excerpt.
+- Homepage canonical/social metadata belongs to the homepage, so missing and private pages do not inherit its canonical URL or indexing directives. RSS discovery also appears on the homepage.
+- OG and Twitter cards use matching 1200×630 PNGs. Article titles wrap within the card, including long unbroken words. Published article card URLs include the snapshot version so publishing an update changes the share-image URL; draft saves do not.
 - Metadata renders in the initial HTML head for all user agents. Article content and internal links render on the server and remain readable without JavaScript.
 - `BlogPosting` structured data includes author/publisher, canonical page, original publication date, modification date, article image/dimensions, language, and tags. Breadcrumbs describe Home → Blog → Article. This follows the fields described in [Google's Article structured-data documentation](https://developers.google.com/search/docs/appearance/structured-data/article). Schema describes real published content; it never includes draft bodies.
 - Blog listings have collection/list structured data and crawlable previous/next links. Each pagination page canonicalizes to itself. Filtered listings use `noindex, follow`, and invalid or out-of-range page numbers return 404. This follows [Google's pagination guidance](https://developers.google.com/search/docs/specialty/ecommerce/pagination-and-incremental-page-loading).
-- Sitemap entries include only published article URLs with real modification dates. New publication, updates, and unpublishing expire article, social-image, homepage, listing, sitemap, and RSS caches together.
+- Sitemap entries include only published article URLs with real modification dates. The empty, noindexed blog hub is omitted until the first article is published. New publication, updates, and unpublishing expire article, social-image, homepage, listing, sitemap, and RSS caches together.
 - RSS is discoverable through HTML alternate links. It includes article authors, publication/modification dates, and an accurate channel update date. The feed response uses `noindex` so the XML document does not compete with articles.
 - Article titles use one H1; a Markdown `#` heading renders as H2 in the body. Uploaded images require alt text and retain intrinsic dimensions; cover images preload, and other images can load lazily. Fonts are self-hosted. These improve accessibility and avoid preventable layout/loading costs; field performance must still be measured after launch.
+- Portfolio animation styles have a no-JavaScript fallback so the homepage's name, biography, experience, projects, skills, and contact content remain visible.
 - Admin/preview/auth responses have private caching and `noindex` headers. They require authorization where appropriate. Robots exclusions supplement this access control.
 - Vercel non-production deployments and deployments with `SITE_NOINDEX=true` use both general and Googlebot noindex metadata, global noindex headers, and an empty public sitemap. Crawlable public staging pages allow crawlers to see the noindex directive. [Google explains why a noindex page must remain crawlable](https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag).
 
@@ -35,10 +38,9 @@ Slugs lock after first publication, preserving shared and indexed URLs. Updates 
 npm run lint
 npm run typecheck
 npm test
-npm run test:e2e:production
-npm run test:e2e:preview
+npm run build
 ```
 
-SEO tests cover custom title/description, article versus homepage metadata, canonical pagination, tag/no-result indexing, invalid/repeated query parameters, initial-head metadata for multiple crawlers, real 404s, article/collection schemas, RSS/sitemap discovery, private-route directives, and staging noindex responses. The complete author workflow also verifies that publishing and unpublishing expire cached public output.
+SEO unit tests cover custom title/description, versioned social images, article/collection schemas, canonical pagination, tag/no-result indexing, invalid/repeated query parameters, staging indexing rules, and sitemap contents. Inspect initial-head metadata, PNG responses, and publication cache changes directly against a production build when changing rendering or publishing behavior.
 
-Verified locally on 6 October 2026: build, lint, typecheck, 21 unit/integration tests, six production browser checks, and one staging-indexing check passed. Live Search Console verification and production crawler inspection require deployment and account setup.
+See the [website SEO audit](seo-audit.md) for current findings. Live Search Console verification requires account access.

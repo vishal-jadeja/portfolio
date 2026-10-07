@@ -1,4 +1,4 @@
-/** Isolated test-only Supabase-shaped HTTP backend backed by the actual blog SQL. */
+/** Isolated local-preview Supabase-shaped backend backed by the actual blog SQL. */
 import { createServer } from "node:http";
 import { readFile } from "node:fs/promises";
 import { PGlite } from "@electric-sql/pglite";
@@ -12,7 +12,7 @@ await db.exec(
 );
 await db.exec(
   await readFile(
-    new URL("../../supabase/migrations/202610060001_blog.sql", import.meta.url),
+    new URL("../supabase/migrations/202610060001_blog.sql", import.meta.url),
     "utf8",
   ),
 );
@@ -80,7 +80,7 @@ const png = await sharp({
   .toBuffer();
 const objects = new Map<string, Buffer>();
 if (process.env.BLOG_DEMO === "1") {
-  const { seedBlogDemo } = await import("../../scripts/blog-demo-seed.mjs");
+  const { seedBlogDemo } = await import("./blog-demo-seed.mjs");
   await seedBlogDemo(db, objects, owner, draft.id);
 }
 let queue: Promise<unknown> = Promise.resolve();
@@ -115,7 +115,7 @@ createServer(async (request, response) => {
   const send = (data: unknown, status = 200) => {
     response.writeHead(status, {
       "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "http://127.0.0.1:3100",
+      "Access-Control-Allow-Origin": ["http://127.0.0.1:3100", "http://127.0.0.1:3101"].includes(String(request.headers.origin)) ? String(request.headers.origin) : "http://127.0.0.1:3100",
       "Access-Control-Allow-Headers": "*",
       "Access-Control-Allow-Methods": "GET,POST,PUT,PATCH,DELETE,OPTIONS",
       "Content-Range": "0-0/*",
@@ -137,14 +137,17 @@ createServer(async (request, response) => {
     user_metadata: {},
     created_at: new Date().toISOString(),
   };
-  if (url.pathname === "/fixture/session") {
+  if (url.pathname === "/fixture/session" || (process.env.BLOG_DEMO === "1" && url.pathname === "/fixture/login")) {
     const now = Math.floor(Date.now() / 1000);
     const token = `${Buffer.from(JSON.stringify({ alg: "HS256", typ: "JWT" })).toString("base64url")}.${Buffer.from(JSON.stringify({ sub: owner, exp: now + 3600, iat: now, aud: "authenticated", role: "authenticated", iss: `${origin}/auth/v1` })).toString("base64url")}.fixture`;
-    return send({
-      name: "sb-127-auth-token",
-      value: `base64-${Buffer.from(JSON.stringify({ access_token: token, refresh_token: "fixture-refresh", expires_in: 3600, expires_at: now + 3600, token_type: "bearer", user })).toString("base64url")}`,
-    });
+    const value = `base64-${Buffer.from(JSON.stringify({ access_token: token, refresh_token: "fixture-refresh", expires_in: 3600, expires_at: now + 3600, token_type: "bearer", user })).toString("base64url")}`;
+    if (url.pathname === "/fixture/login") {
+      response.writeHead(302, { "Set-Cookie": `sb-127-auth-token=${value}; Path=/; SameSite=Lax`, "Location": "http://127.0.0.1:3101/admin/blog", "Cache-Control": "no-store" });
+      return response.end();
+    }
+    return send({ name: "sb-127-auth-token", value });
   }
+
   if (url.pathname === "/auth/v1/user") return send(user);
   if (url.pathname === "/auth/v1/.well-known/jwks.json")
     return send({ keys: [] });

@@ -353,7 +353,7 @@ Gate: all acceptance tests below pass or unresolved environment limitations are 
 | Integration | Portfolio nav/theme/chat still work on home; blog has working Home links; zero/one/two/many posts; no modulo-zero card behavior |
 | Operations | Database outage produces an error rather than fake empty content; export plus media backup recovery documented and sampled |
 
-Use Vitest (or equivalent minimal runner) for validation/Markdown helpers, SQL/integration checks for RLS and transaction rules, and a small Playwright suite for the publishing flow. Test cache behavior against `next build && next start`, not only development mode.
+Use Vitest for validation/Markdown/SEO helpers and SQL integration checks for RLS and transaction rules. Verify the publishing flow and cache behavior manually against `next build && next start`, not only development mode.
 
 Performance targets for representative production-like pages: LCP ≤2.5s, CLS ≤0.1, INP ≤200ms where field measurement is available. These are targets, not capacity claims. Keep the editor and syntax-highlighting engine out of reader client bundles; load images responsively and reserve layout space. Existing Vercel monitoring can establish actual results after launch.
 

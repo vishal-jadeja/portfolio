@@ -16,7 +16,7 @@ const env = {
 };
 const backend = spawn(
   process.execPath,
-  ["--import", "tsx", "tests/e2e/backend.mts"],
+  ["--import", "tsx", "scripts/blog-preview-backend.mts"],
   { env, stdio: "inherit" },
 );
 let stopped = false;

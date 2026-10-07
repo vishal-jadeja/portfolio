@@ -2,11 +2,10 @@ import { socials } from "@/data/socials";
 import { skillCategories } from "@/data/skills";
 
 /**
- * Canonical origin. Overridable per-environment so Vercel preview deploys
- * canonicalize to themselves instead of pointing at production.
+ * Canonical origin. Previews may override it while remaining noindexed.
  */
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ??
+  process.env.NEXT_PUBLIC_SITE_URL?.trim().replace(/\/+$/, "") ||
   "https://www.vishaljadeja.xyz";
 
 export const SITE_NAME = "Vishal Jadeja";

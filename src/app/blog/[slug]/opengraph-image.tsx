@@ -33,11 +33,15 @@ export default async function Image({
       </div>
       <div
         style={{
-          display: "flex",
-          fontSize: post.title.length > 90 ? 48 : 62,
+          display: "block",
+          width: "100%",
+          // The editor accepts 160 characters, including a single long token.
+          // Leave room for the byline even at the maximum title length.
+          fontSize: post.title.length > 120 ? 42 : post.title.length > 70 ? 48 : 62,
           fontWeight: 700,
           lineHeight: 1.15,
           letterSpacing: -2,
+          wordBreak: "break-word",
         }}
       >
         {post.title}

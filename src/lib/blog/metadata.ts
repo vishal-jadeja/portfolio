@@ -5,6 +5,15 @@ export const BLOG_DESCRIPTION =
   "Notes on engineering, systems, and things I learn along the way.";
 export const PAGE_SIZE = 12;
 export type BlogSearch = { page?: string | string[]; tag?: string | string[] };
+export function missingPageMetadata(title = "Page not found"): Metadata {
+  return {
+    title,
+    robots: pageRobots(false, false),
+    alternates: { canonical: null },
+    openGraph: null,
+    twitter: null,
+  };
+}
 export function parseBlogSearch(search: BlogSearch) {
   const rawPage = search.page ?? "1";
   const validPage =
@@ -82,7 +91,7 @@ export function listingMetadata(
 }
 export function articleMetadata(post: Publication): Metadata {
   const url = `${SITE_URL}/blog/${post.slug}`;
-  const image = `${url}/opengraph-image`;
+  const image = `${url}/opengraph-image?v=${post.source_version}`;
   return {
     title: post.seo_title || post.title,
     description: post.seo_description || post.excerpt,
@@ -104,7 +113,13 @@ export function articleMetadata(post: Publication): Metadata {
       modifiedTime: post.modified_at,
       authors: [SITE_URL],
       tags: post.tags,
-      images: [{ url: image, width: 1200, height: 630, alt: post.title }],
+      images: [{
+        url: image,
+        width: 1200,
+        height: 630,
+        type: "image/png",
+        alt: post.title,
+      }],
     },
     twitter: {
       card: "summary_large_image",
@@ -112,7 +127,10 @@ export function articleMetadata(post: Publication): Metadata {
       description: post.excerpt,
       site: X_HANDLE,
       creator: X_HANDLE,
-      images: [{ url: `${url}/twitter-image`, alt: post.title }],
+      images: [{
+        url: `${url}/twitter-image?v=${post.source_version}`,
+        alt: post.title,
+      }],
     },
   };
 }
@@ -150,7 +168,7 @@ export function articleStructuredData(post: Publication, cover?: MediaView) {
         },
         image: {
           "@type": "ImageObject",
-          url: cover?.url ?? `${url}/opengraph-image`,
+          url: cover?.url ?? `${url}/opengraph-image?v=${post.source_version}`,
           width: cover?.width ?? 1200,
           height: cover?.height ?? 630,
           caption: cover?.caption ?? post.title,

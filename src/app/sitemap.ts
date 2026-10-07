@@ -7,7 +7,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const posts = await listSitemapEntries();
   return [
     { url: SITE_URL, changeFrequency: "monthly", priority: 1 },
-    { url: `${SITE_URL}/blog`, changeFrequency: "weekly", priority: 0.8 },
+    // An empty writing hub is noindexed; only advertise it once published.
+    ...(posts.length
+      ? [{
+          url: `${SITE_URL}/blog`,
+          changeFrequency: "weekly" as const,
+          priority: 0.8,
+        }]
+      : []),
     ...posts.map((post) => ({
       url: `${SITE_URL}/blog/${post.slug}`,
       lastModified: post.modified_at,

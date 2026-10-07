@@ -12,11 +12,8 @@
     "bot:purge": "npx tsx scripts/purge-source.mts",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:e2e": "playwright test",
     "blog:backup": "tsx scripts/blog-backup.mts",
     "blog:cleanup": "tsx scripts/blog-cleanup.mts",
-    "test:e2e:production": "BLOG_E2E_PRODUCTION=1 playwright test",
-    "test:e2e:preview": "BLOG_E2E_PRODUCTION=1 BLOG_E2E_NOINDEX=1 playwright test",
     "blog:preview": "node --import tsx scripts/blog-preview.mts"
   },
   "dependencies": {
@@ -50,7 +47,6 @@
   },
   "devDependencies": {
     "@electric-sql/pglite": "^0.5.8",
-    "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "^4",
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^20",

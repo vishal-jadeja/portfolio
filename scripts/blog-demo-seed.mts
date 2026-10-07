@@ -67,6 +67,7 @@ export async function seedBlogDemo(
       .toBuffer();
     const path = `demo/${asset.name}.webp`;
     objects.set(`blog-public/${path}`, image);
+    objects.set(`blog-drafts/demo/${asset.name}`, image);
     objects.set(`blog-drafts/demo/${asset.name}.webp`, image);
     await db.query(
       "insert into public.blog_media(id,owner_id,post_id,private_object_path,public_object_path,mime_type,bytes,width,height,checksum,alt_text,caption,state,validated_at) values($1,$2,$3,$4,$5,'image/webp',$6,$7,$8,$9,$10,$11,'ready',now())",

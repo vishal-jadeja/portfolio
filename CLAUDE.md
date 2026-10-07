@@ -10,7 +10,7 @@ npm run build    # Production build
 npm run lint     # Run ESLint
 ```
 
-`npm test` runs content and Postgres integration tests; `npm run test:e2e` runs isolated browser tests.
+`npm test` runs content, SEO, and Postgres integration tests.
 
 ## Stack
 

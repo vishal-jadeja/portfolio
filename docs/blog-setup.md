@@ -38,19 +38,15 @@ npm run lint
 npm run typecheck
 npm test
 npm run build
-npx playwright install chromium
-npm run test:e2e
-npm run test:e2e:production
-npm run test:e2e:preview
 ```
 
-The unit/integration tests run against an embedded PostgreSQL engine using the actual migration plus simulated Supabase roles/UIDs. They cover RLS, private drafts, version conflicts, slug uniqueness, snapshot publication/update/unpublication, retry behavior, archive/restore, and upload reservations. Supabase Auth, Storage signing, actual email delivery, and live hosting caches still need verification against the configured development project. Browser tests run locally against an isolated Supabase-shaped HTTP fixture backed by the actual SQL. They exercise the real app and image validator without connecting to production. Production-mode browser tests also build and serve the app locally to check caching and real 404s.
+The unit/integration tests run against an embedded PostgreSQL engine using the actual migration plus simulated Supabase roles/UIDs. They cover RLS, private drafts, version conflicts, slug uniqueness, snapshot publication/update/unpublication, retry behavior, archive/restore, and upload reservations. Supabase Auth, Storage signing, actual email delivery, and live hosting caches still need verification against the configured development project. Check page metadata, real 404s, card image responses, and the publishing flow against a local production build. The local blog preview uses an isolated Supabase-shaped backend in `scripts/blog-preview-backend.mts` and never connects to production.
 
 The production build uses Next.js’s supported Webpack builder; Turbopack builds stalled in the restricted local environment. Development can still use Turbopack. Locally hosted licensed fonts remove Google Fonts network access from builds. Optional chatbot services validate their settings on use instead of blocking blog builds.
 
 ## Local verification completed
 
-On 6 October 2026: production build, lint, and TypeScript checks passed; 21 content/database/image/origin/SEO tests passed; seven production browser checks and a staging-indexing browser check passed. The original three author/reading workflows also passed in development mode. Article and studio screenshots were visually reviewed. The browser backend is isolated test infrastructure, so live Supabase email/auth/storage settings and production hosting still require the deployment checks below.
+The repository uses unit/integration tests and direct production-build checks. Live Supabase email/auth/storage settings and production hosting still require the deployment checks below. See the [SEO audit](seo-audit.md) for the latest findings and verification.
 
 ## Deploy
 

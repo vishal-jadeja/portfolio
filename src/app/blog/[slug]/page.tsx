@@ -12,8 +12,12 @@ import ReadingProgress from "@/components/blog/ReadingProgress";
 import PostList, { formatDate } from "@/components/blog/PostList";
 import { inspectMarkdown, safeJson } from "@/lib/blog/markdown";
 import { highlightMarkdown } from "@/lib/blog/highlight";
-import { SITE_URL, pageRobots } from "@/lib/seo";
-import { articleMetadata, articleStructuredData } from "@/lib/blog/metadata";
+import { SITE_URL } from "@/lib/seo";
+import {
+  articleMetadata,
+  articleStructuredData,
+  missingPageMetadata,
+} from "@/lib/blog/metadata";
 export const revalidate = 300;
 export const dynamic = "force-static";
 export async function generateMetadata({
@@ -23,7 +27,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPublishedPostBySlug(slug);
-  if (!post) return { title: "Article not found", robots: pageRobots(false) };
+  if (!post) return missingPageMetadata("Article not found");
   return articleMetadata(post);
 }
 
