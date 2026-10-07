@@ -33,6 +33,23 @@ describe("blog listing states", () => {
     expect(html).toContain("Subscribe via RSS");
     expect(html).not.toContain("blog-empty-writing");
   });
+  it("shows a cover preview only for articles with a selected cover", async () => {
+    const post: Summary = {
+      post_id: "11111111-1111-4111-8111-111111111111", slug: "published-note",
+      title: "A published note", excerpt: "Real article content.", tags: ["ai"],
+      cover_media_id: "22222222-2222-4222-8222-222222222222", seo_title: null, seo_description: null,
+      author_name: "Vishal Jadeja", published_at: "2026-10-01T12:00:00Z",
+      modified_at: "2026-10-01T12:00:00Z", reading_minutes: 2, source_version: 4,
+    };
+    vi.mocked(listPublishedPosts).mockResolvedValue({ posts: [post], total: 1 });
+    const html = renderToStaticMarkup(await BlogPage({ searchParams: Promise.resolve({}) }));
+    expect(html).toContain('class="blog-post-cover" aria-hidden="true"');
+    expect(html).toContain('/blog/published-note/opengraph-image?v=4');
+    expect(html).toContain("Read more");
+    vi.mocked(listPublishedPosts).mockResolvedValue({ posts: [{ ...post, cover_media_id: null }], total: 1 });
+    const withoutCover = renderToStaticMarkup(await BlogPage({ searchParams: Promise.resolve({}) }));
+    expect(withoutCover).not.toContain('class="blog-post-cover"');
+  });
   it("keeps filtered no-results separate from an unpublished blog", async () => {
     vi.mocked(listPublishedPosts).mockResolvedValue({ posts: [], total: 0 });
     const html = renderToStaticMarkup(await BlogPage({ searchParams: Promise.resolve({ tag: "systems" }) }));
