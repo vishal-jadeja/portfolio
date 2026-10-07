@@ -334,7 +334,7 @@ export default function PostEditor({
                   })
                 }
               >
-                Preview ↗
+                Preview
               </button>
               <button className="blog-button" disabled={busy} onClick={publish}>
                 {busy
@@ -665,7 +665,7 @@ export default function PostEditor({
                   target="_blank"
                   className="blog-button secondary"
                 >
-                  View live ↗
+                  View live
                 </Link>
                 <button
                   className="blog-button secondary"

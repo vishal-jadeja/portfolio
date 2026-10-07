@@ -288,7 +288,6 @@ export default function SearchDialog({ onClose }: { onClose: () => void }) {
                     {entry.meta && <span className="shrink-0 font-mono text-[10.5px] text-text-muted">{entry.meta}</span>}
                     {entry.external && (
                       <span className="shrink-0 text-text-muted">
-                        <span aria-hidden="true">↗</span>
                         <span className="sr-only">(opens externally)</span>
                       </span>
                     )}

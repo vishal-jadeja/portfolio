@@ -16,7 +16,7 @@ export default function EmptyWriting() {
             you’ll find it here.
           </p>
           <Link className="blog-text-link" href="/projects">
-            Explore my work <span aria-hidden="true">↗</span>
+            Explore my work
           </Link>
         </div>
       </section>

@@ -1,18 +1,15 @@
 export interface SkillCategory {
   title: string;
-  icon: string;
   skills: string[];
 }
 
 export const skillCategories: SkillCategory[] = [
   {
     title: "Languages",
-    icon: "⚡",
     skills: ["JavaScript", "TypeScript", "Python", "C++", "C"],
   },
   {
     title: "Frontend",
-    icon: "🎨",
     skills: [
       "React.js",
       "Next.js",
@@ -25,7 +22,6 @@ export const skillCategories: SkillCategory[] = [
   },
   {
     title: "Backend",
-    icon: "⚙️",
     skills: [
       "Node.js",
       "Express.js",
@@ -38,7 +34,6 @@ export const skillCategories: SkillCategory[] = [
   },
   {
     title: "AI / ML",
-    icon: "🤖",
     skills: [
       "LLM API Integration (Gemini, Cerebras, Groq)",
       "RAG Pipelines",
@@ -49,7 +44,6 @@ export const skillCategories: SkillCategory[] = [
   },
   {
     title: "Databases",
-    icon: "🗄️",
     skills: [
       "MongoDB",
       "Indexing & Aggregation",
@@ -60,7 +54,6 @@ export const skillCategories: SkillCategory[] = [
   },
   {
     title: "Architecture",
-    icon: "🏗️",
     skills: [
       "Microservices",
       "Event-Driven Systems",
@@ -74,7 +67,6 @@ export const skillCategories: SkillCategory[] = [
   },
   {
     title: "DevOps & Tools",
-    icon: "🚀",
     skills: ["Git", "Bitbucket CI/CD", "Jest", "Agile / Scrum"],
   },
 ];

@@ -144,7 +144,7 @@ export default function Projects() {
             rel="noopener noreferrer"
             className="link-underline text-sm font-medium text-text-muted hover:text-text-main transition-colors"
           >
-            GitHub profile ↗
+            GitHub profile
           </a>
         </motion.div>
       </div>
