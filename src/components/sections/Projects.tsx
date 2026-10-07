@@ -1,12 +1,21 @@
 "use client";
 
+import { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { HOME_PROJECT_COUNT, projects } from "@/data/projects";
 import { projectAnchorId } from "@/lib/search/static-entries";
+import { hashId } from "@/lib/search/hash";
 
 export default function Projects() {
+  // Old /#project-<slug> links to cards no longer on the home page move to /projects.
+  useEffect(() => {
+    const id = hashId(window.location.hash);
+    if (!document.getElementById(id) && projects.some((p) => projectAnchorId(p.title) === id))
+      window.location.replace(`/projects#${id}`);
+  }, []);
+
   return (
     <section id="projects" className="py-8 px-5 sm:px-8 bg-bg">
       <div className="max-w-[840px] mx-auto">

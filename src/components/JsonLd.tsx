@@ -1,5 +1,5 @@
 import { experiences } from "@/data/experience";
-import { projects } from "@/data/projects";
+import { HOME_PROJECT_COUNT, projects } from "@/data/projects";
 import { email } from "@/data/socials";
 import {
   GITHUB_AVATAR,
@@ -70,7 +70,8 @@ function buildGraph() {
     "@type": "ItemList",
     "@id": `${SITE_URL}/#projects`,
     name: `Projects by ${PERSON.name}`,
-    itemListElement: projects.map((project, index) => ({
+    // Only the projects the home page shows; /projects carries the full list.
+    itemListElement: projects.slice(0, HOME_PROJECT_COUNT).map((project, index) => ({
       "@type": "ListItem",
       position: index + 1,
       item: {
