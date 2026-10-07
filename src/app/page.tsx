@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { PERSON, SITE_NAME, SITE_URL, X_HANDLE, pageRobots } from "@/lib/seo";
-import ViewCounter from "@/components/ViewCounter";
 import Blog from "@/components/sections/Blog";
-import PortfolioEnhancements from "@/components/PortfolioEnhancements";
+import PortfolioShell from "@/components/PortfolioShell";
 import JsonLd from "@/components/JsonLd";
-import Navbar from "@/components/Navbar";
 import Hero from "@/components/sections/Hero";
 import About from "@/components/sections/About";
 import Experience from "@/components/sections/Experience";
@@ -52,55 +50,25 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className="portfolio-shell max-w-[840px] mx-auto min-h-screen bg-bg border-x border-border-main">
-      <noscript>
-        <style>{`
-          .portfolio-shell main [style*="opacity:0"],
-          .portfolio-shell main [style*="opacity: 0"] {
-            opacity: 1 !important;
-            transform: none !important;
-          }
-          .portfolio-shell main [style*="height:0"],
-          .portfolio-shell main [style*="height: 0"] {
-            height: auto !important;
-          }
-        `}</style>
-      </noscript>
+    <PortfolioShell showViews>
       <JsonLd />
-      <Navbar />
-      <PortfolioEnhancements />
-      <main id="main-content">
-        <Hero />
-        <SectionDivider />
-        <About />
-        <SectionDivider />
-        <Experience />
-        <SectionDivider />
-        <Projects />
-        <SectionDivider />
-        <Skills />
-        <SectionDivider />
-        <GitHubContributions />
-        <SectionDivider />
-        <Blog />
-        <SectionDivider />
-        <Quote />
-        <SectionDivider />
-        <Contact />
-      </main>
-      <footer className="border-t border-[var(--glass-border)] py-8 px-5 sm:px-8 bg-bg">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-          <span className="font-sans font-semibold text-text-main text-sm">
-            Vishal Jadeja
-          </span>
-          <div className="flex items-center gap-4">
-            <ViewCounter />
-            <span className="font-mono text-text-muted text-xs">
-              © {new Date().getFullYear()} · Built with Next.js + TypeScript
-            </span>
-          </div>
-        </div>
-      </footer>
-    </div>
+      <Hero />
+      <SectionDivider />
+      <About />
+      <SectionDivider />
+      <Experience />
+      <SectionDivider />
+      <Projects />
+      <SectionDivider />
+      <Skills />
+      <SectionDivider />
+      <GitHubContributions />
+      <SectionDivider />
+      <Blog />
+      <SectionDivider />
+      <Quote />
+      <SectionDivider />
+      <Contact />
+    </PortfolioShell>
   );
 }

@@ -8,7 +8,7 @@ import { staticSearchEntries } from "@/lib/search/static-entries";
 import { KIND_LABELS, type SearchEntry, type SearchKind } from "@/lib/search/types";
 import { SearchIcon } from "./SearchButton";
 import { hashId } from "@/lib/search/hash";
-import { flashAnchor } from "./SiteSearch";
+import { REVEAL_ANCHOR_EVENT, flashAnchor } from "./SiteSearch";
 
 const STATIC_ENTRIES = staticSearchEntries();
 const GROUP_LIMIT = 6;
@@ -160,6 +160,7 @@ export default function SearchDialog({ onClose }: { onClose: () => void }) {
       // Same page: scroll ourselves so repeat searches for the same hash still move.
       // Deferred until the dialog has unmounted and released its scroll lock.
       window.history.pushState(null, "", url.hash);
+      window.dispatchEvent(new CustomEvent(REVEAL_ANCHOR_EVENT, { detail: id }));
       window.setTimeout(() => {
         const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
         // "#top" means the top of the document, as in the HTML spec and Next's router.

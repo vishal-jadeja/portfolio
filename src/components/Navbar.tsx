@@ -1,18 +1,23 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import ThemeToggle from "@/components/ThemeToggle";
 import SiteSearch from "@/components/search/SiteSearch";
 import SearchButton from "@/components/search/SearchButton";
 
-const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Experience", href: "#experience" },
-  { label: "Projects", href: "#projects" },
-  { label: "Blog", href: "/blog" },
-  { label: "Contact", href: "#contact" },
-];
+// Root-relative so they also work from /projects; on the home page they only scroll.
+function navLinks(pathname: string) {
+  return [
+    { label: "About", href: "/#about" },
+    { label: "Experience", href: "/#experience" },
+    { label: "Projects", href: pathname === "/projects" ? "/projects" : "/#projects" },
+    { label: "Blog", href: "/blog" },
+    { label: "Contact", href: "/#contact" },
+  ];
+}
 
 function openChat() {
   window.dispatchEvent(new CustomEvent("openChat"));
@@ -21,6 +26,8 @@ function openChat() {
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const links = navLinks(pathname);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -34,22 +41,23 @@ export default function Navbar() {
     >
       <nav className="px-5 sm:px-8 h-14 flex items-center justify-between gap-6">
         {/* Logo */}
-        <a
-          href="#"
+        <Link
+          href="/#top"
           className="font-mono font-bold text-text-main text-sm tracking-widest hover:text-text-muted transition-colors shrink-0"
         >
           VJ
-        </a>
+        </Link>
 
         {/* Desktop links — centered */}
         <ul className="hidden md:flex items-center gap-5 flex-1">
-          {navLinks.map((link) => (
-            <li key={link.href}>
+          {links.map((link) => (
+            <li key={link.label}>
               <motion.a
                 href={link.href}
+                aria-current={link.href === pathname ? "page" : undefined}
                 whileHover={{ y: -1 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                className="text-text-muted hover:text-text-main text-sm font-medium transition-colors duration-150"
+                className="text-text-muted hover:text-text-main aria-[current=page]:text-text-main text-sm font-medium transition-colors duration-150"
               >
                 {link.label}
               </motion.a>
@@ -95,11 +103,12 @@ export default function Navbar() {
       {/* Mobile menu */}
       {menuOpen && (
         <div id="portfolio-mobile-navigation" className="md:hidden border-t border-[var(--glass-border)] bg-bg px-5 py-4 flex flex-col gap-1">
-          {navLinks.map((link) => (
+          {links.map((link) => (
             <a
-              key={link.href}
+              key={link.label}
               href={link.href}
-              className="text-text-muted hover:text-text-main text-sm font-medium py-2.5 border-b border-[var(--glass-border)] last:border-b-0 transition-colors"
+              aria-current={link.href === pathname ? "page" : undefined}
+              className="text-text-muted hover:text-text-main aria-[current=page]:text-text-main text-sm font-medium py-2.5 border-b border-[var(--glass-border)] last:border-b-0 transition-colors"
               onClick={() => setMenuOpen(false)}
             >
               {link.label}

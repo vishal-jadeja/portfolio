@@ -322,6 +322,26 @@ body {
   background: rgba(255, 255, 255, 0.06);
 }
 
+/* Stack filters on /projects: chip look with a real tap target. */
+.chip--filter {
+  padding: 5px 11px;
+  cursor: pointer;
+}
+.chip--filter:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.chip--filter[aria-pressed="true"] {
+  background: var(--theme-text-main);
+  border-color: var(--theme-text-main);
+  color: var(--theme-bg);
+}
+/* A card's stack entry matching the active filter. */
+.chip--match {
+  border-color: var(--theme-text-muted);
+  color: var(--theme-text-main);
+}
+
 /* Backward compat */
 .skill-tag {
   display: inline-flex;

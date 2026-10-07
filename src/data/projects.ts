@@ -219,3 +219,6 @@ export const projects: Project[] = [
   //   github: "https://github.com/vishal-jadeja/Movie-Recommendation-System",
   // },
 ];
+
+/** How many projects (from the top of the list) the home page shows; /projects shows all. */
+export const HOME_PROJECT_COUNT = 4;

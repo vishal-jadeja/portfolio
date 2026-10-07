@@ -95,7 +95,7 @@ describe("search index", () => {
     expect(new Set(anchors).size).toBe(projects.length);
     expect(anchors).toContain("project-amazon-clone");
     const deplyx = staticSearchEntries().find((e) => e.title === "Deplyx");
-    expect(deplyx?.href).toBe("/#project-deplyx");
+    expect(deplyx?.href).toBe("/projects#project-deplyx");
   });
   it("orders articles newest first and links tags to the filtered listing", () => {
     const entries = blogSearchEntries(posts);

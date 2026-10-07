@@ -8,6 +8,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const posts = await listSitemapEntries();
   return [
     { url: SITE_URL, changeFrequency: "monthly", priority: 1 },
+    { url: `${SITE_URL}/projects`, changeFrequency: "monthly", priority: 0.9 },
     // An empty writing hub is noindexed; only advertise it once published.
     ...(posts.length
       ? [{

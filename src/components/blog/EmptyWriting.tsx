@@ -15,7 +15,7 @@ export default function EmptyWriting() {
             No articles published yet. When I have something worth sharing,
             you’ll find it here.
           </p>
-          <Link className="blog-text-link" href="/#projects">
+          <Link className="blog-text-link" href="/projects">
             Explore my work <span aria-hidden="true">↗</span>
           </Link>
         </div>

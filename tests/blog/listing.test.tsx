@@ -13,7 +13,7 @@ describe("blog listing states", () => {
     expect(html).toContain("blog-listing--empty");
     expect(html).toContain("A little quiet, for now.");
     expect(html).toContain("No articles published yet.");
-    expect(html).toContain('href="/#projects"');
+    expect(html).toContain('href="/projects"');
     expect(html).toContain('class="blog-notebook" aria-hidden="true"');
     expect(html).toContain("Engineering / Systems / Learning");
     expect(html).not.toContain("Subscribe via RSS");

@@ -7,12 +7,14 @@ import { hashId } from "@/lib/search/hash";
 const SearchDialog = dynamic(() => import("./SearchDialog"), { ssr: false });
 
 export const OPEN_SEARCH_EVENT = "openSearch";
+/** Fired with an anchor id before a same-page jump, so filtered lists can unhide the target. */
+export const REVEAL_ANCHOR_EVENT = "revealAnchor";
 
 export function openSearch() {
   window.dispatchEvent(new CustomEvent(OPEN_SEARCH_EVENT));
 }
 
-/** Briefly highlights a deep-linked card such as /#project-deplyx. */
+/** Briefly highlights a deep-linked card such as /projects#project-deplyx. */
 export function flashAnchor(id: string) {
   const el = document.getElementById(id);
   if (!el?.hasAttribute("data-search-anchor")) return;

@@ -11,14 +11,14 @@ export function slugify(value: string) {
     .replace(/^-+|-+$/g, "");
 }
 
-/** DOM id of a project card on the home page; search links deep into it. */
+/** DOM id of a project card on /projects (the home page reuses it); search links deep into it. */
 export const projectAnchorId = (title: string) => `project-${slugify(title)}`;
 
 const sections: SearchEntry[] = [
   { id: "page:home", kind: "page", title: "Home", subtitle: "Back to the top of the portfolio", href: "/#top", keywords: ["intro", "hero", "top", "vishal jadeja"] },
   { id: "page:about", kind: "page", title: "About", subtitle: "Who I am and what I work on", href: "/#about", keywords: ["bio", "background", "me"] },
   { id: "page:experience", kind: "page", title: "Experience", subtitle: "Work history", href: "/#experience", keywords: ["work", "jobs", "career", "resume", "cv"] },
-  { id: "page:projects", kind: "page", title: "Projects", subtitle: "Things I've built", href: "/#projects", keywords: ["portfolio", "side projects", "work"] },
+  { id: "page:projects", kind: "page", title: "Projects", subtitle: "Everything I've built", href: "/projects", keywords: ["portfolio", "side projects", "work", "github"] },
   { id: "page:skills", kind: "page", title: "Skills", subtitle: "Languages, frameworks and tools", href: "/#skills", keywords: ["tech stack", "technologies", "tools"] },
   { id: "page:contributions", kind: "page", title: "GitHub activity", subtitle: "Contribution graph", href: "/#contributions", keywords: ["github", "contributions", "commits", "open source"] },
   { id: "page:blog", kind: "page", title: "Blog", subtitle: "All articles", href: "/blog", keywords: ["writing", "articles", "posts", "notes"] },
@@ -37,7 +37,7 @@ export function staticSearchEntries(): SearchEntry[] {
       meta: p.status === "in-progress" ? "In progress" : undefined,
       keywords: p.techStack,
       body: `${p.description} ${p.highlights.join(" ")}`,
-      href: `/#${projectAnchorId(p.title)}`,
+      href: `/projects#${projectAnchorId(p.title)}`,
     })),
     ...experiences.map((e) => ({
       id: `experience:${slugify(`${e.company} ${e.role}`)}`,

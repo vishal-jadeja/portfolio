@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { projects } from "@/data/projects";
+import { HOME_PROJECT_COUNT, projects } from "@/data/projects";
 import { projectAnchorId } from "@/lib/search/static-entries";
 
 export default function Projects() {
@@ -22,7 +23,7 @@ export default function Projects() {
 
         {/* Project cards */}
         <div className="flex flex-col gap-4">
-          {projects.map((project, i) => (
+          {projects.slice(0, HOME_PROJECT_COUNT).map((project, i) => (
             <motion.div
               key={project.title}
               id={projectAnchorId(project.title)}
@@ -120,18 +121,21 @@ export default function Projects() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="flex justify-center mt-10"
+          className="flex flex-col sm:flex-row items-center justify-center gap-x-6 gap-y-4 mt-10"
         >
+          <Link href="/projects" className="modern-btn-outline px-8">
+            View all {projects.length} projects
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </Link>
           <a
             href="https://github.com/vishal-jadeja"
             target="_blank"
             rel="noopener noreferrer"
-            className="modern-btn-outline px-8"
+            className="link-underline text-sm font-medium text-text-muted hover:text-text-main transition-colors"
           >
-            Show All Projects
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
+            GitHub profile ↗
           </a>
         </motion.div>
       </div>
