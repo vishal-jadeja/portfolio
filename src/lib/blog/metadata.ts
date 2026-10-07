@@ -5,7 +5,13 @@ export const BLOG_DESCRIPTION =
   "Notes on engineering, systems, and things I learn along the way.";
 export const PAGE_SIZE = 12;
 // Change when the card design changes, so shared images get a fresh URL.
-const SOCIAL_CARD_VERSION = 2;
+const SOCIAL_CARD_VERSION = 3;
+export function articleImageUrl(
+  post: Pick<Summary, "slug" | "source_version">,
+  kind: "opengraph-image" | "twitter-image" = "opengraph-image",
+) {
+  return `${SITE_URL}/blog/${post.slug}/${kind}?v=${post.source_version}&style=${SOCIAL_CARD_VERSION}`;
+}
 export type BlogSearch = { page?: string | string[]; tag?: string | string[] };
 export function missingPageMetadata(title = "Page not found"): Metadata {
   return {
@@ -93,7 +99,7 @@ export function listingMetadata(
 }
 export function articleMetadata(post: Publication): Metadata {
   const url = `${SITE_URL}/blog/${post.slug}`;
-  const image = `${url}/opengraph-image?v=${post.source_version}&style=${SOCIAL_CARD_VERSION}`;
+  const image = articleImageUrl(post);
   return {
     title: post.seo_title || post.title,
     description: post.seo_description || post.excerpt,
@@ -130,7 +136,7 @@ export function articleMetadata(post: Publication): Metadata {
       site: X_HANDLE,
       creator: X_HANDLE,
       images: [{
-        url: `${url}/twitter-image?v=${post.source_version}&style=${SOCIAL_CARD_VERSION}`,
+        url: articleImageUrl(post, "twitter-image"),
         alt: post.title,
       }],
     },
@@ -170,7 +176,7 @@ export function articleStructuredData(post: Publication, cover?: MediaView) {
         },
         image: {
           "@type": "ImageObject",
-          url: cover?.url ?? `${url}/opengraph-image?v=${post.source_version}&style=${SOCIAL_CARD_VERSION}`,
+          url: cover?.url ?? articleImageUrl(post),
           width: cover?.width ?? 1200,
           height: cover?.height ?? 630,
           caption: cover?.caption ?? post.title,

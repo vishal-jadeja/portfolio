@@ -52,17 +52,34 @@ describe("social card rendering", () => {
       expect((await png(og)).equals(await png(twitter))).toBe(true);
     }
   });
-  it("embeds the published WebP cover in matching dark OG and Twitter cards", async () => {
+  it("uses the full published cover as matching OG and Twitter cards without cropping", async () => {
     await mockCover();
     const og = await png(await articleOG(params()));
     const twitter = await png(await articleTwitter(params()));
     expect(og.equals(twitter)).toBe(true);
     expect(getPublicMedia).toHaveBeenCalledWith(post.post_id);
-    const background = await sharp(og).extract({ left: 20, top: 20, width: 20, height: 20 }).removeAlpha().raw().toBuffer();
+    // A 16:9 cover fits at 1120×630, leaving only 40px side bars.
+    for (const left of [45, 600, 1135]) {
+      const pixel = await sharp(og).extract({ left, top: 5, width: 1, height: 1 }).removeAlpha().raw().toBuffer();
+      expect(pixel[0]).toBeGreaterThan(170);
+      expect(pixel[1]).toBeLessThan(65);
+    }
+    const background = await sharp(og).extract({ left: 20, top: 20, width: 1, height: 1 }).removeAlpha().raw().toBuffer();
     expect(Math.max(...background)).toBeLessThanOrEqual(16);
-    const centre = await sharp(og).extract({ left: 900, top: 300, width: 20, height: 20 }).removeAlpha().raw().toBuffer();
-    expect(centre[0]).toBeGreaterThan(170);
-    expect(centre[1]).toBeLessThan(65);
+  });
+  it("preserves the edges of portrait covers rather than cropping their content", async () => {
+    await mockCover();
+    const image = await sharp({ create: { width: 400, height: 800, channels: 3, background: "#be3020" } })
+      .composite([{ input: await sharp({ create: { width: 400, height: 40, channels: 3, background: "#20be30" } }).png().toBuffer(), left: 0, top: 0 }])
+      .webp().toBuffer();
+    vi.stubGlobal("fetch", vi.fn(async () => new Response(new Uint8Array(image))));
+    const bytes = await png(await articleOG(params()));
+    const top = await sharp(bytes).extract({ left: 600, top: 5, width: 1, height: 1 }).removeAlpha().raw().toBuffer();
+    expect(top[1]).toBeGreaterThan(170);
+    expect(top[0]).toBeLessThan(65);
+    const bottom = await sharp(bytes).extract({ left: 600, top: 625, width: 1, height: 1 }).removeAlpha().raw().toBuffer();
+    expect(bottom[0]).toBeGreaterThan(170);
+    expect(bottom[1]).toBeLessThan(65);
   });
   it("keeps a readable dark text card when the cover cannot be fetched", async () => {
     vi.mocked(getPublishedPostBySlug).mockResolvedValue(post);
@@ -70,6 +87,17 @@ describe("social card rendering", () => {
     await mockCover();
     vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new Error("Image unavailable")));
     expect((await png(await articleOG(params()))).equals(fallback)).toBe(true);
+  });
+  it.each(["HTTP error", "invalid image"])("falls back to text for an unusable cover: %s", async (failure) => {
+    vi.mocked(getPublishedPostBySlug).mockResolvedValue(post);
+    const fallback = await png(await articleOG(params()));
+    await mockCover();
+    vi.stubGlobal("fetch", vi.fn(async () => failure === "HTTP error"
+      ? new Response(null, { status: 404 })
+      : new Response("not an image")));
+    for (const render of [articleOG, articleTwitter]) {
+      expect((await png(await render(params()))).equals(fallback)).toBe(true);
+    }
   });
   it.each([
     "Building scalable backend systems with WebSockets, event-driven architecture, reliable database transactions, and resilient high-performance APIs in production",
@@ -83,16 +111,6 @@ describe("social card rendering", () => {
     ]) {
       // Materialize the crop: sharp.stats() otherwise reads the original input.
       const cropped = await sharp(bytes).removeAlpha().extract(crop).toBuffer();
-      const { channels } = await sharp(cropped).stats();
-      expect(channels.every((channel) => channel.max <= 16)).toBe(true);
-    }
-    await mockCover(title);
-    const covered = await png(await articleOG(params()));
-    for (const crop of [
-      { left: 1140, top: 130, width: 40, height: 370 },
-      { left: 80, top: 585, width: 1040, height: 30 },
-    ]) {
-      const cropped = await sharp(covered).removeAlpha().extract(crop).toBuffer();
       const { channels } = await sharp(cropped).stats();
       expect(channels.every((channel) => channel.max <= 16)).toBe(true);
     }
