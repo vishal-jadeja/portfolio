@@ -121,11 +121,19 @@ export default async function ArticlePage({
           ))}
         </div>
       </article>
+      <hr className="blog-section-divider" />
+      <section className="blog-comments" aria-labelledby="comments-heading">
+        <h2 id="comments-heading">Comments</h2>
+        <p>Coming soon.</p>
+      </section>
       {related.length > 0 && (
-        <section className="blog-related">
-          <h2>Keep reading</h2>
-          <PostList posts={related} />
-        </section>
+        <>
+          <hr className="blog-section-divider" />
+          <section className="blog-related" aria-labelledby="related-heading">
+            <h2 id="related-heading">Keep reading</h2>
+            <PostList posts={related} />
+          </section>
+        </>
       )}
       <ReadingProgress headings={headings} />
       <script

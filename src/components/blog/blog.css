@@ -844,13 +844,20 @@ body:has(.blog-listing--empty) {
 .blog-share-options button {
   grid-column: 1 / -1;
 }
-.blog-related {
-  margin-top: 52px;
+.blog-section-divider {
+  border: 0;
+  border-top: 1px solid var(--theme-border-main);
+  margin: 36px 0;
 }
+.blog-comments > h2,
 .blog-related > h2 {
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 22px;
+}
+.blog-comments p {
+  color: var(--theme-text-muted);
+  font-size: 14px;
 }
 .blog-button {
   display: inline-flex;
