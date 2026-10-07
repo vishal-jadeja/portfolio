@@ -14,7 +14,7 @@ function ViewCounterHero() {
   useEffect(() => {
     fetch('/api/views?page=/')
       .then((r) => r.json())
-      .then((data) => setCount(data.count))
+      .then((data) => { if (typeof data.count === "number") setCount(data.count); })
       .catch(() => { });
   }, []);
   if (count === null) return null;

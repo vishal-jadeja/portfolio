@@ -15,9 +15,10 @@ import { buildSystemPrompt } from "@/lib/rag/prompt-builder";
 // Module-level singletons (instantiated once per server process)
 // ---------------------------------------------------------------------------
 
-const groq = new Groq({ apiKey: env.GROQ_API_KEY });
+let groq: Groq | undefined;
+function getGroq() { return groq ??= new Groq({ apiKey: env.GROQ_API_KEY }); }
 // const gemini = new GoogleGenAI({ apiKey: env.GOOGLE_API_KEY });
-const isDev = env.NODE_ENV === "development";
+const isDev = process.env.NODE_ENV === "development";
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -215,7 +216,7 @@ export async function POST(request: Request): Promise<Response> {
   // 9. Start Groq streaming
   let groqStream: AsyncIterable<Groq.Chat.Completions.ChatCompletionChunk>;
   try {
-    groqStream = await groq.chat.completions.create({
+    groqStream = await getGroq().chat.completions.create({
       model: "openai/gpt-oss-120b",
       messages: groqMessages,
       // gpt-oss is a reasoning model: reasoning tokens count against max_tokens

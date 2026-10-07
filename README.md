@@ -19,7 +19,7 @@ A single-page developer portfolio built with Next.js 16 and React 19, featuring 
 
 ## Overview
 
-This repo powers [www.vishaljadeja.xyz](https://www.vishaljadeja.xyz) — a fast, animated, single-page portfolio with no backend framework, no CMS, and no dynamic routes. Content is authored as plain TypeScript objects and rendered by section components. The only "backend" is a lightweight RAG chat API that lets visitors ask questions about my background and get answers pulled from a real knowledge base instead of a canned FAQ.
+This repo powers [www.vishaljadeja.xyz](https://www.vishaljadeja.xyz) — a fast, animated, single-page portfolio with typed portfolio sections, an owner-managed Markdown blog backed by Supabase, and dynamic article routes. Portfolio content is authored as TypeScript objects; blog content is managed through the private studio. The only "backend" is a lightweight RAG chat API that lets visitors ask questions about my background and get answers pulled from a real knowledge base instead of a canned FAQ.
 
 ## Features
 
@@ -48,7 +48,7 @@ This repo powers [www.vishaljadeja.xyz](https://www.vishaljadeja.xyz) — a fast
 | AI / RAG | Google Gemini (embeddings + generation), Pinecone (vector store) |
 | Data | Supabase, gray-matter (MDX frontmatter parsing) |
 | Analytics | Vercel Analytics, Vercel Speed Insights |
-| Fonts | Bebas Neue (headings), Space Grotesk (body), JetBrains Mono (code) |
+| Fonts | DM Sans (portfolio), Hanken Grotesk (blog), Playfair Display (blog headings), JetBrains Mono (code), hosted locally |
 
 ## Project Structure
 
@@ -75,7 +75,7 @@ src/
 
 ## Getting Started
 
-**Prerequisites:** Node.js 18.18+ and npm.
+**Prerequisites:** Node.js 22+ and npm.
 
 ```bash
 git clone <your-repo-url>
@@ -125,3 +125,11 @@ Deployed on [Vercel](https://vercel.com). Push to `main` and Vercel builds and d
 ## License
 
 MIT © Vishal Jadeja
+
+## Blog
+
+The portfolio includes public `/blog` and `/blog/[slug]` pages plus an owner-only `/admin/blog` studio. Write/import Markdown, upload images, preview, and publish without a rebuild. Private drafts are separate from public snapshots. Articles include code highlighting, heading links, social sharing cards, RSS, and sitemap entries.
+
+Follow [blog setup and operations](docs/blog-setup.md) to apply the Supabase migration, provision the owner, configure auth/email/environment, verify publication, and back up content. The [architecture plan](docs/blog-architecture-plan.md) records the design.
+
+For a sample without Supabase setup, run `npm run blog:preview` and open http://127.0.0.1:3101/blog/building-a-quieter-place-to-write. Public blog typography uses locally hosted Playfair Display and Hanken Grotesk, with a frosted sticky header and a reading-progress menu.

@@ -10,7 +10,7 @@ npm run build    # Production build
 npm run lint     # Run ESLint
 ```
 
-No test suite is configured. There is no `test` script.
+`npm test` runs content and Postgres integration tests; `npm run test:e2e` runs isolated browser tests.
 
 ## Stack
 
@@ -21,7 +21,7 @@ No test suite is configured. There is no `test` script.
 
 ## Architecture
 
-This is a single-page portfolio. `src/app/page.tsx` renders all sections sequentially. There are no dynamic routes and no API routes yet.
+This is a single-page portfolio. `src/app/page.tsx` renders all sections sequentially. Blog routes, a private owner studio, and API routes are implemented. See docs/blog-setup.md and docs/blog-architecture-plan.md.
 
 **Data flow:** Static TypeScript objects in `src/data/` → imported directly into section components → no server fetching, no state management library.
 
@@ -51,10 +51,10 @@ All styles live in `src/app/globals.css`. Dark mode is toggled by adding/removin
 - `--theme-text-main`, `--theme-text-muted`, `--theme-border-main`
 - `--color-accent: #FFE600`, `--color-accent-red`, `--color-accent-blue`
 
-**Fonts** (loaded via `next/font/google` in `layout.tsx`, referenced as CSS variables):
+**Fonts** (loaded locally via `next/font/local` in `layout.tsx`, referenced as CSS variables):
 
-- `font-heading` class → Bebas Neue (`--font-heading`)
-- `font-sans` default → Space Grotesk
+- `font-heading` class → DM Sans (`--font-dm-sans`)
+- `font-sans` default → DM Sans
 - `font-mono` → JetBrains Mono
 
 ## Animations

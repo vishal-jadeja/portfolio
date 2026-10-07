@@ -1,14 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useSyncExternalStore } from "react";
 
 type Theme = "light" | "dark";
 
-// Must match :root and :root.dark --theme-bg in globals.css
-const THEME_BG: Record<Theme, string> = {
-  light: "#fafafa",
-  dark: "#080808",
-};
+function subscribeTheme(notify: () => void) {
+  const observer = new MutationObserver(notify);
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+  return () => observer.disconnect();
+}
+function themeSnapshot(): Theme { return document.documentElement.classList.contains("dark") ? "dark" : "light"; }
 
 function SunIcon() {
   return (
@@ -39,16 +40,8 @@ function applyTheme(theme: Theme) {
 }
 
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme>("light");
-  const [mounted, setMounted] = useState(false);
+  const theme = useSyncExternalStore(subscribeTheme, themeSnapshot, () => "light");
   const btnRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    setMounted(true);
-    const saved = (localStorage.getItem("theme") as Theme) ?? "light";
-    setTheme(saved);
-    applyTheme(saved);
-  }, []);
 
   function toggle() {
     const next: Theme = theme === "light" ? "dark" : "light";
@@ -67,8 +60,7 @@ export default function ThemeToggle() {
     );
 
     // Fallback if View Transitions API is not supported
-    if (!document.startViewTransition) {
-      setTheme(next);
+    if (!document.startViewTransition || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       localStorage.setItem("theme", next);
       applyTheme(next);
       return;
@@ -81,7 +73,6 @@ export default function ThemeToggle() {
       // Actually standard React state updates inside startViewTransition are batched but may not flush synchronously.
       // Next.js handles this well, but we also manually toggle the class on `document.documentElement`
       // which is synchronous! The only React state is `theme` for the icon.
-      setTheme(next);
       localStorage.setItem("theme", next);
       applyTheme(next);
     });
@@ -102,8 +93,6 @@ export default function ThemeToggle() {
       );
     });
   }
-
-  if (!mounted) return null;
 
   return (
     <button

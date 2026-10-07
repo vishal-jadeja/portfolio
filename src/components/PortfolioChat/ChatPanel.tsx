@@ -1,14 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef } from "react";
 import type { UIMessage } from "ai";
 import type { ChatStatus } from "ai";
 import ChatMessage from "./ChatMessage";
 import TypingIndicator from "./TypingIndicator";
 import StarterQuestions from "./StarterQuestions";
-
-const GITHUB_AVATAR = "https://avatars.githubusercontent.com/vishal-jadeja";
 
 interface Props {
   messages: UIMessage[];

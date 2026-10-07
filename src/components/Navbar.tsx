@@ -8,7 +8,7 @@ const navLinks = [
   { label: "About", href: "#about" },
   { label: "Experience", href: "#experience" },
   { label: "Projects", href: "#projects" },
-  // { label: "Blog", href: "#blog" },
+  { label: "Blog", href: "/blog" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -74,7 +74,9 @@ export default function Navbar() {
           <button
             className="flex flex-col gap-[5px] p-1.5"
             onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Toggle menu"
+            aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={menuOpen}
+            aria-controls="portfolio-mobile-navigation"
           >
             <span className={`block w-5 h-0.5 bg-text-muted transition-all duration-200 ${menuOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
             <span className={`block w-5 h-0.5 bg-text-muted transition-all duration-200 ${menuOpen ? "opacity-0" : ""}`} />
@@ -85,7 +87,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="md:hidden border-t border-[var(--glass-border)] bg-bg px-5 py-4 flex flex-col gap-1">
+        <div id="portfolio-mobile-navigation" className="md:hidden border-t border-[var(--glass-border)] bg-bg px-5 py-4 flex flex-col gap-1">
           {navLinks.map((link) => (
             <a
               key={link.href}

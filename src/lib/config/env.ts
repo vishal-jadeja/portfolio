@@ -37,4 +37,12 @@ function parseEnv() {
   return result.data;
 }
 
-export const env = parseEnv();
+// Validate the chatbot configuration when the chatbot is used, not when unrelated
+// portfolio/blog pages are built. All accesses retain the original validation.
+let parsed: ReturnType<typeof parseEnv> | undefined;
+export const env = new Proxy({} as ReturnType<typeof parseEnv>, {
+  get(_target, property: keyof ReturnType<typeof parseEnv>) {
+    parsed ??= parseEnv();
+    return parsed[property];
+  },
+});

@@ -40,9 +40,7 @@ export const PERSON = {
  */
 export const sameAs: string[] = [
   ...new Set([
-    ...socials
-      .filter((s) => !s.url.startsWith("mailto:"))
-      .map((s) => s.url),
+    ...socials.filter((s) => !s.url.startsWith("mailto:")).map((s) => s.url),
     X_URL,
     YOUTUBE_URL,
   ]),
@@ -52,4 +50,8 @@ export const sameAs: string[] = [
 export const knowsAbout: string[] = skillCategories.flatMap((c) => c.skills);
 
 export const absoluteUrl = (path: string) =>
-  path.startsWith("http") ? path : `${SITE_URL}${path.startsWith("/") ? "" : "/"}${path}`;
+  path.startsWith("http")
+    ? path
+    : `${SITE_URL}${path.startsWith("/") ? "" : "/"}${path}`;
+
+export { isIndexableEnvironment, pageRobots } from "./search-indexing";

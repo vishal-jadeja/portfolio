@@ -1,11 +1,12 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
-import { GitHubCalendar } from 'react-github-calendar';
+import { useEffect, useRef, useState } from "react";
+import { useHydrated } from "@/hooks/useHydrated";
+import { motion } from "framer-motion";
+import { GitHubCalendar } from "react-github-calendar";
 
-const GITHUB_USERNAME = 'vishal-jadeja';
-const LEETCODE_USERNAME = 'vishaljadeja';
+const GITHUB_USERNAME = "vishal-jadeja";
+const LEETCODE_USERNAME = "vishaljadeja";
 
 interface LeetCodeStats {
   solved: number;
@@ -21,22 +22,26 @@ interface LeetCodeStats {
 
 function getCellColor(count: number, isDark: boolean): string {
   if (isDark) {
-    if (count === 0) return '#ffffff08';
-    if (count === 1) return '#FFE60025';
-    if (count <= 3) return '#FFE60055';
-    if (count <= 6) return '#FFE60099';
-    return '#FFE600';
+    if (count === 0) return "#ffffff08";
+    if (count === 1) return "#FFE60025";
+    if (count <= 3) return "#FFE60055";
+    if (count <= 6) return "#FFE60099";
+    return "#FFE600";
   } else {
-    if (count === 0) return '#f1f5f9';
-    if (count === 1) return '#fef08a';
-    if (count <= 3) return '#fde047';
-    if (count <= 6) return '#facc15';
-    return '#eab308';
+    if (count === 0) return "#f1f5f9";
+    if (count === 1) return "#fef08a";
+    if (count <= 3) return "#fde047";
+    if (count <= 6) return "#facc15";
+    return "#eab308";
   }
 }
 
 function formatDate(date: Date): string {
-  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
 }
 
 /** Build a 7×52 grid (rows = day-of-week Sun–Sat, cols = weeks) for the last 364 days */
@@ -45,12 +50,19 @@ function buildHeatmapGrid(calendar: Record<string, number>) {
 
   // Work in UTC so our timestamps match LeetCode's key format exactly.
   // Start from the most recent Sunday (UTC) and go back 52 weeks.
-  const todayUTC = Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate());
+  const todayUTC = Date.UTC(
+    today.getUTCFullYear(),
+    today.getUTCMonth(),
+    today.getUTCDate(),
+  );
   const dayOfWeekUTC = new Date(todayUTC).getUTCDay(); // 0=Sun … 6=Sat
   // Rewind to the Saturday that ends the current week
   const endOfGridUTC = todayUTC + (6 - dayOfWeekUTC) * 86400_000;
 
-  const cells: { date: Date; count: number }[][] = Array.from({ length: 7 }, () => []);
+  const cells: { date: Date; count: number }[][] = Array.from(
+    { length: 7 },
+    () => [],
+  );
 
   for (let week = 51; week >= 0; week--) {
     for (let dow = 0; dow < 7; dow++) {
@@ -68,49 +80,54 @@ function buildHeatmapGrid(calendar: Record<string, number>) {
   return cells; // cells[dow][weekIndex]
 }
 
-
 function LeetCodeHeatmap({ calendar }: { calendar: Record<string, number> }) {
   const grid = buildHeatmapGrid(calendar);
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
-    const check = () => setIsDark(document.documentElement.classList.contains('dark'));
+    const check = () =>
+      setIsDark(document.documentElement.classList.contains("dark"));
     check();
     const obs = new MutationObserver(check);
-    obs.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    obs.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
     return () => obs.disconnect();
   }, []);
 
   return (
     <div className="flex flex-col gap-2">
-      <p className="text-text-muted text-xs font-mono">Submission activity · last 52 weeks</p>
+      <p className="text-text-muted text-xs font-mono">
+        Submission activity · last 52 weeks
+      </p>
       <div className="overflow-x-auto pb-1">
         <div
           style={{
-            display: 'grid',
-            gridTemplateRows: 'repeat(7, 11px)',
-            gridTemplateColumns: 'repeat(52, 11px)',
-            gap: '3px',
+            display: "grid",
+            gridTemplateRows: "repeat(7, 11px)",
+            gridTemplateColumns: "repeat(52, 11px)",
+            gap: "3px",
           }}
         >
           {grid.map((row, dow) =>
             row.map((cell, wi) => (
               <div
                 key={`${dow}-${wi}`}
-                title={`${formatDate(cell.date)}: ${cell.count} submission${cell.count !== 1 ? 's' : ''}`}
+                title={`${formatDate(cell.date)}: ${cell.count} submission${cell.count !== 1 ? "s" : ""}`}
                 style={{
                   gridRow: dow + 1,
                   gridColumn: wi + 1,
-                  width: '11px',
-                  height: '11px',
-                  borderRadius: '2px',
+                  width: "11px",
+                  height: "11px",
+                  borderRadius: "2px",
                   backgroundColor: getCellColor(cell.count, isDark),
-                  border: `1px solid ${isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.06)'}`,
-                  cursor: cell.count > 0 ? 'default' : undefined,
-                  transition: 'opacity 0.15s',
+                  border: `1px solid ${isDark ? "rgba(255,255,255,0.04)" : "rgba(0,0,0,0.06)"}`,
+                  cursor: cell.count > 0 ? "default" : undefined,
+                  transition: "opacity 0.15s",
                 }}
               />
-            ))
+            )),
           )}
         </div>
       </div>
@@ -121,11 +138,11 @@ function LeetCodeHeatmap({ calendar }: { calendar: Record<string, number> }) {
           <div
             key={i}
             style={{
-              width: '10px',
-              height: '10px',
-              borderRadius: '2px',
+              width: "10px",
+              height: "10px",
+              borderRadius: "2px",
               backgroundColor: getCellColor(n, isDark),
-              border: `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'}`,
+              border: `1px solid ${isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)"}`,
               flexShrink: 0,
             }}
           />
@@ -174,7 +191,7 @@ function LeetCodeView() {
   if (error || !stats) {
     return (
       <div className="py-8 text-center text-text-muted text-sm font-mono">
-        Could not load LeetCode stats — visit{' '}
+        Could not load LeetCode stats — visit{" "}
         <a
           href={`https://leetcode.com/${LEETCODE_USERNAME}`}
           target="_blank"
@@ -198,23 +215,42 @@ function LeetCodeView() {
       <div className="flex items-baseline gap-3">
         <span
           className="font-bold text-text-main"
-          style={{ fontSize: 'clamp(2.5rem, 6vw, 4rem)', lineHeight: 1 }}
+          style={{ fontSize: "clamp(2.5rem, 6vw, 4rem)", lineHeight: 1 }}
         >
           {stats.solved}
         </span>
-        <span className="text-text-muted text-base font-medium">problems solved</span>
+        <span className="text-text-muted text-base font-medium">
+          problems solved
+        </span>
       </div>
 
       {/* Difficulty breakdown */}
       <div className="flex flex-col gap-3">
         {[
-          { label: 'Easy', count: stats.easy, pct: easyPct, color: 'bg-emerald-500' },
-          { label: 'Medium', count: stats.medium, pct: medPct, color: 'bg-amber-400' },
-          { label: 'Hard', count: stats.hard, pct: hardPct, color: 'bg-red-500' },
+          {
+            label: "Easy",
+            count: stats.easy,
+            pct: easyPct,
+            color: "bg-emerald-500",
+          },
+          {
+            label: "Medium",
+            count: stats.medium,
+            pct: medPct,
+            color: "bg-amber-400",
+          },
+          {
+            label: "Hard",
+            count: stats.hard,
+            pct: hardPct,
+            color: "bg-red-500",
+          },
         ].map(({ label, count, pct, color }) => (
           <div key={label} className="flex flex-col gap-1.5">
             <div className="flex justify-between items-center">
-              <span className="text-text-muted text-xs font-medium">{label}</span>
+              <span className="text-text-muted text-xs font-medium">
+                {label}
+              </span>
               <span className="font-mono text-text-main text-xs">{count}</span>
             </div>
             <div className="h-1.5 rounded-full bg-[var(--theme-border-main)] overflow-hidden">
@@ -223,7 +259,7 @@ function LeetCodeView() {
                 initial={{ width: 0 }}
                 whileInView={{ width: `${pct}%` }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.8, ease: 'easeOut' }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
               />
             </div>
           </div>
@@ -253,36 +289,38 @@ function LeetCodeView() {
 // ---------------------------------------------------------------------------
 
 export default function GitHubContributions() {
-  const [tab, setTab] = useState<'github' | 'leetcode'>('leetcode');
-  const [mounted, setMounted] = useState(false);
+  const [tab, setTab] = useState<"github" | "leetcode">("github");
+  const mounted = useHydrated();
   const [isDark, setIsDark] = useState(false);
   const calendarScrollRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => setMounted(true), []);
-
   useEffect(() => {
-    const check = () => setIsDark(document.documentElement.classList.contains('dark'));
+    const check = () =>
+      setIsDark(document.documentElement.classList.contains("dark"));
     check();
     const obs = new MutationObserver(check);
-    obs.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    obs.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
     return () => obs.disconnect();
   }, []);
 
   const darkTheme = {
-    light: ['#f1f5f9', '#d1fae5', '#6ee7b7', '#10b981', '#059669'],
-    dark: ['#1a1a1a', '#033a16', '#196c2e', '#2ea043', '#56d364'],
+    light: ["#f1f5f9", "#d1fae5", "#6ee7b7", "#10b981", "#059669"],
+    dark: ["#1a1a1a", "#033a16", "#196c2e", "#2ea043", "#56d364"],
   };
 
   useEffect(() => {
-    if (mounted && tab === 'github' && calendarScrollRef.current) {
-      calendarScrollRef.current.scrollLeft = calendarScrollRef.current.scrollWidth;
+    if (mounted && tab === "github" && calendarScrollRef.current) {
+      calendarScrollRef.current.scrollLeft =
+        calendarScrollRef.current.scrollWidth;
     }
   }, [mounted, tab]);
 
   return (
     <section id="contributions" className="py-8 px-5 sm:px-8 bg-bg">
       <div className="max-w-[840px] mx-auto">
-
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -295,14 +333,16 @@ export default function GitHubContributions() {
 
           {/* Tab toggle */}
           <div className="flex items-center bg-[var(--theme-card)] rounded-lg p-1 gap-1 border border-border-subtle">
-            {(['github', 'leetcode'] as const).map((t) => (
+            {(["github", "leetcode"] as const).map((t) => (
               <button
                 key={t}
                 onClick={() => setTab(t)}
-                className={`px-4 py-1.5 rounded-md text-xs font-semibold tracking-widest uppercase transition-all duration-200 ${tab === t
-                  ? 'bg-[var(--theme-text-main)] text-[var(--theme-bg)]'
-                  : 'text-text-muted hover:text-text-main'
-                  }`}
+                aria-pressed={tab === t}
+                className={`px-4 py-1.5 rounded-md text-xs font-semibold tracking-widest uppercase transition-all duration-200 ${
+                  tab === t
+                    ? "bg-[var(--theme-text-main)] text-[var(--theme-bg)]"
+                    : "text-text-muted hover:text-text-main"
+                }`}
               >
                 {t}
               </button>
@@ -316,32 +356,32 @@ export default function GitHubContributions() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
         >
-          {tab === 'github' ? (
+          {tab === "github" ? (
             <div className="flex flex-col gap-6">
               <div
                 ref={calendarScrollRef}
                 className="overflow-x-auto"
                 style={{
-                  scrollbarWidth: 'thin',
-                  scrollbarColor: 'var(--theme-border-main) transparent',
+                  scrollbarWidth: "thin",
+                  scrollbarColor: "var(--theme-border-main) transparent",
                 }}
               >
                 {mounted ? (
                   <GitHubCalendar
                     username={GITHUB_USERNAME}
-                    colorScheme={isDark ? 'dark' : 'light'}
+                    colorScheme={isDark ? "dark" : "light"}
                     theme={darkTheme}
                     fontSize={12}
                     blockSize={12}
                     blockMargin={4}
                     blockRadius={3}
                     labels={{
-                      legend: { less: 'Less', more: 'More' },
-                      totalCount: '{{count}} contributions in {{year}}',
+                      legend: { less: "Less", more: "More" },
+                      totalCount: "{{count}} contributions in {{year}}",
                     }}
                     style={{
-                      color: 'var(--theme-text-muted)',
-                      fontFamily: 'var(--font-mono)',
+                      color: "var(--theme-text-muted)",
+                      fontFamily: "var(--font-mono)",
                     }}
                   />
                 ) : (

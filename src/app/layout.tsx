@@ -1,36 +1,36 @@
 import type { Metadata, Viewport } from "next";
-import { Analytics } from "@vercel/analytics/next"
-import { SpeedInsights } from "@vercel/speed-insights/next"
-import { DM_Sans, JetBrains_Mono, Playfair_Display } from "next/font/google";
-import DynamicChat from "@/components/PortfolioChat/DynamicChat";
-import DynamicCursor from "@/components/DynamicCursor";
-import JsonLd from "@/components/JsonLd";
-import { PERSON, SITE_NAME, SITE_URL, X_HANDLE } from "@/lib/seo";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import localFont from "next/font/local";
+import { PERSON, SITE_NAME, SITE_URL, X_HANDLE, pageRobots } from "@/lib/seo";
 import "./globals.css";
 
-const dmSans = DM_Sans({
+const dmSans = localFont({
+  src: "./fonts/DM-Sans.woff2",
   variable: "--font-dm-sans",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: "400 700",
   display: "swap",
 });
 
-const playfairDisplay = Playfair_Display({
+const playfairDisplay = localFont({
+  src: "./fonts/Playfair-Display.woff2",
   variable: "--font-playfair",
-  subsets: ["latin"],
-  weight: ["700", "800"],
+  weight: "700 800",
   display: "swap",
 });
 
-const jetbrainsMono = JetBrains_Mono({
+const jetbrainsMono = localFont({
+  src: "./fonts/JetBrains-Mono.woff2",
   variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: "400 500",
   display: "swap",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  verification: process.env.GOOGLE_SITE_VERIFICATION
+    ? { google: process.env.GOOGLE_SITE_VERIFICATION }
+    : undefined,
   title: {
     default: PERSON.headline,
     template: `%s · ${SITE_NAME}`,
@@ -68,17 +68,7 @@ export const metadata: Metadata = {
     description: PERSON.shortDescription,
     ...(X_HANDLE ? { site: X_HANDLE, creator: X_HANDLE } : {}),
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-      "max-video-preview": -1,
-    },
-  },
+  robots: pageRobots(),
 };
 
 // No `colorScheme` here on purpose: the theme is driven by the `.dark` class
@@ -109,12 +99,12 @@ export default function RootLayout({
       <body
         className={`${dmSans.variable} ${jetbrainsMono.variable} ${playfairDisplay.variable} antialiased`}
       >
-        <JsonLd />
+        <a href="#main-content" className="skip-link">
+          Skip to content
+        </a>
         {children}
         <Analytics />
         <SpeedInsights />
-        <DynamicCursor />
-        <DynamicChat />
       </body>
     </html>
   );

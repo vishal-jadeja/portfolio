@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useChat } from "@ai-sdk/react";
 import { TextStreamChatTransport } from "ai";
 import type { UIMessage, PrepareSendMessagesRequest } from "ai";
@@ -43,31 +43,16 @@ export default function PortfolioChat() {
 
   const [initialMessages] = useState<UIMessage[]>(() => loadHistory());
 
-  const sessionIdRef = useRef<string>("");
-  useEffect(() => {
-    sessionIdRef.current = getOrCreateSessionId();
-  }, []);
-
-  const prepareSendMessagesRequest = useRef<PrepareSendMessagesRequest<UIMessage>>(
-    ({ messages }) => ({
-      body: {
-        sessionId: sessionIdRef.current,
-        messages: messages
-          .filter((m) => m.role === "user" || m.role === "assistant")
-          .map((m) => ({
-            role: m.role as "user" | "assistant",
-            content: m.parts
-              .filter((p): p is { type: "text"; text: string } => p.type === "text")
-              .map((p) => p.text)
-              .join(""),
-          }))
-          .filter((m) => m.content.length > 0),
-      },
-    })
-  ).current;
-
   const transport = useMemo(
-    () => new TextStreamChatTransport({ api: "/api/chat", prepareSendMessagesRequest }),
+    () => new TextStreamChatTransport({ api: "/api/chat", prepareSendMessagesRequest: (({ messages }) => ({
+      body: {
+        sessionId: getOrCreateSessionId(),
+        messages: messages.filter(m => m.role === "user" || m.role === "assistant").map(m => ({
+          role: m.role as "user" | "assistant",
+          content: m.parts.filter((p): p is { type: "text"; text: string } => p.type === "text").map(p => p.text).join(""),
+        })).filter(m => m.content.length > 0),
+      },
+    })) satisfies PrepareSendMessagesRequest<UIMessage> }),
     []
   );
 
@@ -82,24 +67,24 @@ export default function PortfolioChat() {
     }
   }, [messages]);
 
-  function handleOpen() {
+  const handleOpen = useCallback(() => {
     setIsOpen(true);
     if (!hasOpened) {
       setHasOpened(true);
       localStorage.setItem(LS_OPENED, "1");
     }
-  }
+  }, [hasOpened]);
 
   useEffect(() => {
     const onOpenChat = () => handleOpen();
     window.addEventListener("openChat", onOpenChat);
     return () => window.removeEventListener("openChat", onOpenChat);
-  }, []);
+  }, [handleOpen]);
 
   function handleClear() {
     localStorage.removeItem(LS_HISTORY);
     localStorage.removeItem(LS_SESSION);
-    sessionIdRef.current = getOrCreateSessionId();
+    getOrCreateSessionId();
     setMessages([]);
   }
 

@@ -4,17 +4,26 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
     "bot:ingest": "npx tsx scripts/ingest.mts",
     "bot:ingest:file": "npx tsx scripts/ingest.mts --file",
-    "bot:purge": "npx tsx scripts/purge-source.mts"
+    "bot:purge": "npx tsx scripts/purge-source.mts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "blog:backup": "tsx scripts/blog-backup.mts",
+    "blog:cleanup": "tsx scripts/blog-cleanup.mts",
+    "test:e2e:production": "BLOG_E2E_PRODUCTION=1 playwright test",
+    "test:e2e:preview": "BLOG_E2E_PRODUCTION=1 BLOG_E2E_NOINDEX=1 playwright test",
+    "blog:preview": "node --import tsx scripts/blog-preview.mts"
   },
   "dependencies": {
     "@ai-sdk/react": "^3.0.145",
     "@google/genai": "^1.0.0",
     "@pinecone-database/pinecone": "^7.1.0",
+    "@supabase/ssr": "^0.12.7",
     "@supabase/supabase-js": "^2.101.1",
     "@vercel/analytics": "^1.6.1",
     "@vercel/speed-insights": "^1.3.1",
@@ -22,6 +31,7 @@
     "framer-motion": "^12.36.0",
     "gray-matter": "^4.0.3",
     "groq-sdk": "^1.1.2",
+    "js-yaml": "^5.4.3",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
@@ -30,10 +40,19 @@
     "react-intersection-observer": "^10.0.3",
     "react-markdown": "^10.1.0",
     "remark-gfm": "^4.0.1",
+    "remark-parse": "^11.0.0",
+    "server-only": "^0.0.1",
+    "sharp": "^0.35.5",
+    "shiki": "^4.5.0",
+    "unified": "^11.0.5",
+    "unist-util-visit": "^5.1.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "^0.5.8",
+    "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "^4",
+    "@types/js-yaml": "^4.0.9",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -41,6 +60,10 @@
     "eslint-config-next": "16.1.6",
     "tailwindcss": "^4",
     "tsx": "^4.21.0",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^3.2.7"
+  },
+  "engines": {
+    "node": ">=22"
   }
 }
