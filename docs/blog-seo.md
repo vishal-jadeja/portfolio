@@ -19,6 +19,18 @@ The blog's search behavior is built into the publishing and rendering system. No
 
 The metadata helpers are in `src/lib/blog/metadata.ts`. Shared environment indexing rules are in `src/lib/search-indexing.ts`.
 
+## Static generation and publication
+
+Existing published articles and their OG/Twitter cards are generated at build time with `generateStaticParams`. The build enumerates only public publication snapshots, in batches, so drafts stay private and large blogs are not truncated by a database response limit. A configured database error fails the build rather than producing an incomplete inventory. An unconfigured or empty blog returns an empty inventory.
+
+New slugs remain available after deployment: the first request generates their HTML or card, then subsequent requests use the cached result. Publishing, updating, unpublishing, and the studio's Refresh public pages action immediately expire the public data tags and relevant paths. The next request regenerates the affected output; no deploy hook or full rebuild is required. This also clears a previously cached 404 when its slug is first published.
+
+Missing social images return an explicit 404 response with `Cache-Control: no-store`. This lets Next.js retain the route's invalidation tags, avoiding an untagged cached 404 that could otherwise survive first publication.
+
+The fallback revalidation interval is one day (86,400 seconds), shared by public query caches, article/card routes, RSS, and the sitemap. It is request-driven recovery for a missed invalidation, not a scheduled job or a publishing delay. If invalidation fails, the studio reports a warning and provides a retry; regeneration failures can retain cached output, so the interval is not a guaranteed removal deadline.
+
+The blog listing remains server-rendered per request because its pagination and tag filters use query parameters; its data is cached and refreshed by the same publication events. The homepage is prerendered and also invalidated by publication. Private admin pages remain dynamic.
+
 ## Writing for search
 
 Use a specific, descriptive title and an excerpt that accurately explains the article. Use section headings that organize the argument, descriptive links, and image alt text that explains the actual image. Write original useful content and link to relevant existing articles. Use the optional search overrides when the visible title or excerpt is unsuitable for a search snippet. No hard snippet character count guarantees how a search engine displays a result.
@@ -42,5 +54,7 @@ npm run build
 ```
 
 SEO unit tests cover custom title/description, versioned social images, article/collection schemas, canonical pagination, tag/no-result indexing, invalid/repeated query parameters, staging indexing rules, and sitemap contents. Inspect initial-head metadata, PNG responses, and publication cache changes directly against a production build when changing rendering or publishing behavior.
+
+The static-generation checks also cover an empty/unconfigured blog, paginated slug enumeration, and database failures during the build. Production verification against the isolated database confirmed 13 prebuilt article pages and 26 social cards with a one-day fallback, first publication after cached 404s, private draft isolation, published updates, discovery/related-link refresh, and unpublishing both prebuilt and runtime-generated output. These checks use direct HTTP requests and the real publishing actions, without browser automation or production data.
 
 See the [website SEO audit](seo-audit.md) for current findings. Live Search Console verification requires account access.

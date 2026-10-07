@@ -58,7 +58,10 @@ describe("social card rendering", () => {
   });
   it("does not render a card for an unpublished or missing article", async () => {
     vi.mocked(getPublishedPostBySlug).mockResolvedValue(null);
-    await expect(articleOG(params())).rejects.toThrow("NEXT_HTTP_ERROR_FALLBACK;404");
-    await expect(articleTwitter(params())).rejects.toThrow("NEXT_HTTP_ERROR_FALLBACK;404");
+    for (const render of [articleOG, articleTwitter]) {
+      const response = await render(params());
+      expect(response.status).toBe(404);
+      expect(response.headers.get("cache-control")).toBe("no-store");
+    }
   });
 });

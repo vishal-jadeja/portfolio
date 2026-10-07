@@ -1,11 +1,14 @@
 import { ImageResponse } from "next/og";
-import { notFound } from "next/navigation";
-import { getPublishedPostBySlug } from "@/lib/blog/queries";
+import { getPublishedPostBySlug, listPublishedSlugs } from "@/lib/blog/queries";
 export const alt = "Article by Vishal Jadeja";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const revalidate = 300;
+// Next.js requires a literal here; match BLOG_REVALIDATE_SECONDS.
+export const revalidate = 86400;
 export const dynamic = "force-static";
+export async function generateStaticParams() {
+  return listPublishedSlugs();
+}
 export default async function Image({
   params,
 }: {
@@ -13,7 +16,12 @@ export default async function Image({
 }) {
   const { slug } = await params;
   const post = await getPublishedPostBySlug(slug);
-  if (!post) notFound();
+  // Return normally so Next records the route's cache tags. Throwing notFound()
+  // here can cache an untagged 404 that first publication cannot invalidate.
+  if (!post) return new Response(null, {
+    status: 404,
+    headers: { "Cache-Control": "no-store" },
+  });
   return new ImageResponse(
     <div
       style={{

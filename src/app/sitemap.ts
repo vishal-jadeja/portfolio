@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL, isIndexableEnvironment } from "@/lib/seo";
 import { listSitemapEntries } from "@/lib/blog/queries";
-export const revalidate = 300;
+// Next.js requires a literal here; match BLOG_REVALIDATE_SECONDS.
+export const revalidate = 86400;
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   if (!isIndexableEnvironment()) return [];
   const posts = await listSitemapEntries();

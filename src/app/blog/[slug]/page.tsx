@@ -5,6 +5,7 @@ import {
   getPublishedPostBySlug,
   getPublicMedia,
   getRelatedPosts,
+  listPublishedSlugs,
 } from "@/lib/blog/queries";
 import ArticleBody, { ArticleImage } from "@/components/blog/ArticleBody";
 import ShareBar from "@/components/blog/ShareBar";
@@ -18,8 +19,14 @@ import {
   articleStructuredData,
   missingPageMetadata,
 } from "@/lib/blog/metadata";
-export const revalidate = 300;
+// Next.js requires a literal here; match BLOG_REVALIDATE_SECONDS.
+export const revalidate = 86400;
 export const dynamic = "force-static";
+// Newly published slugs must work without another deployment.
+export const dynamicParams = true;
+export async function generateStaticParams() {
+  return listPublishedSlugs();
+}
 export async function generateMetadata({
   params,
 }: {

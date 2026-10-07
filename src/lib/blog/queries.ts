@@ -3,8 +3,29 @@ import { unstable_cache } from "next/cache";
 import { publicClient } from "@/lib/supabase/public";
 import { blogConfigured, blogEnv } from "@/lib/config/blog-env";
 import type { Publication, Summary, MediaView } from "./types";
+import { BLOG_REVALIDATE_SECONDS } from "./cache-policy";
 const summaryColumns =
   "post_id,slug,title,excerpt,tags,cover_media_id,seo_title,seo_description,author_name,published_at,modified_at,reading_minutes,source_version";
+
+/** Enumerate public snapshots for build-time generation, including large blogs. */
+export async function listPublishedSlugs(): Promise<{ slug: string }[]> {
+  if (!blogConfigured()) return [];
+  const client = publicClient();
+  const slugs: { slug: string }[] = [];
+  // Do not persist this inventory across deployments. Drafts are never queried.
+  for (let offset = 0; ; offset += 500) {
+    const { data, error } = await client
+      .from("blog_publications")
+      .select("slug")
+      .order("slug")
+      .range(offset, offset + 499);
+    if (error || !data)
+      throw new Error("Unable to load published article slugs for prerendering.");
+    slugs.push(...data);
+    if (data.length < 500) return slugs;
+  }
+}
+
 export function listPublishedPosts(page = 1, tag = "", size = 12) {
   if (!blogConfigured())
     return Promise.resolve({ posts: [] as Summary[], total: 0 });
@@ -24,7 +45,7 @@ export function listPublishedPosts(page = 1, tag = "", size = 12) {
       return { posts: data as Summary[], total: count ?? 0 };
     },
     ["blog-list", String(page), tag, String(size)],
-    { tags: ["blog:posts"], revalidate: 300 },
+    { tags: ["blog:posts"], revalidate: BLOG_REVALIDATE_SECONDS },
   )();
 }
 export function getPublishedPostBySlug(slug: string) {
@@ -45,7 +66,7 @@ export function getPublishedPostBySlug(slug: string) {
       return data as Publication | null;
     },
     ["blog-article", slug],
-    { tags: ["blog:posts", `blog:slug:${slug}`], revalidate: 300 },
+    { tags: ["blog:posts", `blog:slug:${slug}`], revalidate: BLOG_REVALIDATE_SECONDS },
   )();
 }
 export function getPublicMedia(postId: string) {
@@ -66,7 +87,7 @@ export function getPublicMedia(postId: string) {
       })) as MediaView[];
     },
     ["blog-media", postId],
-    { tags: ["blog:posts", `blog:post:${postId}`], revalidate: 300 },
+    { tags: ["blog:posts", `blog:post:${postId}`], revalidate: BLOG_REVALIDATE_SECONDS },
   )();
 }
 export async function getRelatedPosts(post: Publication) {
@@ -114,6 +135,6 @@ export async function listSitemapEntries() {
       return all;
     },
     ["blog-sitemap"],
-    { tags: ["blog:posts"], revalidate: 300 },
+    { tags: ["blog:posts"], revalidate: BLOG_REVALIDATE_SECONDS },
   )();
 }

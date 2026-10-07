@@ -1,7 +1,8 @@
 import { listPublishedPosts } from "@/lib/blog/queries";
 import { xml } from "@/lib/blog/markdown";
 import { SITE_URL } from "@/lib/seo";
-export const revalidate = 300;
+// Next.js requires a literal here; match BLOG_REVALIDATE_SECONDS.
+export const revalidate = 86400;
 export async function GET() {
   const { posts } = await listPublishedPosts(1, "", 50);
   const items = posts
