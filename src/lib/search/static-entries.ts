@@ -15,6 +15,7 @@ export function slugify(value: string) {
 export const projectAnchorId = (title: string) => `project-${slugify(title)}`;
 
 const sections: SearchEntry[] = [
+  { id: "page:gears", kind: "page", title: "Gears", subtitle: "My hardware, software, and everyday setup", href: "/gears", keywords: ["gear", "setup", "hardware", "software", "extensions", "tools"] },
   { id: "page:home", kind: "page", title: "Home", subtitle: "Back to the top of the portfolio", href: "/#top", keywords: ["intro", "hero", "top", "vishal jadeja"] },
   { id: "page:about", kind: "page", title: "About", subtitle: "Who I am and what I work on", href: "/#about", keywords: ["bio", "background", "me"] },
   { id: "page:experience", kind: "page", title: "Experience", subtitle: "Work history", href: "/#experience", keywords: ["work", "jobs", "career", "resume", "cv"] },

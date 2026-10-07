@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PERSON, SITE_NAME, SITE_URL, X_HANDLE, pageRobots } from "@/lib/seo";
 import Blog from "@/components/sections/Blog";
 import PortfolioShell from "@/components/PortfolioShell";
@@ -67,6 +68,16 @@ export default function Home() {
       <SectionDivider />
       <GitHubContributions />
       <SectionDivider />
+      <section id="gears" className="py-8 px-5 sm:px-8 bg-bg">
+        <h2 className="font-semibold text-text-main text-xl mb-4">Gears</h2>
+        <Link href="/gears" className="group flex items-center justify-between gap-4 py-4 border-y border-border-main focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-text-main">
+          <span>
+            <span className="block font-medium text-text-main">My everyday setup</span>
+            <span className="block text-sm text-text-muted mt-1">Hardware, software, browser extensions, AI, and music.</span>
+          </span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="shrink-0 text-text-muted group-hover:text-text-main" aria-hidden="true"><path d="m9 5 7 7-7 7" /></svg>
+        </Link>
+      </section>
       <Personal />
       <SectionDivider />
       <Quote />

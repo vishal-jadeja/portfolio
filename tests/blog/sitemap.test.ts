@@ -12,7 +12,7 @@ afterEach(() => {
 describe("public sitemap", () => {
   it("omits the noindexed empty blog hub", async () => {
     vi.mocked(listSitemapEntries).mockResolvedValue([]);
-    expect((await sitemap()).map((entry) => entry.url)).toEqual([SITE_URL, `${SITE_URL}/projects`]);
+    expect((await sitemap()).map((entry) => entry.url)).toEqual([SITE_URL, `${SITE_URL}/projects`, `${SITE_URL}/gears`]);
   });
   it("includes the hub and published articles with real modification dates", async () => {
     vi.mocked(listSitemapEntries).mockResolvedValue([
@@ -21,6 +21,7 @@ describe("public sitemap", () => {
     expect(await sitemap()).toEqual([
       expect.objectContaining({ url: SITE_URL }),
       expect.objectContaining({ url: `${SITE_URL}/projects` }),
+      expect.objectContaining({ url: `${SITE_URL}/gears` }),
       expect.objectContaining({ url: `${SITE_URL}/blog` }),
       expect.objectContaining({
         url: `${SITE_URL}/blog/published-note`,
