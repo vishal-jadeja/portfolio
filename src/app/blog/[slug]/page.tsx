@@ -14,6 +14,7 @@ import PostList, { formatDate } from "@/components/blog/PostList";
 import { inspectMarkdown, safeJson } from "@/lib/blog/markdown";
 import { highlightMarkdown } from "@/lib/blog/highlight";
 import { SITE_URL } from "@/lib/seo";
+import { categoryLabel } from "@/lib/blog/categories";
 import {
   articleMetadata,
   articleStructuredData,
@@ -116,7 +117,7 @@ export default async function ArticlePage({
         <div className="blog-tags">
           {post.tags.map((tag) => (
             <Link href={`/blog?tag=${encodeURIComponent(tag)}`} key={tag}>
-              {tag}
+              {categoryLabel(tag)}
             </Link>
           ))}
         </div>

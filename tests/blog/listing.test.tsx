@@ -1,11 +1,12 @@
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
-vi.mock("../../src/lib/blog/queries", () => ({ listPublishedPosts: vi.fn() }));
+vi.mock("../../src/lib/blog/queries", () => ({ listPublishedPosts: vi.fn(), listSitemapEntries: vi.fn() }));
 import BlogPage from "../../src/app/blog/page";
-import { listPublishedPosts } from "../../src/lib/blog/queries";
+import { listPublishedPosts, listSitemapEntries } from "../../src/lib/blog/queries";
 import type { Summary } from "../../src/lib/blog/types";
 
 afterEach(() => vi.resetAllMocks());
+beforeEach(() => vi.mocked(listSitemapEntries).mockResolvedValue([]));
 describe("blog listing states", () => {
   it("renders the writing empty state only after a successful zero-count result", async () => {
     vi.mocked(listPublishedPosts).mockResolvedValue({ posts: [], total: 0 });
@@ -53,10 +54,27 @@ describe("blog listing states", () => {
   it("keeps filtered no-results separate from an unpublished blog", async () => {
     vi.mocked(listPublishedPosts).mockResolvedValue({ posts: [], total: 0 });
     const html = renderToStaticMarkup(await BlogPage({ searchParams: Promise.resolve({ tag: "systems" }) }));
-    expect(html).toContain("No articles match this tag.");
+    expect(html).toContain("No articles match this category.");
     expect(html).toContain("Clear filter");
     expect(html).toContain("Subscribe via RSS");
     expect(html).not.toContain("blog-listing--empty");
+  });
+  it("shows category counts from all published posts and resets pagination when switching", async () => {
+    const inventory = [
+      { post_id: "one", tags: ["ai", "personal"] },
+      { post_id: "two", tags: ["ai"] },
+      { post_id: "three", tags: ["engineering"] },
+    ] as Summary[];
+    vi.mocked(listSitemapEntries).mockResolvedValue(inventory);
+    vi.mocked(listPublishedPosts).mockResolvedValue({ posts: [], total: 0 });
+    const html = renderToStaticMarkup(await BlogPage({ searchParams: Promise.resolve({ tag: "ai" }) }));
+    expect(html).toContain('aria-label="Blog categories"');
+    expect(html).toMatch(/<a(?=[^>]*href="\/blog\?tag=ai")(?=[^>]*aria-current="page")[^>]*>/);
+    expect(html).toContain('href="/blog?tag=personal"');
+    expect(html).not.toContain('href="/blog?page=');
+    expect(html).toMatch(/All\s*<span[^>]*>3<\/span>/);
+    expect(html).toMatch(/AI\s*<span[^>]*>2<\/span>/);
+    expect(html).toMatch(/Personal\s*<span[^>]*>1<\/span>/);
   });
   it("does not infer an unpublished blog from an empty page with a nonzero count", async () => {
     vi.mocked(listPublishedPosts).mockResolvedValue({ posts: [], total: 13 });

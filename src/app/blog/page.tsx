@@ -13,7 +13,9 @@ import {
 import { safeJson } from "@/lib/blog/markdown";
 import PostList from "@/components/blog/PostList";
 import EmptyWriting from "@/components/blog/EmptyWriting";
-import { listPublishedPosts } from "@/lib/blog/queries";
+import CategoryFilters from "@/components/blog/CategoryFilters";
+import { categoryLabel } from "@/lib/blog/categories";
+import { listPublishedPosts, listSitemapEntries } from "@/lib/blog/queries";
 export async function generateMetadata({
   searchParams,
 }: {
@@ -33,7 +35,10 @@ export default async function BlogPage({
 }) {
   const { page, tag, valid } = parseBlogSearch(await searchParams);
   if (!valid) notFound();
-  const { posts, total } = await listPublishedPosts(page, tag);
+  const [{ posts, total }, inventory] = await Promise.all([
+    listPublishedPosts(page, tag),
+    listSitemapEntries(),
+  ]);
   if (page > 1 && !posts.length) notFound();
   const emptyWriting = !tag && total === 0 && posts.length === 0;
   const href = (p: number) => listingPath(p, tag);
@@ -49,9 +54,10 @@ export default async function BlogPage({
           </a>
         )}
       </div>
+      {!emptyWriting && <CategoryFilters posts={inventory} active={tag} />}
       {tag && (
         <div className="blog-filter">
-          Tagged “{tag}” <Link href="/blog">Clear filter ×</Link>
+          Category: {categoryLabel(tag)} <Link href="/blog">Clear filter ×</Link>
         </div>
       )}
       {posts.length ? (
@@ -60,7 +66,7 @@ export default async function BlogPage({
         <EmptyWriting />
       ) : (
         <div className="blog-empty">
-          <h2>No articles match this tag.</h2>
+          <h2>No articles match this category.</h2>
           <p>Try another topic, or explore all articles.</p>
         </div>
       )}

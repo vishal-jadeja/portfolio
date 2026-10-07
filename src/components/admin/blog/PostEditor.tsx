@@ -512,9 +512,10 @@ export default function PostEditor({
           <fieldset disabled={busy || archived}>
             <h2>Article details</h2>
             <label className="blog-field">
-              Tags
+              Categories
               <input
-                aria-label="Tags"
+                aria-label="Categories"
+                placeholder="AI, Personal, Engineering"
                 value={tagsText}
                 onChange={(e) => {
                   setTagsText(e.target.value);
@@ -527,7 +528,7 @@ export default function PostEditor({
                   );
                 }}
               />
-              <small>Up to 5 tags, separated by commas.</small>
+              <small>Up to 5 categories, separated by commas. For example: AI, Personal, Engineering.</small>
             </label>
             <label className="blog-field">
               Cover image

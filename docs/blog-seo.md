@@ -19,6 +19,8 @@ The blog's search behavior is built into the publishing and rendering system. No
 
 The metadata helpers are in `src/lib/blog/metadata.ts`. Shared environment indexing rules are in `src/lib/search-indexing.ts`.
 
+The blog listing presents the editor's tags as categories, with counts across all published posts. Category links retain the existing `/blog?tag=...` URLs and reset pagination when switching categories. `/blogs` permanently redirects to `/blog`, preserving valid category and page parameters. The studio's Categories field accepts up to five comma-separated names (such as AI, Personal, or Engineering); storage and Markdown imports/exports continue to use `tags` for compatibility. Cover previews stay anchored to each card on hover or keyboard focus. Article pages show a Comments placeholder before related reading.
+
 ## Static generation and publication
 
 Existing published articles and their OG/Twitter cards are generated at build time with `generateStaticParams`. The build enumerates only public publication snapshots, in batches, so drafts stay private and large blogs are not truncated by a database response limit. A configured database error fails the build rather than producing an incomplete inventory. An unconfigured or empty blog returns an empty inventory.

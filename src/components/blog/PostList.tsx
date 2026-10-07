@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { articleImageUrl } from "@/lib/blog/metadata";
+import { categoryLabel } from "@/lib/blog/categories";
 import type { Summary } from "@/lib/blog/types";
 export function formatDate(date: string) {
   return new Date(date).toLocaleDateString("en-US", {
@@ -23,7 +24,7 @@ export default function PostList({ posts }: { posts: Summary[] }) {
             <div className="blog-tags">
               {post.tags.map((tag) => (
                 <Link key={tag} href={`/blog?tag=${encodeURIComponent(tag)}`}>
-                  {tag}
+                  {categoryLabel(tag)}
                 </Link>
               ))}
             </div>

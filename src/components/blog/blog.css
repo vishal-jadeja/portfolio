@@ -236,6 +236,38 @@ body:has(> .blog-shell) { background-color: #f8f8f8; }
 .blog-filter a {
   text-decoration: underline;
 }
+.blog-category-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 28px 0 18px;
+}
+.blog-category-filters a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: var(--theme-card);
+  color: var(--theme-text-muted);
+  font-size: 12px;
+}
+.blog-category-filters a span {
+  font-size: 10px;
+  opacity: .75;
+}
+.blog-category-filters a[aria-current="page"] {
+  background: var(--theme-text-main);
+  color: var(--theme-bg);
+}
+.blog-category-filters a:hover {
+  box-shadow: 0 0 0 1px var(--theme-text-muted);
+}
+.blog-category-filters a:focus-visible {
+  outline: 2px solid var(--theme-text-main);
+  outline-offset: 3px;
+}
 .blog-empty {
   padding: 60px 0;
   line-height: 1.8;
