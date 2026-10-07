@@ -36,15 +36,6 @@ This is a single-page portfolio. `src/app/page.tsx` renders all sections sequent
 
 All styles live in `src/app/globals.css`. Dark mode is toggled by adding/removing the `.dark` class on `<html>` — **not** via `prefers-color-scheme` media query. The theme is stored in `localStorage` under the key `'theme'`.
 
-**Neobrutalism utility classes** (defined in `globals.css`, use these instead of one-off Tailwind):
-
-- `.brutal-card` — bordered card with offset shadow
-- `.brutal-btn` — filled yellow (#FFE600) button
-- `.brutal-btn-outline` — transparent bordered button
-- `.skill-tag` — inline tech badge
-- `.section-num` — black-on-yellow numbered section header
-- `.sticker-badge` — wobbling highlight badge
-
 **CSS variables** (available via Tailwind as `bg-bg`, `text-text-main`, etc.):
 
 - `--theme-bg`, `--theme-surface`, `--theme-card` — background layers

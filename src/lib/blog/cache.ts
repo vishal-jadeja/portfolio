@@ -10,6 +10,7 @@ export function expireBlog(id: string, slug: string) {
     `/blog/${slug}/opengraph-image`,
     `/blog/${slug}/twitter-image`,
     "/feed.xml",
+    "/api/search",
     "/sitemap.xml",
   ])
     revalidatePath(path);

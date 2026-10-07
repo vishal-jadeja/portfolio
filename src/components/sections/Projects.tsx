@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { projects } from "@/data/projects";
+import { projectAnchorId } from "@/lib/search/static-entries";
 
 export default function Projects() {
   return (
@@ -24,6 +25,8 @@ export default function Projects() {
           {projects.map((project, i) => (
             <motion.div
               key={project.title}
+              id={projectAnchorId(project.title)}
+              data-search-anchor
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.08 }}

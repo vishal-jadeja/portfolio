@@ -640,3 +640,68 @@ body {
     scroll-behavior: auto;
   }
 }
+
+/* ══════════════════════════════════════════
+   SITE SEARCH (⌘K)
+   ══════════════════════════════════════════ */
+/* Heavy blur with a light, theme-tinted wash keeps the dialog the only thing in focus. */
+.search-overlay {
+  background: color-mix(in srgb, var(--theme-bg) 35%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  animation: search-fade 140ms ease-out;
+}
+.search-mark {
+  background: color-mix(in srgb, #ffe600 45%, transparent);
+  color: inherit;
+  border-radius: 3px;
+}
+:root.dark .search-mark {
+  background: color-mix(in srgb, #ffe600 28%, transparent);
+}
+.search-panel {
+  animation: search-pop 180ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes search-fade {
+  from { opacity: 0; }
+}
+@keyframes search-pop {
+  from { opacity: 0; transform: translateY(-6px) scale(0.985); }
+}
+/* Deep-linked project cards clear the sticky navbar and flash when reached. */
+[data-search-anchor] {
+  scroll-margin-top: 72px;
+}
+.search-flash {
+  outline: 2px solid transparent;
+  outline-offset: 8px;
+  animation: search-flash 1.8s ease-out;
+}
+@keyframes search-flash {
+  0%, 35% { outline-color: var(--theme-text-muted); }
+}
+/* blog.css strips borders from header buttons; the search pill keeps its own. */
+.blog-shell .blog-header .search-trigger {
+  border: 1px solid var(--glass-border);
+}
+/* No `display` here: unlayered CSS would override the Tailwind hidden/flex toggles in BlogHeader. */
+.blog-search-button {
+  /* Same 32px tap target as the theme toggle next to it. */
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  color: inherit;
+  cursor: pointer;
+}
+.blog-search-button:hover {
+  color: var(--theme-text-main);
+}
+@media (prefers-reduced-motion: reduce) {
+  .search-overlay,
+  .search-panel,
+  .search-flash {
+    animation: none;
+  }
+}

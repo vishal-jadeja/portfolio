@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import ThemeToggle from "@/components/ThemeToggle";
+import SiteSearch from "@/components/search/SiteSearch";
+import SearchButton from "@/components/search/SearchButton";
 
 const navLinks = [
   { label: "About", href: "#about" },
@@ -57,6 +59,7 @@ export default function Navbar() {
 
         {/* Right side */}
         <div className="hidden md:flex items-center gap-3 shrink-0">
+          <SearchButton variant="pill" />
           <button
             onClick={openChat}
             className="text-sm font-medium text-text-muted hover:text-text-main transition-colors flex items-center gap-1.5 border border-solid border-[var(--glass-border)] px-4 py-1 h-8 rounded-full hover:scale-105"
@@ -70,6 +73,10 @@ export default function Navbar() {
 
         {/* Mobile toggle */}
         <div className="md:hidden flex items-center gap-3">
+          <SearchButton
+            variant="icon"
+            className="w-8 h-8 flex items-center justify-center rounded-md border border-border-main text-text-muted hover:text-text-main hover:border-text-muted transition-all duration-150"
+          />
           <ThemeToggle />
           <button
             className="flex flex-col gap-[5px] p-1.5"
@@ -106,6 +113,7 @@ export default function Navbar() {
           </button>
         </div>
       )}
+      <SiteSearch />
     </header>
   );
 }
