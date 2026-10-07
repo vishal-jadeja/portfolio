@@ -8,11 +8,10 @@ export default function PortfolioShell({
   showViews = false,
 }: {
   children: React.ReactNode;
-  /** ViewCounter records a home-page view, so only the home page shows it. */
   showViews?: boolean;
 }) {
   return (
-    <div className="portfolio-shell max-w-[840px] mx-auto min-h-screen bg-bg border-x border-border-main">
+    <div className="portfolio-shell max-w-[var(--site-width)] mx-auto min-h-screen bg-bg border-x border-border-main">
       <noscript>
         <style>{`
           .portfolio-shell main [style*="opacity:0"],

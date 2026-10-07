@@ -1,13 +1,14 @@
 'use client';
 
 import Image from 'next/image';
-import { socials } from '@/data/socials';
+import { email, socials } from '@/data/socials';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { TbCheck, TbCopy } from 'react-icons/tb';
+import SocialIcon from '@/components/SocialIcon';
 
 const GITHUB_AVATAR = 'https://avatars.githubusercontent.com/vishal-jadeja';
 
-const TAGLINE_ITEMS = ['Software Engineer', 'Software Developer', 'Builder'];
 
 function ViewCounterHero() {
   const [count, setCount] = useState<number | null>(null);
@@ -30,157 +31,99 @@ function ViewCounterHero() {
 }
 
 export default function Hero() {
+  const [copyStatus, setCopyStatus] = useState<'idle' | 'copied' | 'error'>('idle');
+
+  async function copyEmail() {
+    setCopyStatus('idle');
+    try {
+      await navigator.clipboard.writeText(email);
+      setCopyStatus('copied');
+    } catch {
+      setCopyStatus('error');
+    }
+  }
+
   return (
     <section id="hero" className="px-5 sm:px-8 py-10 sm:py-14 bg-bg">
-      <div className="max-w-[840px] mx-auto">
+      <div className="max-w-[var(--site-width)] mx-auto">
 
         {/* ── Profile card ── */}
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          className="flex items-center gap-6 sm:gap-10"
+          className="flex items-center gap-4 sm:gap-5"
         >
           {/* Avatar */}
-          <motion.div
-            whileHover={{ scale: 1.04 }}
-            transition={{ type: 'spring', stiffness: 350, damping: 20 }}
-            className="relative shrink-0"
-          >
-            <div className="w-24 h-24 sm:w-36 sm:h-36 rounded-full overflow-hidden border-2 border-[var(--glass-border)] shadow-[0_0_0_4px_rgba(255,255,255,0.04)]">
+          <div className="shrink-0">
+            <div className="w-20 h-20 sm:w-28 sm:h-28 rounded-full overflow-hidden">
               <Image
                 src={GITHUB_AVATAR}
                 alt="Vishal Jadeja"
-                width={144}
-                height={144}
+                width={120}
+                height={120}
                 className="object-cover w-full h-full"
                 priority
                 unoptimized
               />
             </div>
-          </motion.div>
+          </div>
 
           {/* Text block */}
-          <div className="flex flex-col gap-2 sm:gap-3 min-w-0">
-
-            {/* Name + verified badge */}
-            <div className="flex items-center gap-2.5 flex-wrap">
-              <h1
-                className="font-bold text-text-main text-3xl sm:text-5xl leading-none tracking-tight"
-              >
-                Vishal Jadeja
-                <span className="sr-only">
-                  {' '}— Software Developer
-                </span>
-              </h1>
-              {/* Blue verified-style badge */}
-              <svg
-                className="shrink-0 mt-0.5"
-                width="22"
-                height="22"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <circle cx="12" cy="12" r="11" fill="#3b82f6" />
-                <path
-                  d="M7.5 12.5l3 3 6-6"
-                  stroke="white"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
-
-            {/* Dot-separated tagline */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.15, duration: 0.4 }}
-              className="flex items-center gap-0 flex-wrap"
-            >
-              {TAGLINE_ITEMS.map((item, i) => (
-                <span key={item} className="flex items-center">
-                  <span className="text-text-muted text-sm sm:text-base font-mono">{item}</span>
-                  {i < TAGLINE_ITEMS.length - 1 && (
-                    <span className="text-text-muted mx-2 text-sm opacity-40">·</span>
-                  )}
-                </span>
-              ))}
-              <span className="ml-3">
-                <ViewCounterHero />
+          <div className="flex flex-col gap-0.5 min-w-0 font-sans">
+            <h1 className="font-semibold text-text-main text-[24px] sm:text-[26px] leading-tight tracking-tight">
+              Vishal Jadeja
+              <span className="sr-only">{' '}— Software Developer</span>
+            </h1>
+            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-text-muted text-sm leading-relaxed">
+              <span>Software Engineer <span aria-hidden="true">·</span> Builder</span>
+              <span className="inline-flex items-center gap-1.5 min-w-0 max-w-full">
+                <span className="hidden md:inline" aria-hidden="true">·</span>
+                <a href={`mailto:${email}`} className="break-all hover:text-text-main transition-colors">{email}</a>
+                <button
+                  type="button"
+                  onClick={copyEmail}
+                  aria-label="Copy email address"
+                  title={copyStatus === 'copied' ? 'Email copied' : 'Copy email address'}
+                  className="inline-flex h-7 w-auto shrink-0 items-center justify-center rounded-sm hover:text-text-main transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-main"
+                >
+                  {copyStatus === 'copied' ? <TbCheck size={16} strokeWidth={1.5} aria-hidden="true" /> : <TbCopy size={16} strokeWidth={1.5} aria-hidden="true" />}
+                </button>
               </span>
-            </motion.div>
-
-            {/* Social icons — plain colored, no border box */}
-            <motion.div
+            </div>
+            <span role="status" className={copyStatus === 'error' ? 'text-xs text-text-muted' : 'sr-only'}>
+              {copyStatus === 'copied' ? 'Email copied' : copyStatus === 'error' ? 'Could not copy. Select the email address to copy it.' : ''}
+            </span>
+            <motion.nav
+              aria-label="Social profiles"
               variants={{
                 hidden: { opacity: 0 },
                 visible: { opacity: 1, transition: { staggerChildren: 0.06, delayChildren: 0.2 } },
               }}
               initial="hidden"
               animate="visible"
-              className="flex items-center gap-3 flex-wrap"
+              className="flex items-center flex-wrap -ml-1.5"
             >
-              {socials.map((s) => (
+              {socials.map((social) => (
                 <motion.a
-                  key={s.name}
+                  key={social.name}
                   variants={{ hidden: { opacity: 0, y: 5 }, visible: { opacity: 1, y: 0 } }}
-                  whileHover={{ y: -2, scale: 1.18 }}
-                  transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-                  href={s.url}
+                  href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={s.name}
-                  className="opacity-70 hover:opacity-100 transition-opacity duration-150"
+                  aria-label={social.name}
+                  className="flex h-8 w-8 items-center justify-center rounded-sm text-text-muted hover:text-text-main transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-main"
                 >
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke={s.color}
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d={s.icon} />
-                  </svg>
+                  <SocialIcon name={social.name} />
                 </motion.a>
               ))}
-            </motion.div>
+              <span className="ml-3"><ViewCounterHero /></span>
+            </motion.nav>
           </div>
         </motion.div>
-
-        {/* ── Bio ── */}
-        <motion.p
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.25 }}
-          className="text-text-muted text-sm sm:text-base leading-relaxed mt-8 mb-7 max-w-lg font-mono"
-        >
-          Building scalable back-end systems and clean front-end interfaces.
-          Shipping real-time products at Glitchover — from WebSocket infra to
-          payment integrations.
-        </motion.p>
-
-        {/* ── CTAs ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.32 }}
-          className="flex items-center gap-3 flex-wrap"
-        >
-          <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="modern-btn text-sm px-5 py-2">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" />
-            </svg>
-            Resume
-          </a>
-          <a href="#contact" className="modern-btn-outline text-sm px-5 py-2">
-            Get in touch
-          </a>
-        </motion.div>
+        <p className="mt-5 text-sm text-text-muted leading-relaxed">
+          Building cool things, creating content, and learning a little bit of everything.
+        </p>
 
       </div>
     </section>

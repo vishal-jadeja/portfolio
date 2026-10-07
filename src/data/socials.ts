@@ -7,6 +7,18 @@ export interface Social {
 
 export const socials: Social[] = [
   {
+    name: "X",
+    url: "https://x.com/ViShallTalk",
+    icon: "M4 4l11.733 16H20L8.267 4H4zM4 20l6.768-6.768M13.232 10.768L20 4",
+    color: "#ffffff",
+  },
+  {
+    name: "Instagram",
+    url: "https://www.instagram.com/ViShallTalk/",
+    icon: "M7 3h10a4 4 0 014 4v10a4 4 0 01-4 4H7a4 4 0 01-4-4V7a4 4 0 014-4zM16 12a4 4 0 11-8 0 4 4 0 018 0M17.5 6.5h.01",
+    color: "#E4405F",
+  },
+  {
     name: "YouTube",
     url: "https://www.youtube.com/@ViShallTalk",
     icon: "M22.54 6.42a2.78 2.78 0 00-1.95-1.97C18.88 4 12 4 12 4s-6.88 0-8.59.45A2.78 2.78 0 001.46 6.42 29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.41 19c1.71.45 8.59.45 8.59.45s6.88 0 8.59-.45a2.78 2.78 0 001.95-1.97 29 29 0 00.46-5.28 29 29 0 00-.46-5.33zM9.75 15.02V8.48l5.75 3.27-5.75 3.27z",

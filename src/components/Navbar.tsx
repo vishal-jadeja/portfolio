@@ -1,26 +1,21 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import ThemeToggle from "@/components/ThemeToggle";
 import SiteSearch from "@/components/search/SiteSearch";
 import SearchButton from "@/components/search/SearchButton";
+import { TbExternalLink } from "react-icons/tb";
 
 // Root-relative so they also work from /projects; on the home page they only scroll.
 function navLinks(pathname: string) {
   return [
     { label: "Projects", href: pathname === "/projects" ? "/projects" : "/#projects" },
     { label: "Blog", href: "/blog" },
-    { label: "About", href: "/#about" },
     { label: "Experience", href: "/#experience" },
     { label: "Contact", href: "/#contact" },
   ];
-}
-
-function openChat() {
-  window.dispatchEvent(new CustomEvent("openChat"));
 }
 
 export default function Navbar() {
@@ -39,16 +34,8 @@ export default function Navbar() {
     <header
       className={`sticky top-0 z-50 border-b ${scrolled ? "bg-[var(--theme-bg)] border-[var(--theme-border-main)]" : "bg-[var(--theme-bg)] border-[var(--theme-border-main)]"}`}
     >
-      <nav className="px-5 sm:px-8 h-14 flex items-center justify-between gap-6">
-        {/* Logo */}
-        <Link
-          href="/#top"
-          className="font-mono font-bold text-text-main text-sm tracking-widest hover:text-text-muted transition-colors shrink-0"
-        >
-          VJ
-        </Link>
-
-        {/* Desktop links — centered */}
+      <nav className="px-5 sm:px-8 h-14 flex items-center justify-between gap-4">
+        {/* Desktop links */}
         <ul className="hidden md:flex items-center gap-5 flex-1">
           {links.map((link) => (
             <li key={link.label}>
@@ -65,17 +52,21 @@ export default function Navbar() {
           ))}
         </ul>
 
+        <a
+          href="/resume.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="View resume (PDF, opens in a new tab)"
+          aria-label="View resume (PDF, opens in a new tab)"
+          className="inline-flex h-8 shrink-0 items-center gap-1.5 rounded-full border border-border-main px-3 text-sm font-medium text-text-muted hover:text-text-main hover:border-text-muted transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-main"
+        >
+          <span className="leading-none">Resume</span>
+          <TbExternalLink size={14} className="block shrink-0" aria-hidden="true" />
+        </a>
+
         {/* Right side */}
         <div className="hidden md:flex items-center gap-3 shrink-0">
           <SearchButton variant="pill" />
-          <button
-            onClick={openChat}
-            className="text-sm font-medium text-text-muted hover:text-text-main transition-colors flex items-center gap-1.5 border border-solid border-[var(--glass-border)] px-4 py-1 h-8 rounded-full hover:scale-105"
-            aria-label="Talk to AI"
-          >
-            Talk to AI
-            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-sparkles text-muted-foreground/60 group-hover:text-primary transition-colors" aria-hidden="true"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"></path><path d="M20 2v4"></path><path d="M22 4h-4"></path><circle cx="4" cy="20" r="2"></circle></svg>
-          </button>
           <ThemeToggle />
         </div>
 
@@ -114,12 +105,6 @@ export default function Navbar() {
               {link.label}
             </a>
           ))}
-          <button
-            onClick={() => { openChat(); setMenuOpen(false); }}
-            className="text-sm text-text-muted font-medium text-left pt-3"
-          >
-            Talk to AI ✦
-          </button>
         </div>
       )}
       <SiteSearch />

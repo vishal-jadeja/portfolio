@@ -10,7 +10,7 @@ export default function SectionDivider() {
   return (
     <div
       className="relative w-full overflow-hidden border-y border-[#2323239e]"
-      style={{ height: 32 }}
+      style={{ height: 20 }}
       aria-hidden="true"
     >
       {/* Diagonal stripe fill */}

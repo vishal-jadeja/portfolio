@@ -12,6 +12,7 @@ import GitHubContributions from "@/components/sections/GitHubContributions";
 import Quote from "@/components/sections/Quote";
 import Contact from "@/components/sections/Contact";
 import SectionDivider from "@/components/SectionDivider";
+import Personal from "@/components/sections/Personal";
 
 export const metadata: Metadata = {
   title: { absolute: PERSON.headline },
@@ -54,17 +55,19 @@ export default function Home() {
       <JsonLd />
       <Hero />
       <SectionDivider />
-      <Projects />
+      <Experience />
       <SectionDivider />
       <Blog />
       <SectionDivider />
-      <About />
+      <Projects />
       <SectionDivider />
-      <Experience />
+      <About />
       <SectionDivider />
       <Skills />
       <SectionDivider />
       <GitHubContributions />
+      <SectionDivider />
+      <Personal />
       <SectionDivider />
       <Quote />
       <SectionDivider />

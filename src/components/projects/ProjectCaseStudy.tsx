@@ -37,7 +37,7 @@ function Preview({ project }: { project: Project }) {
           alt={`${project.title} screenshot`}
           fill
           className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.02]"
-          sizes="(max-width: 840px) 100vw, 776px"
+          sizes="(max-width: 780px) 100vw, 714px"
           unoptimized
         />
       ) : (

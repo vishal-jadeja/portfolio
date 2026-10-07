@@ -23,7 +23,7 @@ export function ArticleImage({
         alt={alt || media.alt_text}
         width={media.width}
         height={media.height}
-        sizes="(max-width: 640px) calc(100vw - 42px), (max-width: 840px) calc(100vw - 66px), 774px"
+        sizes="(max-width: 700px) calc(100vw - 42px), (max-width: 780px) calc(100vw - 66px), 714px"
         unoptimized={preview}
         preload={preload}
       />

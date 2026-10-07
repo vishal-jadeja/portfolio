@@ -1,10 +1,12 @@
 export interface Experience {
   role: string;
   company: string;
+  logo?: string;
   period: string;
   type: string;
   description: string;
   achievements: string[];
+  technologies: string[];
   current: boolean;
 }
 
@@ -12,8 +14,10 @@ export const experiences: Experience[] = [
   {
     role: "Software Developer",
     company: "Glitchover",
+    logo: "/images/Glitchoverpng.png",
     period: "Feb 2025 - Present",
     type: "Full-time",
+    technologies: ["Node.js", "Socket.io", "MongoDB", "React", "Vite", "RTK Query", "Immer", "Razorpay", "Cashfree", "Stripe", "Gemini", "Cerebras", "Groq"],
     description:
       "Architecting scalable backend systems, real-time infrastructure, and payment microservices for a B2C gaming platform. Core responsibilities span system design, microservice ownership, database performance, and cross-team engineering.",
     achievements: [
@@ -35,8 +39,10 @@ export const experiences: Experience[] = [
   {
     role: "Software Development Intern",
     company: "Glitchover",
+    logo: "/images/Glitchoverpng.png",
     period: "Aug 2024 - Feb 2025",
     type: "Internship",
+    technologies: ["Node.js", "Express.js", "Socket.io", "Passport.js", "JWT", "Jest", "Bitbucket Pipelines", "Discord API"],
     description:
       "Built authentication infrastructure, real-time systems, and CI/CD pipelines across the core platform. Focused on security hardening, test coverage, and developer tooling.",
     achievements: [

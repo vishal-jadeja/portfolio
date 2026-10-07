@@ -40,7 +40,7 @@ export default function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.55 }}
-            className="relative border border-[var(--glass-border)] bg-[var(--theme-bg)] dark:bg-[radial-gradient(35%_80%_at_25%_0%,rgba(255,255,255,0.05),transparent)] rounded-sm px-8 py-16 flex flex-col items-center text-center gap-6 overflow-visible"
+            className="relative border border-[var(--glass-border)] bg-[var(--theme-bg)] dark:bg-[radial-gradient(35%_80%_at_25%_0%,rgba(255,255,255,0.05),transparent)] rounded-sm px-8 py-12 flex flex-col items-center text-center gap-6 overflow-visible"
           >
             {/* Corner crosshairs */}
             <Corner pos="tl" />

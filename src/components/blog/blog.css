@@ -290,7 +290,7 @@ body:has(> .blog-shell) { background-color: #f8f8f8; }
   --theme-border-main: #dcded5;
   --blog-sage: #64734c;
   --blog-glass: color-mix(in srgb, var(--theme-bg) 80%, transparent);
-  max-width: 850px;
+  max-width: var(--site-width);
   min-height: 100svh;
   display: flex;
   flex-direction: column;
@@ -311,7 +311,7 @@ body:has(.blog-listing--empty) {
 }
 .blog-shell .blog-main:has(> .blog-listing--empty) {
   width: 100%;
-  max-width: 850px;
+  max-width: var(--site-width);
   flex: 1;
   margin: 0;
   padding: 64px 40px;
@@ -445,7 +445,7 @@ body:has(.blog-listing--empty) {
 }
 .blog-shell:has(.blog-listing--empty) .blog-footer {
   width: 100%;
-  max-width: 850px;
+  max-width: var(--site-width);
   margin: 0;
   padding: 24px 40px;
   align-items: center;
