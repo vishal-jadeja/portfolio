@@ -1,14 +1,14 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import sharp from "sharp";
-vi.mock("../../src/lib/blog/queries", () => ({ getPublishedPostBySlug: vi.fn() }));
+vi.mock("../../src/lib/blog/queries", () => ({ getPublishedPostBySlug: vi.fn(), getPublicMedia: vi.fn() }));
 import homeOG from "../../src/app/opengraph-image";
 import homeTwitter from "../../src/app/twitter-image";
 import blogOG from "../../src/app/blog/opengraph-image";
 import blogTwitter from "../../src/app/blog/twitter-image";
 import articleOG from "../../src/app/blog/[slug]/opengraph-image";
 import articleTwitter from "../../src/app/blog/[slug]/twitter-image";
-import { getPublishedPostBySlug } from "../../src/lib/blog/queries";
-import type { Publication } from "../../src/lib/blog/types";
+import { getPublishedPostBySlug, getPublicMedia } from "../../src/lib/blog/queries";
+import type { Publication, MediaView } from "../../src/lib/blog/types";
 
 const post: Publication = {
   post_id: "11111111-1111-4111-8111-111111111111",
@@ -26,7 +26,19 @@ async function png(response: Response) {
   expect(await sharp(bytes).metadata()).toMatchObject({ format: "png", width: 1200, height: 630 });
   return bytes;
 }
-afterEach(() => vi.resetAllMocks());
+afterEach(() => { vi.resetAllMocks(); vi.unstubAllGlobals(); });
+
+const cover: MediaView = {
+  id: "22222222-2222-4222-8222-222222222222",
+  url: "https://example.com/cover.webp", width: 1600, height: 900,
+  alt_text: "Article cover", caption: null,
+};
+async function mockCover(title = post.title) {
+  const image = await sharp({ create: { width: 1600, height: 900, channels: 3, background: "#be3020" } }).webp().toBuffer();
+  vi.mocked(getPublishedPostBySlug).mockResolvedValue({ ...post, title, cover_media_id: cover.id });
+  vi.mocked(getPublicMedia).mockResolvedValue([cover]);
+  vi.stubGlobal("fetch", vi.fn(async () => new Response(new Uint8Array(image), { headers: { "Content-Type": "image/webp" } })));
+}
 
 describe("social card rendering", () => {
   it("renders matching OG/Twitter PNGs for the homepage, blog and article", async () => {
@@ -39,6 +51,25 @@ describe("social card rendering", () => {
     for (const [og, twitter] of cards) {
       expect((await png(og)).equals(await png(twitter))).toBe(true);
     }
+  });
+  it("embeds the published WebP cover in matching dark OG and Twitter cards", async () => {
+    await mockCover();
+    const og = await png(await articleOG(params()));
+    const twitter = await png(await articleTwitter(params()));
+    expect(og.equals(twitter)).toBe(true);
+    expect(getPublicMedia).toHaveBeenCalledWith(post.post_id);
+    const background = await sharp(og).extract({ left: 20, top: 20, width: 20, height: 20 }).removeAlpha().raw().toBuffer();
+    expect(Math.max(...background)).toBeLessThanOrEqual(16);
+    const centre = await sharp(og).extract({ left: 900, top: 300, width: 20, height: 20 }).removeAlpha().raw().toBuffer();
+    expect(centre[0]).toBeGreaterThan(170);
+    expect(centre[1]).toBeLessThan(65);
+  });
+  it("keeps a readable dark text card when the cover cannot be fetched", async () => {
+    vi.mocked(getPublishedPostBySlug).mockResolvedValue(post);
+    const fallback = await png(await articleOG(params()));
+    await mockCover();
+    vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new Error("Image unavailable")));
+    expect((await png(await articleOG(params()))).equals(fallback)).toBe(true);
   });
   it.each([
     "Building scalable backend systems with WebSockets, event-driven architecture, reliable database transactions, and resilient high-performance APIs in production",
@@ -53,7 +84,17 @@ describe("social card rendering", () => {
       // Materialize the crop: sharp.stats() otherwise reads the original input.
       const cropped = await sharp(bytes).removeAlpha().extract(crop).toBuffer();
       const { channels } = await sharp(cropped).stats();
-      expect(channels.every((channel) => channel.min >= 248)).toBe(true);
+      expect(channels.every((channel) => channel.max <= 16)).toBe(true);
+    }
+    await mockCover(title);
+    const covered = await png(await articleOG(params()));
+    for (const crop of [
+      { left: 1140, top: 130, width: 40, height: 370 },
+      { left: 80, top: 585, width: 1040, height: 30 },
+    ]) {
+      const cropped = await sharp(covered).removeAlpha().extract(crop).toBuffer();
+      const { channels } = await sharp(cropped).stats();
+      expect(channels.every((channel) => channel.max <= 16)).toBe(true);
     }
   });
   it("does not render a card for an unpublished or missing article", async () => {

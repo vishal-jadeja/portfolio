@@ -4,6 +4,8 @@ import type { Publication, Summary, MediaView } from "./types";
 export const BLOG_DESCRIPTION =
   "Notes on engineering, systems, and things I learn along the way.";
 export const PAGE_SIZE = 12;
+// Change when the card design changes, so shared images get a fresh URL.
+const SOCIAL_CARD_VERSION = 2;
 export type BlogSearch = { page?: string | string[]; tag?: string | string[] };
 export function missingPageMetadata(title = "Page not found"): Metadata {
   return {
@@ -48,7 +50,7 @@ export function listingMetadata(
   const description = tag
     ? `Articles tagged ${tag} by ${SITE_NAME}.`
     : BLOG_DESCRIPTION;
-  const image = `${SITE_URL}/blog/opengraph-image`;
+  const image = `${SITE_URL}/blog/opengraph-image?style=${SOCIAL_CARD_VERSION}`;
   return {
     title,
     description,
@@ -82,7 +84,7 @@ export function listingMetadata(
       creator: X_HANDLE,
       images: [
         {
-          url: `${SITE_URL}/blog/twitter-image`,
+          url: `${SITE_URL}/blog/twitter-image?style=${SOCIAL_CARD_VERSION}`,
           alt: `Writing by ${SITE_NAME}`,
         },
       ],
@@ -91,7 +93,7 @@ export function listingMetadata(
 }
 export function articleMetadata(post: Publication): Metadata {
   const url = `${SITE_URL}/blog/${post.slug}`;
-  const image = `${url}/opengraph-image?v=${post.source_version}`;
+  const image = `${url}/opengraph-image?v=${post.source_version}&style=${SOCIAL_CARD_VERSION}`;
   return {
     title: post.seo_title || post.title,
     description: post.seo_description || post.excerpt,
@@ -128,7 +130,7 @@ export function articleMetadata(post: Publication): Metadata {
       site: X_HANDLE,
       creator: X_HANDLE,
       images: [{
-        url: `${url}/twitter-image?v=${post.source_version}`,
+        url: `${url}/twitter-image?v=${post.source_version}&style=${SOCIAL_CARD_VERSION}`,
         alt: post.title,
       }],
     },
@@ -168,7 +170,7 @@ export function articleStructuredData(post: Publication, cover?: MediaView) {
         },
         image: {
           "@type": "ImageObject",
-          url: cover?.url ?? `${url}/opengraph-image?v=${post.source_version}`,
+          url: cover?.url ?? `${url}/opengraph-image?v=${post.source_version}&style=${SOCIAL_CARD_VERSION}`,
           width: cover?.width ?? 1200,
           height: cover?.height ?? 630,
           caption: cover?.caption ?? post.title,

@@ -11,10 +11,10 @@ import SearchButton from "@/components/search/SearchButton";
 // Root-relative so they also work from /projects; on the home page they only scroll.
 function navLinks(pathname: string) {
   return [
-    { label: "About", href: "/#about" },
-    { label: "Experience", href: "/#experience" },
     { label: "Projects", href: pathname === "/projects" ? "/projects" : "/#projects" },
     { label: "Blog", href: "/blog" },
+    { label: "About", href: "/#about" },
+    { label: "Experience", href: "/#experience" },
     { label: "Contact", href: "/#contact" },
   ];
 }

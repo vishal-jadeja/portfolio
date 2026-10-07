@@ -54,17 +54,17 @@ export default function Home() {
       <JsonLd />
       <Hero />
       <SectionDivider />
+      <Projects />
+      <SectionDivider />
+      <Blog />
+      <SectionDivider />
       <About />
       <SectionDivider />
       <Experience />
       <SectionDivider />
-      <Projects />
-      <SectionDivider />
       <Skills />
       <SectionDivider />
       <GitHubContributions />
-      <SectionDivider />
-      <Blog />
       <SectionDivider />
       <Quote />
       <SectionDivider />

@@ -71,14 +71,17 @@ export default async function ArticlePage({
         <header className="blog-article-header">
           <h1>{post.title}</h1>
           <p className="blog-deck">{post.excerpt}</p>
-          <div className="blog-meta">
-            <span>{post.author_name}</span>
-            <span>·</span>
-            <time dateTime={post.published_at}>
-              {formatDate(post.published_at)}
-            </time>
-            <span>·</span>
-            <span>{post.reading_minutes} min read</span>
+          <div className="blog-article-meta">
+            <div className="blog-meta">
+              <span>{post.author_name}</span>
+              <span>·</span>
+              <time dateTime={post.published_at}>
+                {formatDate(post.published_at)}
+              </time>
+              <span>·</span>
+              <span>{post.reading_minutes} min read</span>
+            </div>
+            <ShareBar url={url} title={post.title} />
           </div>
           {post.modified_at !== post.published_at && (
             <p className="blog-updated">
@@ -117,7 +120,6 @@ export default async function ArticlePage({
             </Link>
           ))}
         </div>
-        <ShareBar url={url} title={post.title} />
       </article>
       {related.length > 0 && (
         <section className="blog-related">

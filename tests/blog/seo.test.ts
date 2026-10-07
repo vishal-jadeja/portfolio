@@ -97,7 +97,7 @@ describe("SEO contracts", () => {
     });
     expect(articleStructuredData(post)["@graph"][0]).toMatchObject({
       image: {
-        url: `${SITE_URL}/blog/${post.slug}/opengraph-image?v=2`,
+        url: `${SITE_URL}/blog/${post.slug}/opengraph-image?v=2&style=2`,
         width: 1200,
         height: 630,
       },
