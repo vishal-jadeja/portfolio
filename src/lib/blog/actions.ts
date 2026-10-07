@@ -152,6 +152,15 @@ export async function loginAction(
   const email = String(form.get("email") ?? "").trim();
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254)
     return { message: "Enter a valid email address." };
+  const client = await sessionClient();
+  if (form.get("intent") === "password") {
+    const password = String(form.get("password") ?? "");
+    if (!password || password.length > 128)
+      return { message: "Enter your password." };
+    const { error } = await client.auth.signInWithPassword({ email, password });
+    if (error) return { message: "Incorrect email or password." };
+    redirect("/admin/blog");
+  }
   const h = await headers();
   const origin = h.get("origin");
   const allowed =
@@ -161,7 +170,6 @@ export async function loginAction(
     origin?.startsWith("http://localhost:")
       ? origin
       : allowed;
-  const client = await sessionClient();
   const { error } = await client.auth.signInWithOtp({
     email,
     options: {

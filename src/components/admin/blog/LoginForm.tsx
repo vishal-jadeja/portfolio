@@ -15,9 +15,35 @@ export default function LoginForm() {
           maxLength={254}
         />
       </label>
-      <button className="blog-button" disabled={pending}>
-        {pending ? "Sending…" : "Send sign-in link"}
-      </button>
+      <label className="blog-field">
+        Password
+        <input
+          type="password"
+          name="password"
+          autoComplete="current-password"
+          required
+          maxLength={128}
+        />
+      </label>
+      <div className="blog-login-actions">
+        <button
+          className="blog-button"
+          name="intent"
+          value="password"
+          disabled={pending}
+        >
+          {pending ? "Signing in…" : "Sign in"}
+        </button>
+        <button
+          className="blog-button secondary"
+          name="intent"
+          value="link"
+          formNoValidate
+          disabled={pending}
+        >
+          Email me a link instead
+        </button>
+      </div>
       <p className="blog-message" role="status">
         {state.message}
       </p>

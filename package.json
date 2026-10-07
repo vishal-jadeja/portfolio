@@ -14,6 +14,7 @@
     "test": "vitest run",
     "blog:backup": "tsx scripts/blog-backup.mts",
     "blog:cleanup": "tsx scripts/blog-cleanup.mts",
+    "blog:set-password": "tsx scripts/blog-set-password.mts",
     "blog:preview": "node --import tsx scripts/blog-preview.mts"
   },
   "dependencies": {

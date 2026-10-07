@@ -6,14 +6,14 @@ The application implementation is in this repository. No production database, ac
 
 1. Use a development Supabase project first. Copy `.env.local.example` to `.env.local` and set the public project URL, publishable key, server-only secret, and site URL. The public URL must be HTTPS for hosted images. Never put the secret in a `NEXT_PUBLIC_*` variable. The blog does not require chatbot credentials.
 2. Apply `supabase/migrations/202610060001_blog.sql` to that project, through the Supabase SQL editor or a configured Supabase CLI (`supabase db push`). After applying schema changes, regenerate TypeScript types with `supabase gen types typescript --project-id YOUR_PROJECT_ID > src/lib/database.types.ts`. The checked-in types match this migration. It creates the blog tables, RLS, constrained functions, and private `blog-drafts` / public `blog-public` buckets. Do not blindly rerun the migration against an existing schema. The migration is verified by the local PostgreSQL integration tests.
-3. In Supabase Auth, disable new user signup, create/invite the owner, and look up that user's UUID. Add that UUID with a controlled SQL operation:
+3. In Supabase Auth → Sign In / Providers, turn off **Allow new users to sign up** (keep the Email provider enabled for password and magic-link sign-in), create/invite the owner, and look up that user's UUID. Add that UUID with a controlled SQL operation:
 
    ```sql
    insert into public.blog_admins(user_id) values ('YOUR_AUTH_USER_UUID');
    ```
 
    App users cannot add themselves to the owner table. Being authenticated alone does not authorize editing.
-4. Set Auth Site URL to the deployed site. Add allowed callback URLs: `http://localhost:3000/auth/callback`, the production `/auth/callback`, and any explicitly approved test preview hostname. Set up SMTP/email delivery and provider rate limits. This app uses PKCE magic links, which should be opened in the same browser that requested them. Invalid/expired links return to sign-in.
+4. Set Auth Site URL to the deployed site. Add allowed callback URLs: `http://localhost:3000/auth/callback`, the production `/auth/callback`, and any explicitly approved test preview hostname. Set up SMTP/email delivery and provider rate limits. The owner signs in with email + password; PKCE magic links remain as a fallback and should be opened in the same browser that requested them. Invalid/expired links return to sign-in. Set or reset the owner password with `npm run blog:set-password -- owner@example.com` (server environment required; the account must already be in `blog_admins`).
 5. Verify the bucket privacy, sizes, and MIME lists created by the migration. If buckets already existed, compare their configuration manually: `blog-drafts` must be private, `blog-public` must be public. No general authenticated storage-write policy is needed; upload capabilities come from verified server requests.
 6. Run `npm run dev`, open `/admin/login`, and use the owner's email. Create a real draft, upload an image, preview, and publish. New posts appear at `/blog/<slug>` without redeploying.
 

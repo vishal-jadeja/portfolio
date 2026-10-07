@@ -12,8 +12,8 @@ export default async function Login({
       <p>Sign in to draft, preview, and publish your articles.</p>
       {error && (
         <p role="alert">
-          That sign-in link expired or could not be verified. Request a new link
-          below.
+          That sign-in link expired or could not be verified. Sign in with your
+          password or request a new link below.
         </p>
       )}
       {blogConfigured() ? (

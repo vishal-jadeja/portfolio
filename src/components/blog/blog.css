@@ -796,6 +796,11 @@ body:has(.blog-listing--empty) {
   color: var(--theme-text-muted);
   margin-bottom: 24px;
 }
+.blog-login-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
 .blog-field {
   display: flex;
   flex-direction: column;
