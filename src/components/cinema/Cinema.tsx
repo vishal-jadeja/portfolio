@@ -55,12 +55,12 @@ export default function Cinema() {
         <div className="cinema-feature-copy"><span className="cinema-eyebrow">THE STORIES THAT STAY</span><p>Some worlds are<br />worth getting<br /><em>lost in.</em></p><a href="#collection" className="cinema-feature-link">Explore my collection <span aria-hidden="true">↗</span></a></div>
         <span className="cinema-feature-caption">FILMS · SERIES · A LITTLE ESCAPISM</span>
       </section>
-      <div className="cinema-stats"><span><strong>{library.length}</strong> titles collected</span><span><strong>05</strong> all-time favorites</span><span><strong>03</strong> on my radar</span></div>
+      <div className="cinema-stats"><span><strong>{library.length}</strong> titles collected</span><span><strong>{String(allTimeFavorites.length).padStart(2, "0")}</strong> all-time favorites</span><span><strong>03</strong> on my radar</span></div>
     </div>
 
     <section className="cinema-section site-gutter" aria-labelledby="favorites-heading">
-      <div className="cinema-section-top"><span className="cinema-eyebrow">01 / THE FOREVER FIVE</span><span aria-hidden="true">✦</span></div>
-      <h2 id="favorites-heading" className="section-title">All-time favorites</h2><p className="section-description">If you only take five recommendations from me, make it these.</p>
+      <div className="cinema-section-top"><span className="cinema-eyebrow">01 / THE FOREVER FAVORITES</span><span aria-hidden="true">✦</span></div>
+      <h2 id="favorites-heading" className="section-title">All-time favorites</h2><p className="section-description">The stories that stay with me. Start here for my personal favorites.</p>
       <div className="cinema-favorites">{allTimeFavorites.map((movie, i) => <Card key={movie.id} movie={movie} rank={i+1} />)}</div>
     </section>
 

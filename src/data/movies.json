@@ -165,7 +165,8 @@
     "imdb": "tt0137523",
     "year": 1999,
     "posterSource": "https://m.media-amazon.com/images/M/MV5BOTgyOGQ1NDItNGU3Ny00MjU3LTg2YWEtNmEyYjBiMjI1Y2M5XkEyXkFqcGc@._V1_.jpg",
-    "poster": "/posters/fight-club.webp"
+    "poster": "/posters/fight-club.webp",
+    "favorite": true
   },
   {
     "title": "Smile",
@@ -1621,7 +1622,8 @@
     "imdb": "tt4574334",
     "year": 2016,
     "posterSource": "https://m.media-amazon.com/images/M/MV5BMjEzMDAxOTUyMV5BMl5BanBnXkFtZTgwNzAxMzYzOTE@._V1_.jpg",
-    "poster": "/posters/stranger-things.webp"
+    "poster": "/posters/stranger-things.webp",
+    "favorite": true
   },
   {
     "title": "Dhurandhar",
