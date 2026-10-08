@@ -1290,14 +1290,17 @@ body:has(.blog-listing--empty) {
   z-index: 40;
   inset-inline: 0;
   bottom: 0;
-  height: 60px;
+  height: 90px;
   pointer-events: none;
   user-select: none;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  background: linear-gradient(to top, var(--theme-bg), transparent);
-  mask-image: linear-gradient(to top, black 50%, transparent);
-  -webkit-mask-image: linear-gradient(to top, black 50%, transparent);
+  background: linear-gradient(
+    transparent,
+    color-mix(in srgb, var(--theme-bg) 50%, transparent)
+  );
+  mask-image: linear-gradient(transparent, black 85%);
+  -webkit-mask-image: linear-gradient(transparent, black 85%);
 }
 .blog-reading-control {
   position: relative;
@@ -1311,9 +1314,7 @@ body:has(.blog-listing--empty) {
   height: 48px;
   padding: 0 16px;
   border-radius: 30px;
-  background: var(--blog-glass);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: var(--theme-card);
   color: var(--theme-text-main);
   border: 1px solid var(--theme-border-main);
   box-shadow: 0 12px 35px rgba(0, 0, 0, 0.18);
