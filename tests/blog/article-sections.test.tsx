@@ -22,6 +22,8 @@ describe("article discussion and recommendations", () => {
     vi.mocked(getPublicMedia).mockResolvedValue([]);
     vi.mocked(getRelatedPosts).mockResolvedValue(hasRelated ? [{ ...post, post_id: "related", slug: "related-note" }] : []);
     const html = renderToStaticMarkup(await ArticlePage({ params: Promise.resolve({ slug: post.slug }) }));
+    // The visual fade must also render on the server for articles without headings.
+    expect(html).toContain('class="blog-bottom-blur" aria-hidden="true"');
     expect(html).toContain('aria-labelledby="comments-heading"');
     expect(html).toContain("Coming soon");
     const articleEnd = html.indexOf("</article>");

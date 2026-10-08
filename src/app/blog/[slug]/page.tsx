@@ -136,6 +136,7 @@ export default async function ArticlePage({
           </section>
         </>
       )}
+      <div className="blog-bottom-blur" aria-hidden="true" />
       <ReadingProgress headings={headings} />
       <script
         type="application/ld+json"
