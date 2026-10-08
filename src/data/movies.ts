@@ -22,6 +22,6 @@ const orderedTitles = (titles: string[]) => titles
   .map(title => movies.find(movie => movie.title === title))
   .filter((movie): movie is Movie => movie !== undefined);
 
-export const allTimeFavorites = orderedTitles(['Game of Thrones', 'Breaking Bad', 'Dark', 'Interstellar', 'Avengers: Infinity War', 'Stranger Things', 'Fight Club']);
+export const allTimeFavorites = orderedTitles(['Game of Thrones', 'Breaking Bad', 'Dark', 'Interstellar', 'Avengers: Infinity War', 'Stranger Things']);
 export const currentFavorites = orderedTitles(['Lanterns', 'House of the Dragon', 'IT: Welcome to Derry']);
 export const anticipatedMovies = movies.filter(movie => movie.anticipated);
