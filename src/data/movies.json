@@ -771,7 +771,7 @@
   },
   {
     "title": "Sherlock",
-    "verdict": null,
+    "verdict": "Go for it",
     "order": 69,
     "loggedEntries": 1,
     "id": "sherlock",
@@ -820,7 +820,7 @@
   },
   {
     "title": "Daredevil",
-    "verdict": null,
+    "verdict": "Go for it",
     "order": 73,
     "loggedEntries": 1,
     "id": "daredevil",
@@ -832,7 +832,7 @@
   },
   {
     "title": "The Punisher",
-    "verdict": null,
+    "verdict": "Go for it",
     "order": 74,
     "loggedEntries": 1,
     "id": "the-punisher",
@@ -844,7 +844,7 @@
   },
   {
     "title": "Jessica Jones",
-    "verdict": null,
+    "verdict": "Go for it",
     "order": 75,
     "loggedEntries": 1,
     "id": "jessica-jones",
