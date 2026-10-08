@@ -1,6 +1,6 @@
 import catalog from './movies.json';
 
-export type Verdict = 'Masterpiece' | 'Worth watching' | 'Casual watch' | 'Give it a miss';
+export type Verdict = 'Masterpiece' | 'Go for it' | 'Timepass' | 'Skip';
 export type Movie = {
   id: string;
   title: string;
@@ -17,7 +17,7 @@ export type Movie = {
   anticipated?: boolean;
 };
 export const movies = catalog as Movie[];
-export const verdicts: Verdict[] = ['Masterpiece', 'Worth watching', 'Casual watch', 'Give it a miss'];
+export const verdicts: Verdict[] = ['Masterpiece', 'Go for it', 'Timepass', 'Skip'];
 const orderedTitles = (titles: string[]) => titles
   .map(title => movies.find(movie => movie.title === title))
   .filter((movie): movie is Movie => movie !== undefined);

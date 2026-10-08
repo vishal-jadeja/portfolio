@@ -1,7 +1,7 @@
 [
   {
     "title": "Barbarian",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 3,
     "loggedEntries": 1,
     "id": "barbarian",
@@ -13,7 +13,7 @@
   },
   {
     "title": "It",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 4,
     "loggedEntries": 1,
     "id": "it",
@@ -25,7 +25,7 @@
   },
   {
     "title": "Enola Holmes",
-    "verdict": "Casual watch",
+    "verdict": "Timepass",
     "order": 5,
     "loggedEntries": 1,
     "id": "enola-holmes",
@@ -37,7 +37,7 @@
   },
   {
     "title": "It: Chapter Two",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 6,
     "loggedEntries": 1,
     "id": "it-chapter-two",
@@ -49,7 +49,7 @@
   },
   {
     "title": "The Guardians of the Galaxy Holiday Special",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 7,
     "loggedEntries": 1,
     "id": "the-guardians-of-the-galaxy-holiday-special",
@@ -61,7 +61,7 @@
   },
   {
     "title": "Wild Tales",
-    "verdict": "Give it a miss",
+    "verdict": "Skip",
     "order": 8,
     "loggedEntries": 1,
     "id": "wild-tales",
@@ -85,7 +85,7 @@
   },
   {
     "title": "Bullet Train",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 10,
     "loggedEntries": 1,
     "id": "bullet-train",
@@ -97,7 +97,7 @@
   },
   {
     "title": "Kantara",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 11,
     "loggedEntries": 1,
     "id": "kantara",
@@ -109,7 +109,7 @@
   },
   {
     "title": "Prisoners",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 12,
     "loggedEntries": 1,
     "id": "prisoners",
@@ -169,7 +169,7 @@
   },
   {
     "title": "Smile",
-    "verdict": "Casual watch",
+    "verdict": "Timepass",
     "order": 17,
     "loggedEntries": 1,
     "id": "smile",
@@ -181,7 +181,7 @@
   },
   {
     "title": "Wednesday",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 20,
     "loggedEntries": 2,
     "id": "wednesday",
@@ -193,7 +193,7 @@
   },
   {
     "title": "Brahmastra Part One: Shiva",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 19,
     "loggedEntries": 1,
     "id": "brahmastra-part-one-shiva",
@@ -205,7 +205,7 @@
   },
   {
     "title": "Avatar",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 21,
     "loggedEntries": 1,
     "id": "avatar",
@@ -217,7 +217,7 @@
   },
   {
     "title": "Demolition",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 22,
     "loggedEntries": 1,
     "id": "demolition",
@@ -241,7 +241,7 @@
   },
   {
     "title": "Arrival",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 24,
     "loggedEntries": 1,
     "id": "arrival",
@@ -302,7 +302,7 @@
   },
   {
     "title": "Avatar: The Way of Water",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 29,
     "loggedEntries": 1,
     "id": "avatar-the-way-of-water",
@@ -314,7 +314,7 @@
   },
   {
     "title": "Nightcrawler",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 30,
     "loggedEntries": 1,
     "id": "nightcrawler",
@@ -326,7 +326,7 @@
   },
   {
     "title": "The Others",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 31,
     "loggedEntries": 1,
     "id": "the-others",
@@ -338,7 +338,7 @@
   },
   {
     "title": "Baby Driver",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 32,
     "loggedEntries": 1,
     "id": "baby-driver",
@@ -362,7 +362,7 @@
   },
   {
     "title": "Whiplash",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 34,
     "loggedEntries": 1,
     "id": "whiplash",
@@ -387,7 +387,7 @@
   },
   {
     "title": "Gravity",
-    "verdict": "Masterpiece",
+    "verdict": "Go for it",
     "order": 36,
     "loggedEntries": 1,
     "id": "gravity",
@@ -399,7 +399,7 @@
   },
   {
     "title": "Memento",
-    "verdict": "Masterpiece",
+    "verdict": "Go for it",
     "order": 37,
     "loggedEntries": 1,
     "id": "memento",
@@ -411,7 +411,7 @@
   },
   {
     "title": "Everything Everywhere All at Once",
-    "verdict": "Masterpiece",
+    "verdict": "Go for it",
     "order": 38,
     "loggedEntries": 1,
     "id": "everything-everywhere-all-at-once",
@@ -423,7 +423,7 @@
   },
   {
     "title": "Top Gun: Maverick",
-    "verdict": "Masterpiece",
+    "verdict": "Go for it",
     "order": 39,
     "loggedEntries": 1,
     "id": "top-gun-maverick",
@@ -435,7 +435,7 @@
   },
   {
     "title": "The Revenant",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 40,
     "loggedEntries": 1,
     "id": "the-revenant",
@@ -471,7 +471,7 @@
   },
   {
     "title": "Gladiator",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 44,
     "loggedEntries": 1,
     "id": "gladiator",
@@ -483,7 +483,7 @@
   },
   {
     "title": "Taaza Khabar",
-    "verdict": "Casual watch",
+    "verdict": "Timepass",
     "order": 45,
     "loggedEntries": 1,
     "id": "taaza-khabar",
@@ -495,7 +495,7 @@
   },
   {
     "title": "The Dictator",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 46,
     "loggedEntries": 1,
     "id": "the-dictator",
@@ -507,7 +507,7 @@
   },
   {
     "title": "Extraction",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 47,
     "loggedEntries": 1,
     "id": "extraction",
@@ -519,7 +519,7 @@
   },
   {
     "title": "Fall",
-    "verdict": "Casual watch",
+    "verdict": "Timepass",
     "order": 48,
     "loggedEntries": 1,
     "id": "fall",
@@ -531,7 +531,7 @@
   },
   {
     "title": "Girl in the Basement",
-    "verdict": "Casual watch",
+    "verdict": "Timepass",
     "order": 49,
     "loggedEntries": 1,
     "id": "girl-in-the-basement",
@@ -555,7 +555,7 @@
   },
   {
     "title": "Vikings: Valhalla",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 51,
     "loggedEntries": 1,
     "id": "vikings-valhalla",
@@ -567,7 +567,7 @@
   },
   {
     "title": "The Ring",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 52,
     "loggedEntries": 1,
     "id": "the-ring",
@@ -579,7 +579,7 @@
   },
   {
     "title": "The Ring Two",
-    "verdict": "Give it a miss",
+    "verdict": "Skip",
     "order": 53,
     "loggedEntries": 1,
     "id": "the-ring-2",
@@ -591,7 +591,7 @@
   },
   {
     "title": "The Last of Us",
-    "verdict": "Masterpiece",
+    "verdict": "Go for it",
     "order": 132,
     "loggedEntries": 2,
     "id": "the-last-of-us",
@@ -603,7 +603,7 @@
   },
   {
     "title": "Black Panther: Wakanda Forever",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 55,
     "loggedEntries": 1,
     "id": "black-panther-wakanda-forever",
@@ -615,7 +615,7 @@
   },
   {
     "title": "Deadpool 2",
-    "verdict": "Masterpiece",
+    "verdict": "Go for it",
     "order": 56,
     "loggedEntries": 1,
     "id": "deadpool-2",
@@ -627,7 +627,7 @@
   },
   {
     "title": "Anniyan",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 57,
     "loggedEntries": 1,
     "id": "anniyan",
@@ -639,7 +639,7 @@
   },
   {
     "title": "Ford v Ferrari",
-    "verdict": "Masterpiece",
+    "verdict": "Go for it",
     "order": 58,
     "loggedEntries": 1,
     "id": "ford-v-ferrari",
@@ -651,7 +651,7 @@
   },
   {
     "title": "The Fast and the Furious",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 59,
     "loggedEntries": 1,
     "id": "the-fast-and-the-furious",
@@ -663,7 +663,7 @@
   },
   {
     "title": "Ant-Man",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 60,
     "loggedEntries": 1,
     "id": "ant-man",
@@ -687,7 +687,7 @@
   },
   {
     "title": "Ant-Man and the Wasp",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 62,
     "loggedEntries": 1,
     "id": "ant-man-and-the-wasp",
@@ -699,7 +699,7 @@
   },
   {
     "title": "Ant-Man and the Wasp: Quantumania",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 63,
     "loggedEntries": 1,
     "id": "ant-man-and-the-wasp-quantumania",
@@ -711,7 +711,7 @@
   },
   {
     "title": "Knives Out",
-    "verdict": "Masterpiece",
+    "verdict": "Go for it",
     "order": 64,
     "loggedEntries": 1,
     "id": "knives-out",
@@ -723,7 +723,7 @@
   },
   {
     "title": "Farzi",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 65,
     "loggedEntries": 1,
     "id": "farzi",
@@ -735,7 +735,7 @@
   },
   {
     "title": "The Boy in the Striped Pajamas",
-    "verdict": "Masterpiece",
+    "verdict": "Go for it",
     "order": 66,
     "loggedEntries": 1,
     "id": "the-boy-in-the-striped-pajamas",
@@ -747,7 +747,7 @@
   },
   {
     "title": "Kaithi",
-    "verdict": "Masterpiece",
+    "verdict": "Go for it",
     "order": 67,
     "loggedEntries": 1,
     "id": "kaithi",
@@ -759,7 +759,7 @@
   },
   {
     "title": "All Quiet on the Western Front",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 68,
     "loggedEntries": 1,
     "id": "all-quiet-on-the-western-front",
@@ -796,7 +796,7 @@
   },
   {
     "title": "Drive",
-    "verdict": "Masterpiece",
+    "verdict": "Go for it",
     "order": 71,
     "loggedEntries": 1,
     "id": "drive",
@@ -808,7 +808,7 @@
   },
   {
     "title": "Donnie Darko",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 72,
     "loggedEntries": 1,
     "id": "donnie-darko",
@@ -868,7 +868,7 @@
   },
   {
     "title": "Evil Dead Rise",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 77,
     "loggedEntries": 1,
     "id": "evil-dead-rise",
@@ -880,7 +880,7 @@
   },
   {
     "title": "Parasite",
-    "verdict": "Masterpiece",
+    "verdict": "Go for it",
     "order": 78,
     "loggedEntries": 1,
     "id": "parasite",
@@ -892,7 +892,7 @@
   },
   {
     "title": "John Wick: Chapter 4",
-    "verdict": "Masterpiece",
+    "verdict": "Go for it",
     "order": 79,
     "loggedEntries": 1,
     "id": "john-wick-chapter-4",
@@ -904,7 +904,7 @@
   },
   {
     "title": "Us",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 80,
     "loggedEntries": 1,
     "id": "us",
@@ -916,7 +916,7 @@
   },
   {
     "title": "Get Out",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 81,
     "loggedEntries": 1,
     "id": "get-out",
@@ -928,7 +928,7 @@
   },
   {
     "title": "Harry Potter and the Sorcerer's Stone",
-    "verdict": null,
+    "verdict": "Go for it",
     "order": 82,
     "loggedEntries": 1,
     "id": "harry-potter-and-the-sorcerer-s-stone",
@@ -940,7 +940,7 @@
   },
   {
     "title": "Harry Potter and the Chamber of Secrets",
-    "verdict": null,
+    "verdict": "Go for it",
     "order": 83,
     "loggedEntries": 1,
     "id": "harry-potter-and-the-chamber-of-secrets",
@@ -952,7 +952,7 @@
   },
   {
     "title": "Harry Potter and the Prisoner of Azkaban",
-    "verdict": null,
+    "verdict": "Go for it",
     "order": 84,
     "loggedEntries": 1,
     "id": "harry-potter-and-the-prisoner-of-azkaban",
@@ -964,7 +964,7 @@
   },
   {
     "title": "Harry Potter and the Goblet of Fire",
-    "verdict": null,
+    "verdict": "Go for it",
     "order": 85,
     "loggedEntries": 1,
     "id": "harry-potter-and-the-goblet-of-fire",
@@ -976,7 +976,7 @@
   },
   {
     "title": "Harry Potter and the Order of the Phoenix",
-    "verdict": null,
+    "verdict": "Go for it",
     "order": 86,
     "loggedEntries": 1,
     "id": "harry-potter-and-the-order-of-the-phoenix",
@@ -988,7 +988,7 @@
   },
   {
     "title": "Harry Potter and the Half-Blood Prince",
-    "verdict": null,
+    "verdict": "Go for it",
     "order": 87,
     "loggedEntries": 1,
     "id": "harry-potter-and-the-half-blood-prince",
@@ -1000,7 +1000,7 @@
   },
   {
     "title": "Harry Potter and the Deathly Hallows: Part 1",
-    "verdict": null,
+    "verdict": "Go for it",
     "order": 88,
     "loggedEntries": 1,
     "id": "harry-potter-and-the-deathly-hallows-part-1",
@@ -1012,7 +1012,7 @@
   },
   {
     "title": "Harry Potter and the Deathly Hallows: Part 2",
-    "verdict": null,
+    "verdict": "Go for it",
     "order": 89,
     "loggedEntries": 1,
     "id": "harry-potter-and-the-deathly-hallows-part-2",
@@ -1024,7 +1024,7 @@
   },
   {
     "title": "Extraction II",
-    "verdict": "Masterpiece",
+    "verdict": "Go for it",
     "order": 90,
     "loggedEntries": 1,
     "id": "extraction-2",
@@ -1036,7 +1036,7 @@
   },
   {
     "title": "Babylon",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 91,
     "loggedEntries": 1,
     "id": "babylon",
@@ -1060,7 +1060,7 @@
   },
   {
     "title": "Coherence",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 94,
     "loggedEntries": 1,
     "id": "coherence",
@@ -1072,7 +1072,7 @@
   },
   {
     "title": "Sinister",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 95,
     "loggedEntries": 1,
     "id": "sinister",
@@ -1084,7 +1084,7 @@
   },
   {
     "title": "Sinister 2",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 96,
     "loggedEntries": 1,
     "id": "sinister-2",
@@ -1132,7 +1132,7 @@
   },
   {
     "title": "Dabbe: The Possession",
-    "verdict": "Masterpiece",
+    "verdict": "Go for it",
     "order": 100,
     "loggedEntries": 1,
     "id": "dabbe-the-possession",
@@ -1144,7 +1144,7 @@
   },
   {
     "title": "The Visit",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 101,
     "loggedEntries": 1,
     "id": "the-visit",
@@ -1156,7 +1156,7 @@
   },
   {
     "title": "Leo",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 102,
     "loggedEntries": 1,
     "id": "leo",
@@ -1168,7 +1168,7 @@
   },
   {
     "title": "El Camino: A Breaking Bad Movie",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 104,
     "loggedEntries": 1,
     "id": "el-camino-a-breaking-bad-movie",
@@ -1180,7 +1180,7 @@
   },
   {
     "title": "Asur",
-    "verdict": "Masterpiece",
+    "verdict": "Go for it",
     "order": 105,
     "loggedEntries": 1,
     "id": "asur",
@@ -1204,7 +1204,7 @@
   },
   {
     "title": "La La Land",
-    "verdict": "Masterpiece",
+    "verdict": "Go for it",
     "order": 107,
     "loggedEntries": 1,
     "id": "la-la-land",
@@ -1240,7 +1240,7 @@
   },
   {
     "title": "500 Days of Summer",
-    "verdict": "Masterpiece",
+    "verdict": "Go for it",
     "order": 110,
     "loggedEntries": 1,
     "id": "500-days-of-summer",
@@ -1252,7 +1252,7 @@
   },
   {
     "title": "Laapataa Ladies",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 111,
     "loggedEntries": 1,
     "id": "laapataa-ladies",
@@ -1264,7 +1264,7 @@
   },
   {
     "title": "Jab We Met",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 112,
     "loggedEntries": 1,
     "id": "jab-we-met",
@@ -1288,7 +1288,7 @@
   },
   {
     "title": "The Boys",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 149,
     "loggedEntries": 2,
     "id": "the-boys",
@@ -1300,7 +1300,7 @@
   },
   {
     "title": "House of the Dragon",
-    "verdict": "Masterpiece",
+    "verdict": "Go for it",
     "order": 159,
     "loggedEntries": 2,
     "current": true,
@@ -1313,7 +1313,7 @@
   },
   {
     "title": "Mirzapur",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 116,
     "loggedEntries": 1,
     "id": "mirzapur",
@@ -1325,7 +1325,7 @@
   },
   {
     "title": "The Lord of the Rings: The Rings of Power",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 117,
     "loggedEntries": 1,
     "id": "the-lord-of-the-rings-the-rings-of-power",
@@ -1337,7 +1337,7 @@
   },
   {
     "title": "Kalki 2898 AD",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 118,
     "loggedEntries": 1,
     "id": "kalki-2898-ad",
@@ -1373,7 +1373,7 @@
   },
   {
     "title": "Zindagi Na Milegi Dobara",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 121,
     "loggedEntries": 1,
     "id": "zindagi-na-milegi-dobara",
@@ -1385,7 +1385,7 @@
   },
   {
     "title": "Smile 2",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 122,
     "loggedEntries": 1,
     "id": "smile-2",
@@ -1397,7 +1397,7 @@
   },
   {
     "title": "The Martian",
-    "verdict": "Masterpiece",
+    "verdict": "Go for it",
     "order": 123,
     "loggedEntries": 1,
     "id": "the-martian",
@@ -1421,7 +1421,7 @@
   },
   {
     "title": "Train to Busan",
-    "verdict": "Masterpiece",
+    "verdict": "Go for it",
     "order": 125,
     "loggedEntries": 1,
     "id": "train-to-busan",
@@ -1457,7 +1457,7 @@
   },
   {
     "title": "The Karate Kid Part II",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 128,
     "loggedEntries": 1,
     "id": "the-karate-kid-part-ii",
@@ -1469,7 +1469,7 @@
   },
   {
     "title": "The Karate Kid Part III",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 129,
     "loggedEntries": 1,
     "id": "the-karate-kid-part-iii",
@@ -1481,7 +1481,7 @@
   },
   {
     "title": "Beast Games",
-    "verdict": "Casual watch",
+    "verdict": "Timepass",
     "order": 130,
     "loggedEntries": 1,
     "id": "beast-games",
@@ -1493,7 +1493,7 @@
   },
   {
     "title": "Khauf",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 131,
     "loggedEntries": 1,
     "id": "khauf",
@@ -1505,7 +1505,7 @@
   },
   {
     "title": "Ready Player One",
-    "verdict": "Masterpiece",
+    "verdict": "Go for it",
     "order": 133,
     "loggedEntries": 1,
     "id": "ready-player-one",
@@ -1517,7 +1517,7 @@
   },
   {
     "title": "Inglourious Basterds",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 134,
     "loggedEntries": 1,
     "id": "inglourious-basterds",
@@ -1529,7 +1529,7 @@
   },
   {
     "title": "Sinners",
-    "verdict": "Masterpiece",
+    "verdict": "Go for it",
     "order": 135,
     "loggedEntries": 1,
     "id": "sinners",
@@ -1541,7 +1541,7 @@
   },
   {
     "title": "Squid Game",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 136,
     "loggedEntries": 1,
     "id": "squid-game",
@@ -1553,7 +1553,7 @@
   },
   {
     "title": "Rush",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 137,
     "loggedEntries": 1,
     "id": "rush",
@@ -1565,7 +1565,7 @@
   },
   {
     "title": "Superman",
-    "verdict": "Masterpiece",
+    "verdict": "Go for it",
     "order": 138,
     "loggedEntries": 1,
     "id": "superman",
@@ -1577,7 +1577,7 @@
   },
   {
     "title": "Tamasha",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 139,
     "loggedEntries": 1,
     "id": "tamasha",
@@ -1589,7 +1589,7 @@
   },
   {
     "title": "F1: The Movie",
-    "verdict": "Masterpiece",
+    "verdict": "Go for it",
     "order": 140,
     "loggedEntries": 1,
     "id": "f1",
@@ -1601,7 +1601,7 @@
   },
   {
     "title": "Alice in Borderland",
-    "verdict": "Masterpiece",
+    "verdict": "Go for it",
     "order": 141,
     "loggedEntries": 1,
     "id": "alice-in-borderland",
@@ -1637,7 +1637,7 @@
   },
   {
     "title": "Kill Bill: Vol. 1",
-    "verdict": "Masterpiece",
+    "verdict": "Go for it",
     "order": 144,
     "loggedEntries": 1,
     "id": "kill-bill-vol-1",
@@ -1649,7 +1649,7 @@
   },
   {
     "title": "Kill Bill: Vol. 2",
-    "verdict": "Masterpiece",
+    "verdict": "Go for it",
     "order": 145,
     "loggedEntries": 1,
     "id": "kill-bill-vol-2",
@@ -1698,7 +1698,7 @@
   },
   {
     "title": "Off Campus",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 150,
     "loggedEntries": 1,
     "id": "off-campus",
@@ -1710,7 +1710,7 @@
   },
   {
     "title": "Hereditary",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 151,
     "loggedEntries": 1,
     "id": "hereditary",
@@ -1722,7 +1722,7 @@
   },
   {
     "title": "2001: A Space Odyssey",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 152,
     "loggedEntries": 1,
     "id": "2001-a-space-odyssey",
@@ -1734,7 +1734,7 @@
   },
   {
     "title": "Evil Dead Burn",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 153,
     "loggedEntries": 1,
     "id": "evil-dead-burn",
@@ -1746,7 +1746,7 @@
   },
   {
     "title": "21 Jump Street",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 154,
     "loggedEntries": 1,
     "id": "21-jump-street",
@@ -1758,7 +1758,7 @@
   },
   {
     "title": "22 Jump Street",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 155,
     "loggedEntries": 1,
     "id": "22-jump-street",
@@ -1770,7 +1770,7 @@
   },
   {
     "title": "Troy",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 156,
     "loggedEntries": 1,
     "id": "troy",
@@ -1782,7 +1782,7 @@
   },
   {
     "title": "The Odyssey",
-    "verdict": "Masterpiece",
+    "verdict": "Go for it",
     "order": 157,
     "loggedEntries": 1,
     "id": "the-odyssey",
@@ -1794,7 +1794,7 @@
   },
   {
     "title": "Spider-Man: Brand New Day",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 158,
     "loggedEntries": 1,
     "id": "spider-man-brand-new-day",
@@ -1806,7 +1806,7 @@
   },
   {
     "title": "Toxic: A Fairy Tale for Grown-ups",
-    "verdict": "Give it a miss",
+    "verdict": "Skip",
     "order": 160,
     "loggedEntries": 1,
     "id": "toxic-a-fairy-tale-for-grown-ups",
@@ -1818,7 +1818,7 @@
   },
   {
     "title": "Thunderbolts*",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 161,
     "loggedEntries": 1,
     "id": "thunderbolts",
@@ -1830,7 +1830,7 @@
   },
   {
     "title": "The Fantastic Four: First Steps",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 162,
     "loggedEntries": 1,
     "id": "the-fantastic-four-first-steps",
@@ -1842,7 +1842,7 @@
   },
   {
     "title": "Weapons",
-    "verdict": "Worth watching",
+    "verdict": "Go for it",
     "order": 163,
     "loggedEntries": 1,
     "id": "weapons",

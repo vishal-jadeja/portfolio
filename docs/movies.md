@@ -8,11 +8,13 @@ Imported the user's Movie/Series List Notion export on 2026-10-08: 164 database 
 
 The numeric ratings and private review text are deliberately absent from the repository and public data. Labels were derived locally:
 
-- Above 8: Masterpiece
-- 7 through 8, inclusive: Worth watching
-- 6 up to, but excluding, 7: Casual watch
-- Below 6: Give it a miss
+- 9 through 10, inclusive: Masterpiece
+- 7 through 8.5, inclusive: Go for it
+- 6 up to, but excluding, 7: Timepass
+- Below 6: Skip
 - No rating: null (shown as Not yet rated, or All-time favorite for explicitly supplied favorites)
+
+The user explicitly assigned all eight Harry Potter films to **Go for it**, overriding their originally unrated entries. Exactly 7 belongs to **Go for it** where the requested ranges overlap.
 
 For consolidated series, the latest numbered entry supplies the verdict and ordering. `loggedEntries` records how many original entries the card represents. `order` is the original journal sequence, not a rating. Curated favorites and anticipated titles are supplied by the user, not inferred from external release schedules.
 
