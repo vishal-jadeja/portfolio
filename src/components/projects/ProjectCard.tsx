@@ -48,7 +48,7 @@ export default function ProjectCard({ project, activeTech }: {
               </a>
             </div>
           </div>
-          <p className="project-summary-description">{project.description}</p>
+          <p className="project-summary-description" data-expanded={expanded}>{project.description}</p>
           <div className="project-summary-stack">
             {project.techStack.map((tech) => (
               <span key={tech} title={tech} className={`chip${activeTech === techFamily(tech) ? " chip--match" : ""}`}>
@@ -66,7 +66,6 @@ export default function ProjectCard({ project, activeTech }: {
       <div id={`${id}-details`} className="project-details-reveal" data-expanded={expanded} aria-hidden={!expanded} inert={!expanded}>
         <div className="project-details-clip">
           <div className="project-summary-details">
-            <p>{project.description}</p>
             <h3>Highlights</h3>
             <ul>{project.highlights.map((highlight) => <li key={highlight}>{highlight}</li>)}</ul>
           </div>

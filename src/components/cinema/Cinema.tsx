@@ -3,6 +3,7 @@
 import { useMemo, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import PhysicalPoster from './PhysicalPoster';
 import { movies, verdicts, allTimeFavorites, currentFavorites, anticipatedMovies, type Movie } from '@/data/movies';
 
 function Poster({ movie, priority = false }: { movie: Movie; priority?: boolean }) {
@@ -15,13 +16,18 @@ function Poster({ movie, priority = false }: { movie: Movie; priority?: boolean 
 function Card({ movie, rank }: { movie: Movie; rank?: number }) {
   const verdict = movie.anticipated ? 'On my radar' : movie.verdict ?? (movie.favorite ? 'All-time favorite' : 'Not yet rated');
   const content = <>
-    <Poster movie={movie} />
-    {rank && <span className="cinema-rank" aria-label={`Favorite ${rank}`}>{String(rank).padStart(2, '0')}</span>}
-    <div className="cinema-card-copy"><p className="cinema-meta">{movie.type}{movie.year ? ` · ${movie.year}` : ''}</p><h3>{movie.title}</h3>
-      <span className={`cinema-verdict verdict-${verdicts.indexOf(movie.verdict!)}`}>{rank ? "All-time favorite" : verdict}</span>
+    <PhysicalPoster overlay={rank ? <span className="cinema-rank" aria-label={`Favorite ${rank}`}>{String(rank).padStart(2, '0')}</span> : undefined}>
+      <Poster movie={movie} />
+    </PhysicalPoster>
+    <div className="cinema-card-copy">
+      <div className="cinema-card-details">
+        <p className="cinema-meta" title={`${movie.type}${movie.year ? ` · ${movie.year}` : ""}`}>{movie.type}{movie.year ? ` · ${movie.year}` : ''}</p>
+        {!rank && <span className={`cinema-verdict cinema-card-verdict verdict-${verdicts.indexOf(movie.verdict!)}`}>{verdict}</span>}
+      </div>
+      <h3>{movie.title}</h3>
     </div>
   </>;
-  return <article className="cinema-card">{movie.imdb ? <a draggable={false} onDragStart={event => event.preventDefault()} href={`https://www.imdb.com/title/${movie.imdb}/`} target="_blank" rel="noopener noreferrer" aria-label={`${movie.title} — details on IMDb (opens in a new tab)`}>{content}</a> : <div>{content}</div>}</article>;
+  return <article className="cinema-card">{movie.imdb ? <a draggable={false} onDragStart={event => event.preventDefault()} href={`https://www.imdb.com/title/${movie.imdb}/`} target="_blank" rel="noopener noreferrer" aria-label={`${movie.title}${rank ? "" : ` — ${verdict}`} — details on IMDb (opens in a new tab)`}>{content}</a> : <div>{content}</div>}</article>;
 }
 
 export default function Cinema() {
