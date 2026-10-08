@@ -6,7 +6,6 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { TbCheck, TbCopy } from 'react-icons/tb';
 import SocialIcon from '@/components/SocialIcon';
-import ViewCounter from '@/components/ViewCounter';
 
 const GITHUB_AVATAR = 'https://avatars.githubusercontent.com/vishal-jadeja';
 
@@ -98,7 +97,6 @@ export default function Hero() {
                   <SocialIcon name={social.name} />
                 </motion.a>
               ))}
-              <span className="ml-3"><ViewCounter compact /></span>
             </motion.nav>
           </div>
         </motion.div>
