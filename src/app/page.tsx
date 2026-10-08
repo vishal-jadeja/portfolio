@@ -64,12 +64,12 @@ export default function Home() {
       <SectionDivider />
       <About />
       <SectionDivider />
-      <Skills />
-      <SectionDivider />
       <GitHubContributions />
       <SectionDivider />
-      <section id="gears" className="py-8 px-5 sm:px-8 bg-bg">
-        <h2 className="font-semibold text-text-main text-xl mb-4">Gears</h2>
+      <Skills />
+      <SectionDivider />
+      <section id="gears" className="py-8 site-gutter bg-bg">
+        <h2 className="section-title section-title-spaced">Gears</h2>
         <Link href="/gears" className="group flex items-center justify-between gap-4 py-4 border-y border-border-main focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-text-main">
           <span>
             <span className="block font-medium text-text-main">My everyday setup</span>
@@ -79,7 +79,6 @@ export default function Home() {
         </Link>
       </section>
       <Personal />
-      <SectionDivider />
       <Quote />
       <SectionDivider />
       <Contact />

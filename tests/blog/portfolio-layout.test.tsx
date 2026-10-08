@@ -14,7 +14,7 @@ describe("portfolio refresh", () => {
   it("keeps the quote compact and the section separators shorter", () => {
     const quote = source("components/sections/Quote.tsx");
     expect(quote).toContain("py-6 sm:py-8");
-    expect(quote).toContain("text-base sm:text-lg");
+    expect(quote).toContain("text-lg sm:text-xl");
     expect(quote).not.toContain("md:text-3xl");
     expect(source("components/SectionDivider.tsx")).toContain("height: 20");
     const page = source("app/page.tsx");

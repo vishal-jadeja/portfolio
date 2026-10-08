@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 export default function Quote() {
   return (
-    <section id="quote" className="py-8 px-5 sm:px-8 bg-bg overflow-hidden">
+    <section id="quote" className="py-8 site-gutter bg-bg overflow-hidden">
       <div className="max-w-[840px] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -24,7 +24,7 @@ export default function Quote() {
 
           {/* Quote text */}
           <div className="flex-1 relative z-10">
-            <blockquote className="font-sans font-semibold text-text-main text-base sm:text-lg leading-relaxed tracking-tight">
+            <blockquote className="font-sans font-semibold text-text-main text-lg sm:text-xl leading-relaxed tracking-tight">
               &#8220;You don&apos;t get what you wish for,
               you get what you work for.&#8221;
             </blockquote>
