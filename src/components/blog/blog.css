@@ -1287,8 +1287,8 @@ body:has(.blog-listing--empty) {
   content: "";
   position: absolute;
   inset: 0;
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   background: linear-gradient(
     transparent,
     color-mix(in srgb, var(--theme-bg) 50%, transparent)
@@ -1308,7 +1308,9 @@ body:has(.blog-listing--empty) {
   height: 48px;
   padding: 0 16px;
   border-radius: 30px;
-  background: var(--theme-card);
+  background: var(--blog-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   color: var(--theme-text-main);
   border: 1px solid var(--theme-border-main);
   box-shadow: 0 12px 35px rgba(0, 0, 0, 0.18);
