@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { HOME_PROJECT_COUNT, projects } from "@/data/projects";
 import { projectAnchorId } from "@/lib/search/static-entries";
 import { hashId } from "@/lib/search/hash";
+import HomeProjectTechnologies from "@/components/projects/HomeProjectTechnologies";
 
 export default function Projects() {
   // Old /#project-<slug> links to cards no longer on the home page move to /projects.
@@ -17,7 +18,7 @@ export default function Projects() {
   }, []);
 
   return (
-    <section id="projects" className="py-8 px-5 sm:px-8 bg-bg">
+    <section id="projects" className="py-8 site-gutter bg-bg">
       <div className="max-w-[840px] mx-auto">
 
         <motion.h2
@@ -25,7 +26,7 @@ export default function Projects() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.45 }}
-          className="font-bold text-text-main text-2xl mb-8"
+          className="section-title section-title-spaced"
         >
           Projects
         </motion.h2>
@@ -41,17 +42,17 @@ export default function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.08 }}
               transition={{ duration: 0.5, delay: i * 0.07 }}
-              className="group flex flex-col sm:flex-row gap-6 py-4 hover:-mx-4 hover:px-4 hover:bg-[var(--glass-bg)] rounded-2xl transition-all duration-300"
+              className="home-project-card group flex flex-col sm:flex-row gap-6 py-4 hover:-mx-4 hover:px-4 hover:bg-[var(--glass-bg)] rounded-2xl transition-all duration-300"
             >
               {/* Image — left side */}
-              <div className="relative w-full sm:w-[240px] md:w-[280px] h-48 sm:h-auto shrink-0 bg-[var(--theme-surface)] rounded-xl overflow-hidden border border-[var(--glass-border)]">
+              <div className="relative w-full sm:w-[200px] md:w-[220px] h-48 sm:h-auto shrink-0 bg-[var(--theme-surface)] rounded-xl overflow-hidden border border-[var(--glass-border)]">
                 {project.imageUrl ? (
                   <Image
                     src={project.imageUrl}
                     alt={`${project.title} screenshot`}
                     fill
                     className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
-                    sizes="(max-width: 640px) 100vw, 340px"
+                    sizes="(max-width: 639px) 100vw, (max-width: 767px) 200px, 220px"
                     unoptimized
                   />
                 ) : (
@@ -67,7 +68,7 @@ export default function Projects() {
               </div>
 
               {/* Content — right side */}
-              <div className="flex-1 flex flex-col justify-between py-1 gap-4">
+              <div className="min-w-0 flex-1 flex flex-col justify-between py-1 gap-2">
                 {/* Top: title + buttons */}
                 <div className="flex items-start justify-between gap-4 flex-wrap">
                   <h3 className="font-bold text-text-main text-2xl leading-tight">
@@ -103,22 +104,11 @@ export default function Projects() {
 
                 {/* Description */}
                 <p className="text-text-muted text-sm leading-relaxed flex-1 line-clamp-2">
-                  {project.description}
+                  {project.summary ?? project.tagline}
                 </p>
 
                 {/* Tech chips */}
-                <div className="flex flex-wrap gap-1.5">
-                  {project.techStack.map((tech) => (
-                    <motion.span
-                      key={tech}
-                      className="chip"
-                      whileHover={{ scale: 1.05, y: -1 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                    >
-                      {tech}
-                    </motion.span>
-                  ))}
-                </div>
+                <HomeProjectTechnologies technologies={project.techStack} href={`/projects#${projectAnchorId(project.title)}`} projectTitle={project.title} />
               </div>
             </motion.div>
           ))}

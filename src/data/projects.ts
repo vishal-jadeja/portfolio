@@ -1,6 +1,7 @@
 export interface Project {
   title: string;
   tagline: string;
+  summary?: string;
   description: string;
   techStack: string[];
   highlights: string[];
@@ -13,6 +14,7 @@ export interface Project {
 export const projects: Project[] = [
   {
     title: "Deplyx",
+    summary: "Finds retiring AI models in your repos and drafts fixes before they break production.",
     tagline: "Catch Dead AI Models Before Prod Does",
     description:
       "AI providers retire models on a few months' notice, in a blog post nobody on the team read — and hard-coded model IDs start 404ing the day the switch flips. Deplyx watches a live deprecation feed, already knows which connected repos reference an affected model, scores severity from the real announcement → shutdown dates, then generates a reviewable fix PR with an LLM using your own API key and tracks it through merge via webhook.",
@@ -43,6 +45,7 @@ export const projects: Project[] = [
   },
   {
     title: "Cadenz",
+    summary: "Tracks what you read and build, with an AI assistant that searches your own notes.",
     tagline: "An AI Layer On Your Intellectual Life",
     description:
       "A passive-first platform that tracks everything you read, build, and write, then makes it queryable. A unified activity heatmap pulls GitHub, LeetCode, notes, and sessions into one grid; a RAG knowledge assistant answers questions strictly from your own notes with full tenant isolation; and a publishing layer turns any of it into posts for LinkedIn, X, and Medium.",
@@ -71,6 +74,7 @@ export const projects: Project[] = [
   },
   {
     title: "Genora",
+    summary: "Turns one idea into platform-ready posts with an AI writing and review pipeline.",
     tagline: "Write Once. Repurpose Everywhere.",
     description:
       "A multi-agent content pipeline that turns one raw thought into platform-native posts without the AI tells. Every draft passes through a writer → critic → reviser loop per platform, gated by Slop Guard — a quality check that rejects low-effort input before a single token is spent. Built as a Next.js frontend over a Python/FastAPI AI core, orchestrated end-to-end with Trigger.dev.",
@@ -101,6 +105,7 @@ export const projects: Project[] = [
   },
   {
     title: "Peerly",
+    summary: "Finds people to learn from across social platforms and drafts personal outreach.",
     tagline: "Find Real People to Learn From",
     description:
       "Describe a learning goal in plain English. Peerly searches Reddit, X, and LinkedIn for people who recently posted about it, then uses Groq AI to draft a personalized outreach message for each one — combining async multi-platform scraping with LLM-generated queries and copy-ready messages.",
@@ -130,6 +135,7 @@ export const projects: Project[] = [
   },
   {
     title: "Cinova",
+    summary: "A Chrome new-tab dashboard for goals, Pomodoro sessions, and distraction blocking.",
     tagline: "Goal-Focused New Tab Dashboard",
     description:
       "A Chrome extension that transforms your new tab into a productivity command center. Tracks weekly, monthly, and yearly goals with inline completion and notes, includes a Pomodoro timer with browser notifications, Focus Mode for domain-level site blocking, and a Rewards Mode that unlocks when goal thresholds are met.",
@@ -153,6 +159,7 @@ export const projects: Project[] = [
   },
   {
     title: "Syncify",
+    summary: "Moves YouTube playlists to Spotify with fuzzy song matching.",
     tagline: "YouTube → Spotify Playlist Converter",
     description:
       "A seamless tool that converts YouTube playlists to Spotify using intelligent fuzzy matching. Handles OAuth 2.0 flows for both platforms, gracefully manages API rate limits, and reduced manual playlist migration effort by 95%.",
@@ -176,6 +183,7 @@ export const projects: Project[] = [
   },
   {
     title: "Amazon Clone",
+    summary: "A full-stack storefront with authentication, a product catalog, cart, and orders.",
     tagline: "E-Commerce Web Application",
     description:
       "User-side e-commerce platform replicating Amazon's core features — JWT authentication, product catalog, shopping cart, and order processing. Built with a mobile-first responsive UI using React.js and Redux, backed by scalable MongoDB schemas with efficient indexing.",

@@ -1,14 +1,13 @@
 "use client";
 
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { flushSync } from "react-dom";
 import { motion } from "framer-motion";
 import { projects } from "@/data/projects";
 import { filterProjects, sharedTech, type StatusFilter } from "@/lib/projects";
 import { projectAnchorId } from "@/lib/search/static-entries";
 import { REVEAL_ANCHOR_EVENT } from "@/components/search/SiteSearch";
-import SectionDivider from "@/components/SectionDivider";
-import ProjectCaseStudy from "./ProjectCaseStudy";
+import ProjectCard from "./ProjectCard";
 
 const STATUSES: { value: StatusFilter; label: string }[] = [
   { value: "all", label: "All" },
@@ -44,56 +43,48 @@ export default function ProjectsIndex() {
 
   return (
     <>
-      <div className="px-5 sm:px-8 pb-8 flex flex-col gap-5 anim-fade-up [animation-delay:120ms]">
-        {/* Counts are faceted: each option shows what you'd get combined with the other filter. */}
-        <div role="group" aria-label="Filter by status" className="self-start inline-flex flex-wrap p-1 rounded-full border border-[var(--glass-border)] bg-[var(--theme-card)]">
-          {STATUSES.map((s) => {
-            const active = status === s.value;
-            const count = filterProjects(projects, s.value, tech).length;
-            return (
-              <button
-                key={s.value}
-                type="button"
-                aria-pressed={active}
-                disabled={count === 0 && !active}
-                onClick={() => setStatus(s.value)}
-                className={`relative px-3.5 py-1.5 rounded-full text-xs font-medium transition-colors duration-150 disabled:opacity-35 disabled:cursor-not-allowed ${active ? "text-bg" : "text-text-muted enabled:hover:text-text-main"}`}
-              >
-                {active && (
-                  <motion.span
-                    layoutId="project-status-pill"
-                    className="absolute inset-0 rounded-full bg-text-main"
-                    transition={{ type: "spring", stiffness: 500, damping: 38 }}
-                  />
-                )}
-                <span className="relative">
-                  {s.label}{" "}
-                  <span className="font-mono opacity-60">{count}</span>
-                </span>
-              </button>
-            );
-          })}
-        </div>
-
-        <div className="flex flex-col sm:flex-row sm:items-start gap-2.5 sm:gap-4">
-          <span className="section-label pt-[7px] shrink-0">Stack</span>
-          <div role="group" aria-label="Filter by technology" className="flex flex-wrap gap-1.5">
-            {STACK.map(({ name }) => {
-              const count = filterProjects(projects, status, name).length;
+      <div className="site-gutter pb-4 flex flex-col gap-3 anim-fade-up [animation-delay:120ms]">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          {/* Counts are faceted: each option shows what you'd get combined with the other filter. */}
+          <div role="group" aria-label="Filter by status" className="self-start inline-flex flex-wrap p-1 rounded-full border border-[var(--glass-border)] bg-[var(--theme-card)]">
+            {STATUSES.map((s) => {
+              const active = status === s.value;
+              const count = filterProjects(projects, s.value, tech).length;
               return (
                 <button
-                  key={name}
+                  key={s.value}
                   type="button"
-                  aria-pressed={tech === name}
-                  disabled={count === 0 && tech !== name}
-                  onClick={() => setTech((t) => (t === name ? null : name))}
-                  className="chip chip--filter"
+                  aria-pressed={active}
+                  disabled={count === 0 && !active}
+                  onClick={() => setStatus(s.value)}
+                  className={`relative px-3.5 py-1.5 rounded-full text-xs font-medium transition-colors duration-150 disabled:opacity-35 disabled:cursor-not-allowed ${active ? "text-bg" : "text-text-muted enabled:hover:text-text-main"}`}
                 >
-                  {name}
-                  <span className="font-mono opacity-60">{count}</span>
+                  {active && (
+                    <motion.span
+                      layoutId="project-status-pill"
+                      className="absolute inset-0 rounded-full bg-text-main"
+                      transition={{ type: "spring", stiffness: 500, damping: 38 }}
+                    />
+                  )}
+                  <span className="relative">
+                    {s.label}{" "}
+                    <span className="font-mono opacity-60">{count}</span>
+                  </span>
                 </button>
               );
             })}
+          </div>
+
+          <div className="project-stack-filter">
+            <label htmlFor="project-technology">Technology</label>
+            <select id="project-technology" value={tech ?? ""} onChange={(event) => setTech(event.target.value || null)}>
+              <option value="">All technologies</option>
+              {STACK.map(({ name }) => (
+                <option key={name} value={name} disabled={filterProjects(projects, status, name).length === 0}>
+                  {name} ({filterProjects(projects, status, name).length})
+                </option>
+              ))}
+            </select>
           </div>
         </div>
 
@@ -107,17 +98,14 @@ export default function ProjectsIndex() {
         </p>
       </div>
 
-      <SectionDivider />
-
       {shown.length ? (
-        shown.map((project, i) => (
-          <Fragment key={project.title}>
-            {i > 0 && <SectionDivider />}
-            <ProjectCaseStudy project={project} number={projects.indexOf(project) + 1} activeTech={tech} />
-          </Fragment>
-        ))
+        <div className="site-gutter">
+          {shown.map((project) => (
+            <ProjectCard key={project.title} project={project} activeTech={tech} />
+          ))}
+        </div>
       ) : (
-        <div className="px-5 sm:px-8 py-16 text-center">
+        <div className="site-gutter py-16 text-center">
           <p className="font-semibold text-text-main">No projects match these filters.</p>
           <p className="mt-1 text-sm text-text-muted">Try a different status or stack.</p>
           <button type="button" onClick={clear} className="modern-btn-outline mt-6">
