@@ -1,13 +1,19 @@
 import { spawn } from "node:child_process";
 import { createRequire } from "node:module";
+import { rm } from "node:fs/promises";
 const require = createRequire(import.meta.url);
 const previewOrigin = "http://127.0.0.1:3101";
+// The demo database is recreated each run; its cached post/media IDs must be too.
+for (const path of ["../.next/demo/cache/fetch-cache", "../.next/demo/dev/cache/fetch-cache"]) {
+  await rm(new URL(path, import.meta.url), { recursive: true, force: true });
+}
 const env = {
   ...process.env,
   BLOG_DEMO: "1",
   BLOG_FIXTURE_PORT: "54339",
   BLOG_TEST_BUILD_DIR: ".next/demo",
   NEXT_PUBLIC_SUPABASE_URL: "http://127.0.0.1:54339",
+  SUPABASE_URL: "http://127.0.0.1:54339",
   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: "test-public-key",
   SUPABASE_SECRET_KEY: "test-secret",
   NEXT_PUBLIC_SITE_URL: previewOrigin,

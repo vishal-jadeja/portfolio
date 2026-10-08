@@ -19,6 +19,22 @@ await db.exec(
 await db.exec(
   `insert into public.blog_admins values('${owner}'); grant all on all tables in schema public to service_role;`,
 );
+// Match the views API locally; counts start at zero and reset with the demo.
+await db.exec(`
+  create table public.page_views (
+    page text not null, date date not null default current_date,
+    count integer not null default 0, primary key (page, date)
+  );
+  grant select, insert, update on public.page_views to service_role;
+  create function public.increment_views(p_page text) returns integer
+  language sql as $$
+    insert into public.page_views(page, date, count) values(p_page, current_date, 1)
+    on conflict (page, date) do update set count = page_views.count + 1
+    returning count;
+  $$;
+  revoke all on function public.increment_views(text) from public;
+  grant execute on function public.increment_views(text) to service_role;
+`);
 await db.exec(
   `select set_config('request.jwt.claim.sub','${owner}',false); set role authenticated;`,
 );
@@ -85,6 +101,7 @@ if (process.env.BLOG_DEMO === "1") {
 }
 let queue: Promise<unknown> = Promise.resolve();
 const tables = new Set([
+  "page_views",
   "blog_admins",
   "blog_posts",
   "blog_media",
@@ -93,6 +110,7 @@ const tables = new Set([
   "blog_public_media",
 ]);
 const functions: Record<string, string[]> = {
+  increment_views: ["p_page"],
   blog_create_draft: [],
   blog_save_draft: ["p_id", "p_version", "p_fields"],
   blog_publish: [
@@ -209,7 +227,7 @@ createServer(async (request, response) => {
             ? JSON.stringify(input[k])
             : input[k],
         );
-        const scalar = name === "blog_set_state";
+        const scalar = name === "blog_set_state" || name === "increment_views";
         const result = await db.query(
           `select ${scalar ? "" : "* from "}public.${name}(${keys.map((_k, i) => `$${i + 1}`).join(",")})`,
           values,

@@ -76,7 +76,7 @@ See [blog SEO behavior and deployment checks](blog-seo.md) for canonical URLs, c
 
 ## Sample preview
 
-Run `npm run blog:preview` for a local demo, or `npm run blog:preview -- --production` for a production build. Open `http://127.0.0.1:3101/blog/building-a-quieter-place-to-write`. The preview uses an isolated in-memory database and generated images, never production credentials. Ctrl+C stops it; relaunching restores the sample. The Markdown source is in `examples/blog/building-a-quieter-place-to-write.md`.
+Run `npm run blog:preview` for a local demo, or `npm run blog:preview -- --production` for a production build. Open `http://127.0.0.1:3101/blog` to browse 13 sample posts with varied title lengths, categories, dates, generated covers, and two text-only posts. The collection spans two pages for pagination testing. The preview uses an isolated in-memory database and generated images, never production credentials. Ctrl+C stops it; relaunching restores the samples. Demo content is seeded in `scripts/blog-demo-seed.mts`; the original article Markdown is in `examples/blog/building-a-quieter-place-to-write.md`.
 
 The public reading layout takes typography and glass-effect inspiration from https://ramx.in/blog/cursor-code-indexing: Playfair Display / Hanken Grotesk, an 840px shell shared with the homepage, a frosted sticky header, and a floating section/progress control. Reduced-motion settings disable smooth scrolling and animated control transitions.
 

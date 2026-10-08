@@ -1,6 +1,6 @@
 /** Local preview seed only. It is never used by production queries. */
 import { readFile } from "node:fs/promises";
-import { createHash } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import sharp from "sharp";
 import type { PGlite } from "@electric-sql/pglite";
 import matter from "gray-matter";
@@ -109,7 +109,49 @@ export async function seedBlogDemo(
       Math.max(1, Math.ceil(article.body_markdown.split(/\s+/).length / 220)),
     ],
   );
-  console.log(
-    "Local sample article ready: /blog/building-a-quieter-place-to-write",
-  );
+  const samples = [
+    { title: "What I learned building my first AI tool", tags: ["ai", "engineering"], excerpt: "Small prompts, clear boundaries, and the debugging lessons that mattered most." },
+    { title: "A practical guide to caching in Next.js", tags: ["nextjs", "performance"], excerpt: "Choosing what to cache, when to refresh it, and how to keep stale data from surprising your users." },
+    { title: "Designing interfaces that feel quiet", tags: ["design"], excerpt: "A few notes on typography, whitespace, and giving the important things room to breathe." },
+    { title: "Shipping a side project in a weekend", tags: ["personal", "engineering"], excerpt: "A small scope, a working prototype, and a list of features that can wait." },
+    { title: "Postgres indexes explained with a tiny example", tags: ["database", "engineering"], excerpt: "Follow a slow query from a table scan to an index, with a simple way to read the query plan." },
+    { title: "The case for fewer dependencies", tags: ["engineering"], excerpt: "When a small function is enough, and when a library earns its place." },
+    { title: "Making keyboard navigation a first-class feature", tags: ["accessibility", "design"], excerpt: "Focus states, predictable tab order, and the small details that make a site easier to use." },
+    { title: "From scattered notes to a searchable knowledge base", tags: ["ai", "productivity"], excerpt: "An experiment with embeddings, retrieval, and finding the idea you wrote down last month." },
+    { title: "Why I keep a weekly engineering journal", tags: ["personal", "productivity"], excerpt: "A lightweight habit for remembering decisions and noticing progress." },
+    { title: "Debugging the bug that only appears on mobile", tags: ["frontend", "engineering"], excerpt: "A story about viewport units, touch interactions, and checking assumptions on a smaller screen." },
+    { title: "A tiny checklist before publishing a web app", tags: ["nextjs", "accessibility"], excerpt: "The links, empty states, and loading paths I check before calling something ready." },
+    { title: "Learning by building small things", tags: ["personal"], excerpt: "One useful feature at a time." },
+  ];
+  const palettes = [["#e8e5df", "#64715d"], ["#e1e7ed", "#4b6680"], ["#ede1da", "#96674e"], ["#e6e0ee", "#78638e"]];
+  for (const [index, sample] of samples.entries()) {
+    const id = randomUUID();
+    const slug = sample.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    const markdown = `> Fictional sample post for local testing.\n\n${sample.excerpt}\n\n## The idea\n\nThis demo article exercises the reading layout with a realistic title, a short introduction, and a few sections. It is part of the local sample collection.\n\n## A small experiment\n\nStart with one clear question. Build the smallest example, inspect the result, and write down what changed.\n\n- Keep the first version small.\n- Check the behavior on desktop and mobile.\n- Revisit the tradeoffs after trying it.\n\n\`\`\`typescript\nconst experiment = { scope: "small", status: "learning" };\nconsole.log(experiment);\n\`\`\`\n\n## What I would try next\n\nCompare a second approach and document the differences. For this sample, the important part is testing readable paragraphs, lists, code blocks, and navigation.\n`;
+    await db.query(
+      "insert into public.blog_posts(id,author_id,slug,title,excerpt,body_markdown,tags,first_published_at) values($1,$2,$3,$4,$5,$6,$7,now() - ($8 * interval '3 days'))",
+      [id, owner, slug, sample.title, sample.excerpt, markdown, sample.tags, index + 1],
+    );
+    const mediaIds: string[] = [];
+    // Two text-only posts also exercise the no-cover hover and reading states.
+    if (index !== 5 && index !== 11) {
+      const mediaId = randomUUID();
+      const [background, accent] = palettes[index % palettes.length];
+      const words = sample.title.split(" ");
+      const middle = Math.ceil(words.length / 2);
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><rect width="1200" height="630" fill="${background}"/><circle cx="1050" cy="80" r="240" fill="${accent}" opacity=".12"/><path d="M820 450l100-170 100 170z" fill="none" stroke="${accent}" stroke-width="4" opacity=".45"/><text x="80" y="125" font-family="sans-serif" font-size="19" letter-spacing="4" fill="${accent}">LOCAL SAMPLE / ${String(index + 1).padStart(2, "0")}</text><g font-family="sans-serif" font-size="42" font-weight="600" fill="#292c30"><text x="80" y="290">${words.slice(0, middle).join(" ")}</text><text x="80" y="350">${words.slice(middle).join(" ")}</text></g><text x="80" y="550" font-family="sans-serif" font-size="20" fill="${accent}">${sample.tags.join(" / ")}</text></svg>`;
+      const image = await sharp(Buffer.from(svg)).webp({ quality: 90 }).toBuffer();
+      const path = `demo/${slug}.webp`;
+      objects.set(`blog-public/${path}`, image);
+      objects.set(`blog-drafts/${path}`, image);
+      await db.query(
+        "insert into public.blog_media(id,owner_id,post_id,private_object_path,public_object_path,mime_type,bytes,width,height,checksum,alt_text,state,validated_at) values($1,$2,$3,$4,$4,'image/webp',$5,1200,630,$6,$7,'ready',now())",
+        [mediaId, owner, id, path, image.length, createHash("sha256").update(image).digest("hex"), `Sample cover for ${sample.title}`],
+      );
+      await db.query("update public.blog_posts set cover_media_id=$2 where id=$1", [id, mediaId]);
+      mediaIds.push(mediaId);
+    }
+    await db.query("select * from public.blog_publish($1,$2,1,$3,$4,'Vishal Jadeja')", [id, owner, mediaIds, Math.max(1, Math.ceil(markdown.split(/\s+/).length / 220))]);
+  }
+  console.log(`Local demo ready: ${samples.length + 1} sample articles, including cover previews, categories, and pagination.`);
 }
