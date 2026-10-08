@@ -1876,7 +1876,8 @@
     "imdb": "tt4154796",
     "year": 2019,
     "posterSource": "https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg",
-    "poster": "/posters/avengers-endgame.webp"
+    "poster": "/posters/avengers-endgame.webp",
+    "favorite": true
   },
   {
     "title": "Game of Thrones",
