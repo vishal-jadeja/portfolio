@@ -20,21 +20,12 @@ await db.exec(
   `insert into public.blog_admins values('${owner}'); grant all on all tables in schema public to service_role;`,
 );
 // Match the views API locally; counts start at zero and reset with the demo.
-await db.exec(`
-  create table public.page_views (
-    page text not null, date date not null default current_date,
-    count integer not null default 0, primary key (page, date)
-  );
-  grant select, insert, update on public.page_views to service_role;
-  create function public.increment_views(p_page text) returns integer
-  language sql as $$
-    insert into public.page_views(page, date, count) values(p_page, current_date, 1)
-    on conflict (page, date) do update set count = page_views.count + 1
-    returning count;
-  $$;
-  revoke all on function public.increment_views(text) from public;
-  grant execute on function public.increment_views(text) to service_role;
-`);
+await db.exec(
+  await readFile(
+    new URL("../supabase/migrations/202610080001_page_views.sql", import.meta.url),
+    "utf8",
+  ),
+);
 await db.exec(
   `select set_config('request.jwt.claim.sub','${owner}',false); set role authenticated;`,
 );
