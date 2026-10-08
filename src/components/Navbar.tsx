@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import ThemeToggle from "@/components/ThemeToggle";
 import SiteSearch from "@/components/search/SiteSearch";
 import SearchButton from "@/components/search/SearchButton";
@@ -11,6 +11,7 @@ import { TbExternalLink } from "react-icons/tb";
 // Root-relative so they also work from /projects; on the home page they only scroll.
 function navLinks(pathname: string) {
   return [
+    ...(pathname !== "/" ? [{ label: "Home", href: "/" }] : []),
     { label: "Projects", href: pathname === "/projects" ? "/projects" : "/#projects" },
     { label: "Blog", href: "/blog" },
     { label: "Experience", href: "/#experience" },
@@ -22,6 +23,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
+  const reduceMotion = useReducedMotion();
   const links = navLinks(pathname);
 
   useEffect(() => {
@@ -42,7 +44,7 @@ export default function Navbar() {
               <motion.a
                 href={link.href}
                 aria-current={link.href === pathname ? "page" : undefined}
-                whileHover={{ y: -1 }}
+                whileHover={reduceMotion ? undefined : { y: -1 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 className="text-text-muted hover:text-text-main aria-[current=page]:text-text-main text-sm font-medium transition-colors duration-150"
               >

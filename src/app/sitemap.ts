@@ -10,6 +10,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: SITE_URL, changeFrequency: "monthly", priority: 1 },
     { url: `${SITE_URL}/projects`, changeFrequency: "monthly", priority: 0.9 },
     { url: `${SITE_URL}/gears`, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${SITE_URL}/movies`, changeFrequency: "monthly", priority: 0.6 },
     // An empty writing hub is noindexed; only advertise it once published.
     ...(posts.length
       ? [{

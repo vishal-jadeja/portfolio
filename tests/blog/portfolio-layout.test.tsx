@@ -103,11 +103,12 @@ describe("portfolio refresh", () => {
     expect(html).toContain('rel="noopener noreferrer"');
   });
 
-  it("does not invent personal favorites", async () => {
+  it("links to the user-supplied movie collection", async () => {
     const { default: Personal } = await import("../../src/components/sections/Personal");
     const html = renderToStaticMarkup(<Personal />);
     expect(html).toContain("Movies &amp; series");
-    expect(html).toContain("Watchlist coming soon.");
+    expect(html).toContain('href="/movies"');
+    expect(html).toContain("the full collection");
   });
 
   it("makes experience details keyboard accessible without dropping achievements", () => {
