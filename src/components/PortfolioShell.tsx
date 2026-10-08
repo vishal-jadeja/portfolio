@@ -28,7 +28,7 @@ export default function PortfolioShell({
       <Navbar />
       <PortfolioEnhancements />
       <main id="main-content">{children}</main>
-      <footer className="border-t border-[var(--glass-border)] py-8 px-5 sm:px-8 bg-bg">
+      <footer className="border-t border-[var(--glass-border)] py-8 site-gutter bg-bg">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
           <span className="font-sans font-semibold text-text-main text-sm">
             Vishal Jadeja

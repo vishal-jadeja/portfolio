@@ -20,7 +20,7 @@ describe("blog listing states", () => {
     expect(html).not.toContain("Subscribe via RSS");
     expect(html).not.toContain('aria-label="Article pages"');
   });
-  it("preserves a populated listing and its RSS link", async () => {
+  it("preserves a populated listing with the shared section heading", async () => {
     const post: Summary = {
       post_id: "11111111-1111-4111-8111-111111111111", slug: "published-note",
       title: "A published note", excerpt: "Real article content.", tags: ["systems"],
@@ -31,7 +31,7 @@ describe("blog listing states", () => {
     vi.mocked(listPublishedPosts).mockResolvedValue({ posts: [post], total: 1 });
     const html = renderToStaticMarkup(await BlogPage({ searchParams: Promise.resolve({}) }));
     expect(html).toContain('href="/blog/published-note"');
-    expect(html).toContain("Subscribe via RSS");
+    expect(html).toContain('<h1 class="section-title">Blog</h1>');
     expect(html).not.toContain("blog-empty-writing");
   });
   it("shows a cover preview only for articles with a selected cover", async () => {
@@ -56,7 +56,7 @@ describe("blog listing states", () => {
     const html = renderToStaticMarkup(await BlogPage({ searchParams: Promise.resolve({ tag: "systems" }) }));
     expect(html).toContain("No articles match this category.");
     expect(html).toContain("Clear filter");
-    expect(html).toContain("Subscribe via RSS");
+    expect(html).toContain('<h1 class="section-title">Blog</h1>');
     expect(html).not.toContain("blog-listing--empty");
   });
   it("shows category counts from all published posts and resets pagination when switching", async () => {

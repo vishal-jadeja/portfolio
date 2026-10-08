@@ -44,7 +44,7 @@ export default function Hero() {
   }
 
   return (
-    <section id="hero" className="px-5 sm:px-8 py-10 sm:py-14 bg-bg">
+    <section id="hero" className="site-gutter py-10 sm:py-14 bg-bg">
       <div className="max-w-[var(--site-width)] mx-auto">
 
         {/* ── Profile card ── */}

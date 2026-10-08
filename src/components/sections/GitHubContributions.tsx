@@ -319,7 +319,7 @@ export default function GitHubContributions() {
   }, [mounted, tab]);
 
   return (
-    <section id="contributions" className="py-8 px-5 sm:px-8 bg-bg">
+    <section id="contributions" className="py-8 site-gutter bg-bg">
       <div className="max-w-[840px] mx-auto">
         {/* Section header */}
         <motion.div
@@ -327,9 +327,9 @@ export default function GitHubContributions() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5 }}
-          className="flex items-center justify-between mb-10 flex-wrap gap-4"
+          className="section-heading flex items-center justify-between flex-wrap gap-4"
         >
-          <h2 className="font-bold text-text-main text-2xl">Contributions</h2>
+          <h2 className="section-title">Contributions</h2>
 
           {/* Tab toggle */}
           <div className="flex items-center bg-[var(--theme-card)] rounded-lg p-1 gap-1 border border-border-subtle">

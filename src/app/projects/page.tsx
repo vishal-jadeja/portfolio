@@ -76,7 +76,7 @@ export default function ProjectsPage() {
     <PortfolioShell>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: json }} />
 
-      <header className="px-5 sm:px-8 pt-10 sm:pt-14 pb-8 anim-fade-up">
+      <header className="site-gutter pt-8 pb-6 anim-fade-up">
         <Link
           href="/#projects"
           className="inline-flex items-center gap-1.5 font-mono text-xs text-text-muted hover:text-text-main transition-colors"
@@ -86,12 +86,11 @@ export default function ProjectsPage() {
           </svg>
           Home
         </Link>
-        <h1 className="mt-6 text-4xl sm:text-5xl font-bold tracking-tight text-text-main">
+        <h1 className="section-title page-title">
           Projects
         </h1>
-        <p className="mt-4 max-w-[60ch] text-text-muted leading-relaxed">
-          Everything I&apos;ve built — production systems, AI tooling, and the side
-          projects that taught me the most. Each one links to its source on GitHub.
+        <p className="section-description max-w-[60ch]">
+          A few things I&apos;ve built — AI tools, web apps, and useful experiments.
         </p>
       </header>
 
@@ -99,17 +98,17 @@ export default function ProjectsPage() {
 
       <SectionDivider />
 
-      <section aria-labelledby="projects-more" className="px-5 sm:px-8 py-12">
+      <section aria-labelledby="projects-more" className="site-gutter py-12">
         <div className="relative overflow-hidden rounded-2xl border border-[var(--glass-border)] bg-[var(--theme-card)] p-7 sm:p-10">
           <div
             aria-hidden="true"
             className="absolute inset-0 dot-grid-bg opacity-60 [mask-image:linear-gradient(to_left,black,transparent_70%)]"
           />
           <div className="relative">
-            <h2 id="projects-more" className="text-2xl font-bold tracking-tight text-text-main">
+            <h2 id="projects-more" className="section-title">
               Building something similar?
             </h2>
-            <p className="mt-2 max-w-[52ch] text-sm leading-relaxed text-text-muted">
+            <p className="section-description max-w-[52ch]">
               I&apos;m happy to talk through any of these, or about what you&apos;re working on.
               Smaller experiments and contributions live on my GitHub.
             </p>

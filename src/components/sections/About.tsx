@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function About() {
   return (
-    <section id="about" className="bg-bg py-8 px-5 sm:px-8">
+    <section id="about" className="bg-bg py-8 site-gutter">
       <div className="max-w-[840px] mx-auto">
 
         <motion.h2
@@ -12,7 +12,7 @@ export default function About() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.45 }}
-          className="font-bold text-text-main text-2xl mb-6"
+          className="section-title section-title-spaced"
         >
           About
         </motion.h2>

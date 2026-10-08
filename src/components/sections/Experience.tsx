@@ -43,8 +43,8 @@ const technologyColors: Record<string, string> = {
 
 export default function Experience() {
   return (
-    <section id="experience" className="py-8 px-5 sm:px-8 bg-bg">
-      <h2 className="font-semibold text-text-main text-xl mb-5">Work Experience</h2>
+    <section id="experience" className="py-8 site-gutter bg-bg">
+      <h2 className="section-title section-title-spaced">Work Experience</h2>
       <div className="experience-list">
         {experiences.map((exp) => (
           <details key={`${exp.company}-${exp.period}`} className="experience-entry">

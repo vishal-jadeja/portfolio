@@ -34,7 +34,7 @@ export default function Navbar() {
     <header
       className={`sticky top-0 z-50 border-b ${scrolled ? "bg-[var(--theme-bg)] border-[var(--theme-border-main)]" : "bg-[var(--theme-bg)] border-[var(--theme-border-main)]"}`}
     >
-      <nav className="px-5 sm:px-8 h-14 flex items-center justify-between gap-4">
+      <nav className="site-gutter h-14 flex items-center justify-between gap-4">
         {/* Desktop links */}
         <ul className="hidden md:flex items-center gap-5 flex-1">
           {links.map((link) => (
@@ -93,7 +93,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div id="portfolio-mobile-navigation" className="md:hidden border-t border-[var(--glass-border)] bg-bg px-5 py-4 flex flex-col gap-1">
+        <div id="portfolio-mobile-navigation" className="md:hidden border-t border-[var(--glass-border)] bg-bg site-gutter py-4 flex flex-col gap-1">
           {links.map((link) => (
             <a
               key={link.label}

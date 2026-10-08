@@ -44,7 +44,7 @@ export default function Gears() {
       {gearGroups.map((group) => (
         <section key={group.id} id={group.id} className="gear-group" aria-labelledby={`${group.id}-heading`}>
           <header className="gear-group-header">
-            <h2 id={`${group.id}-heading`}>{group.title}</h2>
+            <h2 id={`${group.id}-heading`} className="section-title">{group.title}</h2>
             <span className="gear-count">{group.items.length} {group.items.length === 1 ? "item" : "items"}</span>
           </header>
           <ul className="gear-items-list">

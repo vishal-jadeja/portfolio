@@ -45,14 +45,8 @@ export default async function BlogPage({
   return (
     <div className={`blog-listing${emptyWriting ? " blog-listing--empty" : ""}`}>
       <div className="blog-index-intro">
-        <span className="blog-eyebrow">Notes & ideas</span>
-        <h1>Writing.</h1>
-        <p>On engineering, systems, and the things I learn along the way.</p>
-        {!emptyWriting && (
-          <a className="blog-text-link" href="/feed.xml">
-            Subscribe via RSS ↗
-          </a>
-        )}
+        <h1 className="section-title">Blog</h1>
+        <p className="section-description">On engineering, systems, and the things I learn along the way.</p>
       </div>
       {!emptyWriting && <CategoryFilters posts={inventory} active={tag} />}
       {tag && (

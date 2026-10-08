@@ -58,33 +58,10 @@ body:has(> .blog-shell) { background-color: #f8f8f8; }
 .blog-main {
   max-width: var(--site-width);
   margin: auto;
-  padding: 28px 32px 100px;
+  padding: 32px var(--page-gutter) 100px;
 }
 .blog-index-intro {
-  margin: 0 0 32px;
-}
-.blog-eyebrow {
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  color: var(--theme-text-muted);
-}
-.blog-index-intro h1 {
-  font-family: var(--font-sans), system-ui, sans-serif;
-  font-weight: 600;
-  font-size: clamp(32px, 5vw, 40px);
-  line-height: 1.1;
-  letter-spacing: -0.025em;
-  margin: 12px 0;
-}
-.blog-index-intro p {
-  font-size: 16px;
-  line-height: 1.7;
-  color: var(--theme-text-muted);
-  margin-bottom: 14px;
-}
-.blog-index-intro .blog-text-link {
-  margin-bottom: 0;
+  margin: 0 0 var(--section-content-gap);
 }
 .blog-text-link,
 .blog-back {
@@ -309,32 +286,23 @@ body:has(.blog-listing--empty) {
 :root.dark body:has(.blog-listing--empty) {
   background-color: #101110;
 }
-.blog-shell .blog-main:has(> .blog-listing--empty) {
+.blog-shell .blog-main:has(.blog-listing--empty) {
   width: 100%;
   max-width: var(--site-width);
   flex: 1;
   margin: 0;
-  padding: 64px 40px;
+  padding: 32px var(--page-gutter);
 }
 .blog-listing--empty .blog-index-intro {
   margin: 0;
 }
-.blog-listing--empty .blog-index-intro h1 {
-  font-size: 76px;
-  margin: 16px 0 18px;
-}
-.blog-listing--empty .blog-index-intro p {
-  max-width: 540px;
-  margin: 0;
-  font-size: 16px;
-  line-height: 1.75;
-}
+.blog-listing--empty .blog-index-intro p { max-width: 540px; }
 .blog-empty-writing {
   display: grid;
   grid-template-columns: 110px minmax(0, 1fr);
   align-items: center;
   gap: 44px;
-  margin-top: 36px;
+  margin-top: var(--section-content-gap);
   padding: 40px;
   border: 1px solid var(--theme-border-main);
   border-radius: 8px;
@@ -447,22 +415,19 @@ body:has(.blog-listing--empty) {
   width: 100%;
   max-width: var(--site-width);
   margin: 0;
-  padding: 24px 40px;
+  padding: 24px var(--page-gutter);
   align-items: center;
 }
 @media (max-width: 700px) {
-  .blog-shell .blog-main:has(> .blog-listing--empty) {
-    padding: 40px 24px;
-  }
-  .blog-listing--empty .blog-index-intro h1 {
-    font-size: 50px;
+  .blog-shell .blog-main:has(.blog-listing--empty) {
+    padding: 32px var(--page-gutter);
   }
   .blog-empty-writing {
     gap: 28px;
     padding: 32px;
   }
   .blog-shell:has(.blog-listing--empty) .blog-footer {
-    padding: 24px;
+    padding: 24px var(--page-gutter);
   }
 }
 @media (max-width: 540px) {
@@ -523,7 +488,7 @@ body:has(.blog-listing--empty) {
   max-width: var(--site-width);
   margin: auto;
   border-top: 1px solid var(--theme-border-main);
-  padding: 28px 32px 90px;
+  padding: 28px var(--page-gutter) 90px;
   display: flex;
   justify-content: space-between;
   gap: 20px;
@@ -920,7 +885,7 @@ body:has(.blog-listing--empty) {
   outline-offset: 4px;
 }
 .blog-home {
-  padding: 36px 20px;
+  padding: 32px var(--page-gutter);
 }
 .blog-home-heading {
   display: flex;
@@ -1140,17 +1105,16 @@ body:has(.blog-listing--empty) {
   margin: 16px 0;
 }
 .blog-preview-banner {
-  padding: 10px 20px;
+  padding: 10px var(--page-gutter);
   text-align: center;
   font-size: 12px;
   color: var(--theme-text-muted);
 }
 @media (max-width: 700px) {
   .blog-main {
-    padding: 32px 20px 48px;
+    padding: 32px var(--page-gutter) 48px;
   }
   .blog-header {
-    padding: 0 20px;
     height: 64px;
   }
   .blog-header nav {
@@ -1160,7 +1124,7 @@ body:has(.blog-listing--empty) {
     display: none;
   }
   .blog-index-intro {
-    margin: 0 0 28px;
+    margin: 0 0 var(--section-content-gap);
   }
   .blog-prose {
     font-size: 17px;
@@ -1169,12 +1133,12 @@ body:has(.blog-listing--empty) {
     font-size: 25px;
   }
   .blog-footer {
-    padding: 24px 20px;
+    padding: 24px var(--page-gutter);
     font-size: 11px;
     flex-wrap: wrap;
   }
   .blog-admin {
-    padding-inline: 20px;
+    padding-inline: var(--page-gutter);
   }
   .blog-editor-layout {
     grid-template-columns: 1fr;
@@ -1216,7 +1180,7 @@ body:has(.blog-listing--empty) {
   max-width: var(--site-width);
   height: 100%;
   margin: auto;
-  padding-inline: 32px;
+  padding-inline: var(--page-gutter);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1370,10 +1334,10 @@ body:has(.blog-listing--empty) {
     height: 60px;
   }
   .blog-header-inner {
-    padding-inline: 20px;
+    padding-inline: var(--page-gutter);
   }
   .blog-shell .blog-main {
-    padding: 20px 20px 76px;
+    padding: 32px var(--page-gutter) 76px;
   }
   .blog-shell .blog-prose {
     font-size: 16px;

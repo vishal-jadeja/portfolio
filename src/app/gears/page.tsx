@@ -20,8 +20,8 @@ export default function GearsPage() {
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="M19 12H5m7 7-7-7 7-7" /></svg>
             Back to home
           </Link>
-          <h1 className="mt-6 text-[26px] font-semibold tracking-tight text-text-main">Gears</h1>
-          <p className="mt-3 text-sm text-text-muted leading-relaxed">The tools behind the code and the videos.</p>
+          <h1 className="section-title page-title">Gears</h1>
+          <p className="section-description">The tools behind the code and the videos.</p>
         </header>
         <Gears />
       </div>

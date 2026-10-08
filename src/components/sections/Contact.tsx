@@ -33,7 +33,7 @@ export default function Contact() {
     <section id="contact" className="py-0 bg-bg overflow-hidden">
 
       {/* Main card area */}
-      <div className="px-5 sm:px-8 py-8">
+      <div className="site-gutter py-8">
         <div className="max-w-[840px] mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -48,15 +48,14 @@ export default function Contact() {
             <Corner pos="bl" />
             <Corner pos="br" />
 
-            {/* Heading */}
-            <h2 className="font-bold text-text-main text-3xl sm:text-4xl tracking-tight">
-              Let&apos;s work together
-            </h2>
-
-            {/* Subtitle */}
-            <p className="text-text-muted text-sm sm:text-base font-mono max-w-sm">
-              Have a project in mind? Let&apos;s create something amazing.
-            </p>
+            <div>
+              <h2 className="section-title">
+                Let&apos;s work together
+              </h2>
+              <p className="section-description max-w-sm">
+                Have a project in mind? Let&apos;s create something amazing.
+              </p>
+            </div>
 
             {/* Buttons */}
             <div className="flex items-center gap-3 flex-wrap justify-center">

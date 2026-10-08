@@ -56,7 +56,7 @@ const SKILL_COLORS: Record<string, string> = {
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-8 px-5 sm:px-8 bg-bg">
+    <section id="skills" className="py-8 site-gutter bg-bg">
       <div className="max-w-[840px] mx-auto">
 
         <motion.h2
@@ -64,7 +64,7 @@ export default function Skills() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.45 }}
-          className="font-bold text-text-main text-2xl mb-8"
+          className="section-title section-title-spaced"
         >
           Skills
         </motion.h2>
