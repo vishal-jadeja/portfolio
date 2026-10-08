@@ -3,32 +3,13 @@
 import Image from 'next/image';
 import { email, socials } from '@/data/socials';
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { TbCheck, TbCopy } from 'react-icons/tb';
 import SocialIcon from '@/components/SocialIcon';
+import ViewCounter from '@/components/ViewCounter';
 
 const GITHUB_AVATAR = 'https://avatars.githubusercontent.com/vishal-jadeja';
 
-
-function ViewCounterHero() {
-  const [count, setCount] = useState<number | null>(null);
-  useEffect(() => {
-    fetch('/api/views?page=/')
-      .then((r) => r.json())
-      .then((data) => { if (typeof data.count === "number") setCount(data.count); })
-      .catch(() => { });
-  }, []);
-  if (count === null) return null;
-  return (
-    <span className="flex items-center gap-1.5 text-text-muted font-mono text-xs opacity-70">
-      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-        <circle cx="12" cy="12" r="3" />
-      </svg>
-      {count?.toLocaleString()}
-    </span>
-  );
-}
 
 export default function Hero() {
   const [copyStatus, setCopyStatus] = useState<'idle' | 'copied' | 'error'>('idle');
@@ -117,7 +98,7 @@ export default function Hero() {
                   <SocialIcon name={social.name} />
                 </motion.a>
               ))}
-              <span className="ml-3"><ViewCounterHero /></span>
+              <span className="ml-3"><ViewCounter compact /></span>
             </motion.nav>
           </div>
         </motion.div>
