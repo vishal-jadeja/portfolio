@@ -45,7 +45,7 @@ describe("blog listing states", () => {
     vi.mocked(listPublishedPosts).mockResolvedValue({ posts: [post], total: 1 });
     const html = renderToStaticMarkup(await BlogPage({ searchParams: Promise.resolve({}) }));
     expect(html).toContain('class="blog-post-cover" aria-hidden="true"');
-    expect(html).toContain('/blog/published-note/opengraph-image?v=4');
+    expect(html).toContain('/blog/published-note/cover?v=4');
     expect(html).toContain("Read more");
     vi.mocked(listPublishedPosts).mockResolvedValue({ posts: [{ ...post, cover_media_id: null }], total: 1 });
     const withoutCover = renderToStaticMarkup(await BlogPage({ searchParams: Promise.resolve({}) }));
