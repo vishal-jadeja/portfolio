@@ -3,6 +3,8 @@
 .cinema-header { padding-block: 30px 26px; }
 .cinema-back { color: var(--theme-text-muted); font-size: 12px; transition: color 160ms; }
 .cinema-back:hover { color: var(--cinema-accent); }
+.cinema-profile-link { display:inline-flex; align-items:center; gap:6px; margin-top:14px; color:var(--theme-text-muted); font-size:12px; text-decoration:underline; text-underline-offset:4px; text-decoration-color:var(--theme-border-main); transition:color 160ms ease,text-decoration-color 160ms ease; }
+.cinema-profile-link:hover { color:var(--cinema-accent); text-decoration-color:currentColor; }
 .cinema-heading-row { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-top:30px; }
 .cinema-eyebrow { font-family:var(--font-mono),monospace; font-size:9px; letter-spacing:.16em; line-height:1.6; color:var(--theme-text-muted); margin:0 0 10px; }
 .cinema-period { color:var(--cinema-accent); }

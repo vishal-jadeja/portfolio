@@ -43,6 +43,10 @@ export default function Cinema() {
       <Link href="/#personal" className="cinema-back">← Back to portfolio</Link>
       <div className="cinema-heading-row"><div><p className="cinema-eyebrow">A PERSONAL COLLECTION</p><h1 className="section-title">The screen room<span className="cinema-period">.</span></h1></div><span className="cinema-ticket" aria-hidden="true">ADMIT ONE<br /><b>EST. 2022</b></span></div>
       <p className="section-description">Off the clock. On the screen.</p>
+      <a className="cinema-profile-link" href="https://www.moctale.in/u/vishaljadeja" target="_blank" rel="noopener noreferrer" aria-label="Find me on Moctale (opens in a new tab)">
+        Find me on Moctale
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10" /></svg>
+      </a>
     </header>
 
     <div className="site-gutter">
