@@ -1,37 +1,27 @@
 'use client';
 
-import { useMemo, useState, type CSSProperties, type ReactNode } from 'react';
+import { useMemo, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { movies, verdicts, allTimeFavorites, currentFavorites, anticipatedMovies, type Movie } from '@/data/movies';
 
-function Poster({ movie, priority = false, children }: { movie: Movie; priority?: boolean; children?: ReactNode }) {
+function Poster({ movie, priority = false }: { movie: Movie; priority?: boolean }) {
   const [failed, setFailed] = useState(false);
   return <div className="cinema-poster">
-    {movie.poster && !failed ? <Image src={movie.poster} alt={`${movie.title} poster`} fill sizes="(max-width: 639px) 45vw, 180px" priority={priority} loading={priority ? "eager" : "lazy"} onError={() => setFailed(true)} /> : <div className="cinema-artwork"><span aria-hidden="true">✦</span><strong>{movie.title}</strong><small>THE SCREEN ROOM</small></div>}
-    {children}
+    {movie.poster && !failed ? <Image src={movie.poster} alt={`${movie.title} poster`} draggable={false} onDragStart={event => event.preventDefault()} fill sizes="(max-width: 639px) 45vw, 180px" priority={priority} loading={priority ? "eager" : "lazy"} onError={() => setFailed(true)} /> : <div className="cinema-artwork"><span aria-hidden="true">✦</span><strong>{movie.title}</strong><small>THE SCREEN ROOM</small></div>}
   </div>;
 }
 
 function Card({ movie, rank }: { movie: Movie; rank?: number }) {
   const verdict = movie.anticipated ? 'On my radar' : movie.verdict ?? (movie.favorite ? 'All-time favorite' : 'Not yet rated');
   const content = <>
-    <div className="cinema-poster-frame" style={movie.poster ? { '--poster-art': `url("${movie.poster}")` } as CSSProperties : undefined}>
-      <Poster movie={movie}>
-        <div className="cinema-hover" aria-hidden="true">
-          <span className="cinema-hover-eyebrow">{movie.favorite ? 'Forever favorite' : movie.anticipated ? 'On my radar' : 'Now showing'}</span>
-          <strong>{movie.title}</strong>
-          <span className="cinema-hover-meta">{movie.year ? `${movie.year} · ` : ''}{verdict}</span>
-          {movie.imdb && <span className="cinema-hover-action">Explore on IMDb <span>↗</span></span>}
-        </div>
-      </Poster>
-    </div>
+    <Poster movie={movie} />
     {rank && <span className="cinema-rank" aria-label={`Favorite ${rank}`}>{String(rank).padStart(2, '0')}</span>}
     <div className="cinema-card-copy"><p className="cinema-meta">{movie.type}{movie.year ? ` · ${movie.year}` : ''}</p><h3>{movie.title}</h3>
-      {!rank && <span className={`cinema-verdict verdict-${verdicts.indexOf(movie.verdict!)}`}>{verdict}</span>}
+      <span className={`cinema-verdict verdict-${verdicts.indexOf(movie.verdict!)}`}>{rank ? "All-time favorite" : verdict}</span>
     </div>
   </>;
-  return <article className="cinema-card">{movie.imdb ? <a href={`https://www.imdb.com/title/${movie.imdb}/`} target="_blank" rel="noopener noreferrer" aria-label={`${movie.title} — details on IMDb (opens in a new tab)`}>{content}</a> : <div>{content}</div>}</article>;
+  return <article className="cinema-card">{movie.imdb ? <a draggable={false} onDragStart={event => event.preventDefault()} href={`https://www.imdb.com/title/${movie.imdb}/`} target="_blank" rel="noopener noreferrer" aria-label={`${movie.title} — details on IMDb (opens in a new tab)`}>{content}</a> : <div>{content}</div>}</article>;
 }
 
 export default function Cinema() {
