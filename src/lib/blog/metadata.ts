@@ -5,7 +5,7 @@ export const BLOG_DESCRIPTION =
   "Notes on engineering, systems, and things I learn along the way.";
 export const PAGE_SIZE = 12;
 // Change when the card design changes, so shared images get a fresh URL.
-const SOCIAL_CARD_VERSION = 3;
+const SOCIAL_CARD_VERSION = 4;
 export function articleImageUrl(
   post: Pick<Summary, "slug" | "source_version">,
   kind: "opengraph-image" | "twitter-image" = "opengraph-image",

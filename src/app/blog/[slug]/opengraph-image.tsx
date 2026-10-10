@@ -1,9 +1,11 @@
-import { ImageResponse } from "next/og";
 import sharp from "sharp";
 import { getPublishedPostBySlug, getPublicMedia, listPublishedSlugs } from "@/lib/blog/queries";
+import { C, Canvas, OG_SIZE, OG_TYPE, PageHeader, avatarSrc, renderCard } from "@/lib/og/kit";
 export const alt = "Article by Vishal Jadeja";
-export const size = { width: 1200, height: 630 };
-export const contentType = "image/png";
+export const size = OG_SIZE;
+export const contentType = OG_TYPE;
+
+const date = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
 // Next.js requires a literal here; match BLOG_REVALIDATE_SECONDS.
 export const revalidate = 86400;
 export const dynamic = "force-static";
@@ -50,51 +52,31 @@ export default async function Image({
       // An unavailable image must not prevent the article from being shared.
     }
   }
-  return new ImageResponse(
-    <div
-      style={{
-        background: "#101010",
-        color: "#ededed",
-        padding: "64px",
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        border: "1px solid #282828",
-      }}
-    >
-      <div style={{ display: "flex", fontSize: 26, color: "#999999" }}>
-        VJ / writing
-      </div>
+  const avatar = await avatarSrc();
+  const meta = [date.format(new Date(post.published_at)), `${post.reading_minutes} min read`, ...post.tags.slice(0, 2).map((t) => `#${t}`)];
+  return renderCard(
+    <Canvas padding={64}>
+      <PageHeader avatar={avatar} section="blog" />
       <div
         style={{
-          display: "flex",
-          width: "100%",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: 40,
+          display: "block",
+          marginTop: "auto",
+          marginBottom: "auto",
+          // Keep 160-character titles readable in the fallback card.
+          fontSize: post.title.length > 120 ? 42 : post.title.length > 70 ? 50 : 64,
+          fontWeight: 700,
+          lineHeight: 1.12,
+          letterSpacing: -1.5,
+          wordBreak: "break-word",
+          maxWidth: 1040,
         }}
       >
-        <div
-          style={{
-            display: "block",
-            width: "100%",
-            // Keep 160-character titles readable in the fallback card.
-            fontSize: post.title.length > 120 ? 42 : post.title.length > 70 ? 48 : 62,
-            fontWeight: 700,
-            lineHeight: 1.15,
-            letterSpacing: -1.5,
-            wordBreak: "break-word",
-          }}
-        >
-          {post.title}
-        </div>
+        {post.title}
       </div>
-      <div style={{ display: "flex", fontSize: 25, color: "#999999" }}>
-        {post.author_name} · {post.reading_minutes} min read
+      <div style={{ display: "flex", alignItems: "center", gap: 14, fontSize: 22, color: C.muted, fontFamily: "JetBrains Mono" }}>
+        <div style={{ display: "flex", width: 40, height: 4, background: C.accent, borderRadius: 2, marginRight: 6 }} />
+        {meta.join("  ·  ")}
       </div>
-    </div>,
-    size,
+    </Canvas>,
   );
 }

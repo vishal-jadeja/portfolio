@@ -54,3 +54,28 @@ export const absoluteUrl = (path: string) =>
     : `${SITE_URL}${path.startsWith("/") ? "" : "/"}${path}`;
 
 export { isIndexableEnvironment, pageRobots } from "./search-indexing";
+
+/**
+ * Open Graph + Twitter metadata for a top-level page. Images come from the
+ * route's own `opengraph-image` / `twitter-image` files, which Next.js merges in.
+ */
+export function pageSocial({ path, title, description }: { path: string; title: string; description: string }) {
+  const fullTitle = `${title} · ${SITE_NAME}`;
+  return {
+    openGraph: {
+      title: fullTitle,
+      description,
+      url: `${SITE_URL}${path}`,
+      siteName: `${SITE_NAME} Portfolio`,
+      type: "website" as const,
+      locale: "en_US",
+    },
+    twitter: {
+      card: "summary_large_image" as const,
+      title: fullTitle,
+      description,
+      site: X_HANDLE,
+      creator: X_HANDLE,
+    },
+  };
+}

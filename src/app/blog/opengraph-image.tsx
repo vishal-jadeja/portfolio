@@ -1,32 +1,46 @@
-import { ImageResponse } from "next/og";
-import { SITE_NAME } from "@/lib/seo";
+import { listPublishedPosts } from "@/lib/blog/queries";
+import { BLOG_DESCRIPTION } from "@/lib/blog/metadata";
+import type { Summary } from "@/lib/blog/types";
+import { C, Canvas, OG_SIZE, OG_TYPE, PageHeader, PageTitle, avatarSrc, renderCard } from "@/lib/og/kit";
+
 export const alt = "Writing by Vishal Jadeja";
-export const size = { width: 1200, height: 630 };
-export const contentType = "image/png";
-export default function BlogImage() {
-  return new ImageResponse(
-    <div
-      style={{
-        width: "100%",
-        height: "100%",
-        background: "#101010",
-        color: "#ededed",
-        padding: "70px 80px",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-      }}
-    >
-      <div style={{ display: "flex", fontSize: 26, color: "#999999" }}>
-        VJ / writing
+export const size = OG_SIZE;
+export const contentType = OG_TYPE;
+// Next.js requires a literal here; match BLOG_REVALIDATE_SECONDS. Publishing
+// also expires it through the "blog:posts" tag on the query below.
+export const revalidate = 86400;
+
+const date = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
+
+export default async function BlogImage() {
+  let latest: Summary[] = [];
+  try {
+    latest = (await listPublishedPosts(1, "", 3)).posts;
+  } catch {
+    // The card still works as a plain title card without the post list.
+  }
+  const avatar = await avatarSrc();
+  return renderCard(
+    <Canvas padding={64}>
+      <PageHeader avatar={avatar} section="blog" />
+      <div style={{ display: "flex", marginTop: 36 }}>
+        <PageTitle title="Blog" description={BLOG_DESCRIPTION} />
       </div>
-      <div style={{ display: "flex", fontSize: 96, fontWeight: 700 }}>
-        Notes & ideas.
+      <div style={{ display: "flex", flexDirection: "column", marginTop: "auto" }}>
+        {latest.map((post) => (
+          <div
+            key={post.post_id}
+            style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 32, padding: "13px 0", borderTop: `1px solid ${C.border}` }}
+          >
+            <div style={{ display: "block", fontSize: 24, fontWeight: 500, color: C.text, maxWidth: 820, overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis" }}>
+              {post.title}
+            </div>
+            <div style={{ display: "flex", flexShrink: 0, fontSize: 19, color: C.faint, fontFamily: "JetBrains Mono" }}>
+              {date.format(new Date(post.published_at))}
+            </div>
+          </div>
+        ))}
       </div>
-      <div style={{ display: "flex", fontSize: 28, color: "#999999" }}>
-        {SITE_NAME} · Engineering, systems, and things I learn.
-      </div>
-    </div>,
-    size,
+    </Canvas>,
   );
 }

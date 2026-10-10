@@ -2,12 +2,16 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import PortfolioShell from "@/components/PortfolioShell";
 import Gears from "@/components/sections/Gears";
-import { SITE_URL, pageRobots } from "@/lib/seo";
+import { SITE_URL, pageRobots, pageSocial } from "@/lib/seo";
+
+const DESCRIPTION = "The hardware, software, browser extensions, AI tools, and music services I use to build and create.";
 
 export const metadata: Metadata = {
   title: "Gears",
-  description: "The hardware, software, browser extensions, AI tools, and music services I use to build and create.",
+  description: DESCRIPTION,
+  keywords: ["developer setup", "uses", "dev tools", "Vishal Jadeja"],
   alternates: { canonical: `${SITE_URL}/gears` },
+  ...pageSocial({ path: "/gears", title: "Gears", description: DESCRIPTION }),
   robots: pageRobots(),
 };
 

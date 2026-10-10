@@ -7,6 +7,12 @@ import blogOG from "../../src/app/blog/opengraph-image";
 import blogTwitter from "../../src/app/blog/twitter-image";
 import articleOG from "../../src/app/blog/[slug]/opengraph-image";
 import articleTwitter from "../../src/app/blog/[slug]/twitter-image";
+import projectsOG from "../../src/app/projects/opengraph-image";
+import projectsTwitter from "../../src/app/projects/twitter-image";
+import moviesOG from "../../src/app/movies/opengraph-image";
+import moviesTwitter from "../../src/app/movies/twitter-image";
+import gearsOG from "../../src/app/gears/opengraph-image";
+import gearsTwitter from "../../src/app/gears/twitter-image";
 import { getPublishedPostBySlug, getPublicMedia } from "../../src/lib/blog/queries";
 import type { Publication, MediaView } from "../../src/lib/blog/types";
 
@@ -41,11 +47,14 @@ async function mockCover(title = post.title) {
 }
 
 describe("social card rendering", () => {
-  it("renders matching OG/Twitter PNGs for the homepage, blog and article", async () => {
+  it("renders matching OG/Twitter PNGs for every public page and article", async () => {
     vi.mocked(getPublishedPostBySlug).mockResolvedValue(post);
     const cards = [
-      [homeOG(), homeTwitter()],
-      [blogOG(), blogTwitter()],
+      [await homeOG(), await homeTwitter()],
+      [await blogOG(), await blogTwitter()],
+      [await projectsOG(), await projectsTwitter()],
+      [await moviesOG(), await moviesTwitter()],
+      [await gearsOG(), await gearsTwitter()],
       [await articleOG(params()), await articleTwitter(params())],
     ];
     for (const [og, twitter] of cards) {

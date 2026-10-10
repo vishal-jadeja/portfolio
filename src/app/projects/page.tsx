@@ -2,38 +2,20 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { projects } from "@/data/projects";
 import { socials } from "@/data/socials";
-import { PERSON, SITE_NAME, SITE_URL, X_HANDLE, absoluteUrl, pageRobots } from "@/lib/seo";
+import { PERSON, SITE_URL, absoluteUrl, pageRobots, pageSocial } from "@/lib/seo";
 import PortfolioShell from "@/components/PortfolioShell";
 import SectionDivider from "@/components/SectionDivider";
 import ProjectsIndex from "@/components/projects/ProjectsIndex";
 
 const PAGE_URL = `${SITE_URL}/projects`;
 const DESCRIPTION = `Every project ${PERSON.name} has built — production systems, AI tooling and side projects — each with its source on GitHub.`;
-// A page-level `openGraph` replaces the root's file-based image, so name it explicitly.
-const IMAGE = { width: 1200, height: 630, alt: `${PERSON.name} — ${PERSON.jobTitle}` };
 const GITHUB_PROFILE = socials.find((s) => s.name === "GitHub")?.url ?? "https://github.com/vishal-jadeja";
 
 export const metadata: Metadata = {
   title: "Projects",
   description: DESCRIPTION,
   alternates: { canonical: PAGE_URL },
-  openGraph: {
-    title: `Projects · ${SITE_NAME}`,
-    description: DESCRIPTION,
-    url: PAGE_URL,
-    siteName: `${SITE_NAME} Portfolio`,
-    type: "website",
-    locale: "en_US",
-    images: [{ url: `${SITE_URL}/opengraph-image`, ...IMAGE }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: `Projects · ${SITE_NAME}`,
-    description: DESCRIPTION,
-    site: X_HANDLE,
-    creator: X_HANDLE,
-    images: [{ url: `${SITE_URL}/twitter-image`, ...IMAGE }],
-  },
+  ...pageSocial({ path: "/projects", title: "Projects", description: DESCRIPTION }),
   robots: pageRobots(),
 };
 
