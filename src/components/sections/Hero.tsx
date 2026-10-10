@@ -1,13 +1,48 @@
 'use client';
 
 import Image from 'next/image';
-import { email, socials } from '@/data/socials';
+import { email, socials, type Social } from '@/data/socials';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { TbCheck, TbCopy } from 'react-icons/tb';
+import { TbArrowUpRight, TbCheck, TbCopy } from 'react-icons/tb';
 import SocialIcon from '@/components/SocialIcon';
 
 const GITHUB_AVATAR = 'https://avatars.githubusercontent.com/vishal-jadeja';
+
+/**
+ * Preview shown below a social icon on hover or keyboard focus. Touch-only
+ * devices never see it (Tailwind's hover variants require `(hover: hover)`),
+ * so a tap still goes straight to the profile.
+ */
+function SocialCard({ social }: { social: Social }) {
+  // White brand marks (X, GitHub) would vanish in light mode; use the text colour.
+  const tint = social.color.toLowerCase() === '#ffffff' ? 'var(--theme-text-main)' : social.color;
+  return (
+    <span
+      id={`social-card-${social.name.toLowerCase()}`}
+      role="tooltip"
+      className="pointer-events-none absolute top-full left-1/2 z-30 mt-2 w-64 -translate-x-1/2 -translate-y-1 rounded-xl border border-[var(--glass-border)] bg-[var(--theme-card)] p-3.5 text-left opacity-0 shadow-[0_12px_32px_rgba(0,0,0,0.28)] invisible transition-[opacity,transform,visibility] duration-150 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-hover:delay-150 group-has-[:focus-visible]:visible group-has-[:focus-visible]:translate-y-0 group-has-[:focus-visible]:opacity-100"
+    >
+      <span className="flex items-center gap-2.5">
+        <span
+          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg"
+          style={{ color: tint, background: `color-mix(in srgb, ${tint} 14%, transparent)` }}
+        >
+          <SocialIcon name={social.name} size={17} />
+        </span>
+        <span className="flex min-w-0 flex-col">
+          <span className="text-sm font-semibold leading-tight text-text-main">{social.name}</span>
+          <span className="truncate font-mono text-[11px] leading-tight text-text-muted">{social.handle}</span>
+        </span>
+      </span>
+      <span className="mt-2.5 block text-[13px] leading-snug text-text-muted">{social.blurb}</span>
+      <span className="mt-2.5 flex items-center gap-1 border-t border-[var(--glass-border)] pt-2 font-mono text-[11px] text-text-muted">
+        {social.url.startsWith('mailto:') ? 'Click to email' : `Open ${social.name}`}
+        <TbArrowUpRight size={12} aria-hidden="true" />
+      </span>
+    </span>
+  );
+}
 
 
 export default function Hero() {
@@ -85,17 +120,23 @@ export default function Hero() {
               className="flex items-center flex-wrap -ml-1.5"
             >
               {socials.map((social) => (
-                <motion.a
+                <motion.span
                   key={social.name}
                   variants={{ hidden: { opacity: 0, y: 5 }, visible: { opacity: 1, y: 0 } }}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={social.name}
-                  className="flex h-8 w-8 items-center justify-center rounded-sm text-text-muted hover:text-text-main transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-main"
+                  className="group relative"
                 >
-                  <SocialIcon name={social.name} />
-                </motion.a>
+                  <a
+                    href={social.url}
+                    target={social.url.startsWith('mailto:') ? undefined : '_blank'}
+                    rel="noopener noreferrer"
+                    aria-label={social.name}
+                    aria-describedby={`social-card-${social.name.toLowerCase()}`}
+                    className="flex h-8 w-8 items-center justify-center rounded-sm text-text-muted hover:text-text-main transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-main"
+                  >
+                    <SocialIcon name={social.name} />
+                  </a>
+                  <SocialCard social={social} />
+                </motion.span>
               ))}
             </motion.nav>
           </div>

@@ -3,6 +3,8 @@ export interface Social {
   url: string;
   icon: string; // SVG path data
   color: string; // Brand color for hover tint
+  handle: string; // Shown on the hover card
+  blurb: string; // One line on what you'll find there
 }
 
 export const socials: Social[] = [
@@ -11,42 +13,56 @@ export const socials: Social[] = [
     url: "https://x.com/ViShallTalk",
     icon: "M4 4l11.733 16H20L8.267 4H4zM4 20l6.768-6.768M13.232 10.768L20 4",
     color: "#ffffff",
+    handle: "@ViShallTalk",
+    blurb: "Short thoughts on building, shipping and learning in public.",
   },
   {
     name: "Instagram",
     url: "https://www.instagram.com/ViShallTalk/",
     icon: "M7 3h10a4 4 0 014 4v10a4 4 0 01-4 4H7a4 4 0 01-4-4V7a4 4 0 014-4zM16 12a4 4 0 11-8 0 4 4 0 018 0M17.5 6.5h.01",
     color: "#E4405F",
+    handle: "@ViShallTalk",
+    blurb: "Reels, behind-the-scenes and life outside the editor.",
   },
   {
     name: "YouTube",
     url: "https://www.youtube.com/@ViShallTalk",
     icon: "M22.54 6.42a2.78 2.78 0 00-1.95-1.97C18.88 4 12 4 12 4s-6.88 0-8.59.45A2.78 2.78 0 001.46 6.42 29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.41 19c1.71.45 8.59.45 8.59.45s6.88 0 8.59-.45a2.78 2.78 0 001.95-1.97 29 29 0 00.46-5.28 29 29 0 00-.46-5.33zM9.75 15.02V8.48l5.75 3.27-5.75 3.27z",
     color: "#FF0000",
+    handle: "@ViShallTalk",
+    blurb: "Videos on software engineering, projects and things I learn.",
   },
   {
     name: "Email",
     url: "mailto:vishaljadeja.work@gmail.com",
     icon: "M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z",
     color: "#EA4335",
+    handle: "vishaljadeja.work@gmail.com",
+    blurb: "Best for work, collaborations and opportunities.",
   },
   {
     name: "LinkedIn",
     url: "https://linkedin.com/in/vishal-jadeja",
     icon: "M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 6a2 2 0 100-4 2 2 0 000 4z",
     color: "#0A66C2",
+    handle: "in/vishal-jadeja",
+    blurb: "Experience, work history and professional updates.",
   },
   {
     name: "GitHub",
     url: "https://github.com/vishal-jadeja",
     icon: "M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22",
     color: "#ffffff",
+    handle: "vishal-jadeja",
+    blurb: "Source for my projects and open-source contributions.",
   },
   {
     name: "LeetCode",
     url: "https://leetcode.com/vishaljadeja",
     icon: "M13.483 0a1.374 1.374 0 00-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 00-1.209 2.104 5.35 5.35 0 00-.125.513 5.527 5.527 0 00.062 2.362 5.83 5.83 0 00.349 1.017 5.938 5.938 0 001.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 00-1.951-.003l-2.396 2.392a3.021 3.021 0 01-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 01.066-.523 2.545 2.545 0 01.619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 00-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0013.483 0zm-2.866 12.815a1.38 1.38 0 00-1.38 1.382 1.38 1.38 0 001.38 1.382H20.79a1.38 1.38 0 001.38-1.382 1.38 1.38 0 00-1.38-1.382z",
     color: "#FFA116",
+    handle: "vishaljadeja",
+    blurb: "Problem-solving practice and contest progress.",
   },
 ];
 
