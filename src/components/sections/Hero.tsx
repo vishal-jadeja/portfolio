@@ -142,7 +142,7 @@ export default function Hero() {
           </div>
         </motion.div>
         <p className="mt-5 text-sm text-text-muted leading-relaxed">
-          Building cool things, creating content, and learning a little bit of everything.
+          Polymath building cool things and creating content.
         </p>
 
       </div>

@@ -86,7 +86,7 @@ describe("portfolio refresh", () => {
     const hero = source("components/sections/Hero.tsx");
     expect(hero).toContain('aria-label="Social profiles"');
     expect(hero.indexOf('aria-label="Social profiles"')).toBeGreaterThan(hero.indexOf("mailto:"));
-    const tagline = "Building cool things, creating content, and learning a little bit of everything.";
+    const tagline = "Polymath building cool things and creating content.";
     expect(hero).toContain(tagline);
     expect(hero.indexOf(tagline)).toBeGreaterThan(hero.lastIndexOf("</motion.div>"));
     expect(hero).toContain("w-20 h-20 sm:w-28 sm:h-28");
