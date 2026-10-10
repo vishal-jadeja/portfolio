@@ -2,6 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
 vi.mock("../../src/lib/blog/queries", () => ({ listPublishedPosts: vi.fn(), listSitemapEntries: vi.fn() }));
 import BlogPage from "../../src/app/blog/page";
+import BlogListing from "../../src/components/blog/BlogListing";
 import { listPublishedPosts, listSitemapEntries } from "../../src/lib/blog/queries";
 import type { Summary } from "../../src/lib/blog/types";
 
@@ -10,7 +11,7 @@ beforeEach(() => vi.mocked(listSitemapEntries).mockResolvedValue([]));
 describe("blog listing states", () => {
   it("renders the writing empty state only after a successful zero-count result", async () => {
     vi.mocked(listPublishedPosts).mockResolvedValue({ posts: [], total: 0 });
-    const html = renderToStaticMarkup(await BlogPage({ searchParams: Promise.resolve({}) }));
+    const html = renderToStaticMarkup(await BlogListing({ page: 1, tag: "" }));
     expect(html).toContain("blog-listing--empty");
     expect(html).toContain("A little quiet, for now.");
     expect(html).toContain("No articles published yet.");
@@ -29,7 +30,7 @@ describe("blog listing states", () => {
       modified_at: "2026-10-01T12:00:00Z", reading_minutes: 2, source_version: 1,
     };
     vi.mocked(listPublishedPosts).mockResolvedValue({ posts: [post], total: 1 });
-    const html = renderToStaticMarkup(await BlogPage({ searchParams: Promise.resolve({}) }));
+    const html = renderToStaticMarkup(await BlogListing({ page: 1, tag: "" }));
     expect(html).toContain('href="/blog/published-note"');
     expect(html).toContain('<h1 class="section-title">Blog</h1>');
     expect(html).not.toContain("blog-empty-writing");
@@ -43,17 +44,17 @@ describe("blog listing states", () => {
       modified_at: "2026-10-01T12:00:00Z", reading_minutes: 2, source_version: 4,
     };
     vi.mocked(listPublishedPosts).mockResolvedValue({ posts: [post], total: 1 });
-    const html = renderToStaticMarkup(await BlogPage({ searchParams: Promise.resolve({}) }));
+    const html = renderToStaticMarkup(await BlogListing({ page: 1, tag: "" }));
     expect(html).toContain('class="blog-post-cover" aria-hidden="true"');
     expect(html).toContain('/blog/published-note/cover?v=4');
     expect(html).toContain("Read more");
     vi.mocked(listPublishedPosts).mockResolvedValue({ posts: [{ ...post, cover_media_id: null }], total: 1 });
-    const withoutCover = renderToStaticMarkup(await BlogPage({ searchParams: Promise.resolve({}) }));
+    const withoutCover = renderToStaticMarkup(await BlogListing({ page: 1, tag: "" }));
     expect(withoutCover).not.toContain('class="blog-post-cover"');
   });
   it("keeps filtered no-results separate from an unpublished blog", async () => {
     vi.mocked(listPublishedPosts).mockResolvedValue({ posts: [], total: 0 });
-    const html = renderToStaticMarkup(await BlogPage({ searchParams: Promise.resolve({ tag: "systems" }) }));
+    const html = renderToStaticMarkup(await BlogListing({ page: 1, tag: "systems" }));
     expect(html).toContain("No articles match this category.");
     expect(html).toContain("Clear filter");
     expect(html).toContain('<h1 class="section-title">Blog</h1>');
@@ -67,7 +68,7 @@ describe("blog listing states", () => {
     ] as Summary[];
     vi.mocked(listSitemapEntries).mockResolvedValue(inventory);
     vi.mocked(listPublishedPosts).mockResolvedValue({ posts: [], total: 0 });
-    const html = renderToStaticMarkup(await BlogPage({ searchParams: Promise.resolve({ tag: "ai" }) }));
+    const html = renderToStaticMarkup(await BlogListing({ page: 1, tag: "ai" }));
     expect(html).toContain('aria-label="Blog categories"');
     expect(html).toMatch(/<a(?=[^>]*href="\/blog\?tag=ai")(?=[^>]*aria-current="page")[^>]*>/);
     expect(html).toContain('href="/blog?tag=personal"');
@@ -78,11 +79,21 @@ describe("blog listing states", () => {
   });
   it("does not infer an unpublished blog from an empty page with a nonzero count", async () => {
     vi.mocked(listPublishedPosts).mockResolvedValue({ posts: [], total: 13 });
-    const html = renderToStaticMarkup(await BlogPage({ searchParams: Promise.resolve({}) }));
+    const html = renderToStaticMarkup(await BlogListing({ page: 1, tag: "" }));
     expect(html).not.toContain("blog-listing--empty");
   });
   it("propagates loading failures to the existing error boundary", async () => {
     vi.mocked(listPublishedPosts).mockRejectedValue(new Error("Unable to load articles."));
-    await expect(BlogPage({ searchParams: Promise.resolve({}) })).rejects.toThrow("Unable to load articles.");
+    await expect(BlogListing({ page: 1, tag: "" })).rejects.toThrow("Unable to load articles.");
+  });
+  it("returns a real 404 for invalid or out-of-range pages before streaming", async () => {
+    await expect(BlogPage({ searchParams: Promise.resolve({ page: "abc" }) })).rejects.toThrow("NEXT_HTTP_ERROR_FALLBACK;404");
+    vi.mocked(listPublishedPosts).mockResolvedValue({ posts: [], total: 3 });
+    await expect(BlogPage({ searchParams: Promise.resolve({ page: "9" }) })).rejects.toThrow("NEXT_HTTP_ERROR_FALLBACK;404");
+  });
+  it("streams the first page behind the loading skeleton without querying first", async () => {
+    const element = await BlogPage({ searchParams: Promise.resolve({}) });
+    expect(listPublishedPosts).not.toHaveBeenCalled();
+    expect(renderToStaticMarkup(element.props.fallback)).toContain('class="blog-loading"');
   });
 });
