@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useSyncExternalStore } from "react";
+import { useEffect, useRef, useSyncExternalStore } from "react";
 
 type Theme = "light" | "dark";
 
@@ -40,8 +40,16 @@ function applyTheme(theme: Theme) {
 }
 
 export default function ThemeToggle() {
-  const theme = useSyncExternalStore(subscribeTheme, themeSnapshot, () => "light");
+  const theme = useSyncExternalStore(subscribeTheme, themeSnapshot, () => "dark");
   const btnRef = useRef<HTMLButtonElement>(null);
+
+  // If React ever client-renders <html> (e.g. hydration recovery), it resets the
+  // class to the server default; re-apply the saved choice.
+  useEffect(() => {
+    try {
+      if (localStorage.getItem("theme") === "light") applyTheme("light");
+    } catch {}
+  }, []);
 
   function toggle() {
     const next: Theme = theme === "light" ? "dark" : "light";

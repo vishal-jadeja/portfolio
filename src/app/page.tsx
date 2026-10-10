@@ -52,7 +52,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <PortfolioShell showViews>
+    <PortfolioShell pathname="/" showViews>
       <JsonLd />
       <Hero />
       <SectionDivider />

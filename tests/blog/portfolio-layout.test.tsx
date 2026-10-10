@@ -70,12 +70,12 @@ describe("portfolio refresh", () => {
     expect(page).toContain('href="/gears"');
     expect(page).not.toContain("<Gears />");
     expect(page).toContain("<Personal />");
-    expect(page).toContain("<PortfolioShell showViews>");
+    expect(page).toContain('<PortfolioShell pathname="/" showViews>');
   });
 
   it("renders the full gear inventory on its own page with a home link", () => {
     const page = source("app/gears/page.tsx");
-    expect(page).toContain("<PortfolioShell>");
+    expect(page).toContain('<PortfolioShell pathname="/gears">');
     expect(page).toContain("<Gears />");
     expect(page).toContain('href="/#gears"');
     expect(page).toContain("<h1");

@@ -73,7 +73,7 @@ export default function ProjectsPage() {
   const json = JSON.stringify(structuredData()).replace(/</g, "\\u003c");
 
   return (
-    <PortfolioShell>
+    <PortfolioShell pathname="/projects">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: json }} />
 
       <header className="site-gutter pt-8 pb-6 anim-fade-up">

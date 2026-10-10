@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function GearsPage() {
   return (
-    <PortfolioShell>
+    <PortfolioShell pathname="/gears">
       <div className="gears-page">
         <header className="gears-page-header">
           <Link href="/#gears" className="inline-flex items-center gap-2 text-xs text-text-muted hover:text-text-main focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-text-main">

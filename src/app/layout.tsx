@@ -65,12 +65,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    // Dark is the default and is server-rendered, so it survives React
+    // client-rendering <html> after a hydration error. Only an explicit
+    // "light" choice removes it.
+    <html lang="en" className="dark" suppressHydrationWarning>
       <head>
-        {/* Anti-flicker: apply theme before first paint */}
+        {/* Anti-flicker: apply saved theme before first paint */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var saved=localStorage.getItem('theme');if(!saved){saved=window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';localStorage.setItem('theme',saved);}var d=document.documentElement;if(saved==='dark'){d.classList.add('dark');}else{d.classList.remove('dark');}}catch(e){}})();`,
+            __html: `(function(){try{if(localStorage.getItem('theme')==='light')document.documentElement.classList.remove('dark');}catch(e){}})();`,
           }}
         />
       </head>

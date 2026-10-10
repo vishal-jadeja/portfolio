@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
 import { motion, useReducedMotion } from "framer-motion";
 import ThemeToggle from "@/components/ThemeToggle";
 import SiteSearch from "@/components/search/SiteSearch";
@@ -19,10 +18,12 @@ function navLinks(pathname: string) {
   ];
 }
 
-export default function Navbar() {
+// `pathname` comes from the server-rendered page rather than usePathname(), which
+// can disagree with the client during on-demand revalidation and cause a
+// hydration mismatch that makes React client-render the whole document.
+export default function Navbar({ pathname }: { pathname: string }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const pathname = usePathname();
   const reduceMotion = useReducedMotion();
   const links = navLinks(pathname);
 

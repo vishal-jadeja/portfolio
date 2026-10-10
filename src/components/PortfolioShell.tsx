@@ -5,9 +5,11 @@ import ViewCounter from "@/components/ViewCounter";
 /** The bordered single-column frame shared by the home page and /projects. */
 export default function PortfolioShell({
   children,
+  pathname,
   showViews = false,
 }: {
   children: React.ReactNode;
+  pathname: string;
   showViews?: boolean;
 }) {
   return (
@@ -25,7 +27,7 @@ export default function PortfolioShell({
           }
         `}</style>
       </noscript>
-      <Navbar />
+      <Navbar pathname={pathname} />
       <PortfolioEnhancements />
       <main id="main-content">{children}</main>
       <footer className="border-t border-[var(--glass-border)] py-8 site-gutter bg-bg">

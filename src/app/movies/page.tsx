@@ -12,5 +12,5 @@ export const metadata: Metadata = {
 };
 
 export default function MoviesPage() {
-  return <PortfolioShell><Cinema /></PortfolioShell>;
+  return <PortfolioShell pathname="/movies"><Cinema /></PortfolioShell>;
 }
