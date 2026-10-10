@@ -5,7 +5,8 @@ vi.mock("../../src/lib/supabase/public", () => ({ publicClient: vi.fn() }));
 vi.mock("../../src/lib/config/blog-env", () => ({
   blogConfigured: vi.fn(), blogEnv: vi.fn(),
 }));
-import { listPublishedSlugs } from "../../src/lib/blog/queries";
+import { unstable_cache } from "next/cache";
+import { listPublishedPosts, listPublishedSlugs } from "../../src/lib/blog/queries";
 import { publicClient } from "../../src/lib/supabase/public";
 import { blogConfigured } from "../../src/lib/config/blog-env";
 
@@ -49,5 +50,23 @@ describe("build-time article inventory", () => {
     });
     range.mockResolvedValueOnce({ data: null, error: { message: "Unavailable" } });
     await expect(listPublishedSlugs()).rejects.toThrow("Unable to load published article slugs");
+  });
+});
+
+describe("article listing pages", () => {
+  const listing = { select: vi.fn(), order: vi.fn(), contains: vi.fn(), range };
+  beforeEach(() => {
+    vi.mocked(unstable_cache).mockImplementation(((fn: () => unknown) => fn) as typeof unstable_cache);
+    listing.select.mockReturnValue(listing);
+    listing.order.mockReturnValue(listing);
+    from.mockReturnValue(listing);
+  });
+  it("treats a page past the last article as empty so it can 404", async () => {
+    range.mockResolvedValue({ data: null, error: { code: "PGRST103" }, count: null });
+    expect(await listPublishedPosts(999)).toEqual({ posts: [], total: 0 });
+  });
+  it("still surfaces real database failures", async () => {
+    range.mockResolvedValue({ data: null, error: { code: "PGRST000" }, count: null });
+    await expect(listPublishedPosts(1)).rejects.toThrow("Unable to load articles");
   });
 });

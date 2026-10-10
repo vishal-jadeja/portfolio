@@ -41,6 +41,8 @@ export function listPublishedPosts(page = 1, tag = "", size = 12) {
         (page - 1) * size,
         page * size - 1,
       );
+      // PostgREST rejects an offset past the last row; that page is just empty.
+      if (error?.code === "PGRST103") return { posts: [] as Summary[], total: 0 };
       if (error) throw new Error("Unable to load articles. Please try again.");
       return { posts: data as Summary[], total: count ?? 0 };
     },
